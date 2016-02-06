@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta charset="UTF-8">
-	<title>SICLB</title>
-	<link rel="stylesheet" href="..\css\materialize\css\materialize.css">
-	<!--<script src="..\js\accesoAlumno.js"></script>-->
-	<script src="..\js\jquery-2.2.0.js"></script>
+	<?php include '..\Inicio\head.php';?>
 </head>
 <body>
 	<section class="atenderSolicitud">
@@ -78,4 +74,7 @@
 		</div>
 	</section>
 </body>
+<footer>
+		<?php include '..\Inicio\footer.php';?>
+</footer>
 </html>

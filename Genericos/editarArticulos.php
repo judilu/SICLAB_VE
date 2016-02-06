@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta charset="UTF-8">
-	<title>SICLAB</title>
-	<link rel="stylesheet" href="..\css\materialize\css\materialize.css">
-	<!--<script src="..\js\accesoAlumno.js"></script>-->
-	<script src="..\js\jquery-2.2.0.js"></script>
+	<?php include '..\Inicio\head.php';?>
 </head>
 <body>
-	<div class="altaArticulos">
+	<div id="formularioEditar">
 		<div class="col s12 m8 offset-m2 l6 offset-l3">
 			<div class="row valign-wrapper">
 				<div class="col s2">
@@ -19,7 +15,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row" >
 			<div class="col s12">
 				<div class="row">
 					<div class="input-field col s4">
@@ -68,13 +64,22 @@
 						<input id="txtTipoContenedor" type="text" class="validate">
 						<label class="active" for="txtTipoContenedor">Tipo de contenedor</label>
 					</div>
-					<div class="col s5 offset-s2">
-						<a id="btnAltaArt" class="waves-effect waves-light btn green darken-2"><i class="material-icons left">done</i>Dar de alta</a>
-						<a id="btnCancelar" class="waves-effect red darken-1 btn"><i class="material-icons left">clear</i>Cancelar</a>
+					<div class="input-field col s6 offset-s1">
+						<textarea id="txtMotivoBaja" type="text" class="materialize-textarea"></textarea>
+						<label class="active" for="txtMotivoBaja">Observaciones</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s7 offset-s5">
+						<a id="btnAceptar" class="waves-effect waves-light btn green darken-2 "><i class="material-icons left">done</i>Aceptar</a>
+						<a id="btnRegresar" class="waves-effect btn amber darken-2"><i class="material-icons left">reply</i>Regresar</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
+<footer>
+		<?php include '..\Inicio\footer.php';?>
+</footer>
 </html>

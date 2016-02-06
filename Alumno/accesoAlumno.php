@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta charset="UTF-8">
-	<title>SICLAB</title>
-	<link rel="stylesheet" href="..\css\materialize\css\materialize.css">
-	<!--<script src="..\js\accesoAlumno.js"></script>-->
-	<script src="..\js\jquery-2.2.0.js"></script>
+	<?php include '..\Inicio\head.php';?>
 </head>
 <body>
 	<form id="accesoAlumno">
@@ -128,4 +124,7 @@
 		</div>
 	</form>
 </body>
+<footer>
+		<?php include '..\Inicio\footer.php';?>
+</footer>
 </html>

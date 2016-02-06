@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>SICLAB</title>
-	<link rel="stylesheet" href="..\css\materialize\css\materialize.css">
-	<!--<script src="..\js\.js"></script>-->
-	<script src="..\js\jquery-2.2.0.js"></script>
+	<?php include '..\Inicio\head.php';?>
 </head>
 <body>
 	<div class="listaAsistencia">
@@ -75,4 +71,7 @@
 	</div>
 	</div>
 </body>
+<footer>
+		<?php include '..\Inicio\footer.php';?>
+</footer>
 </html>
