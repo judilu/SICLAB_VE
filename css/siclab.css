@@ -1,39 +1,57 @@
+body{
+    max-width: 1024px;
+    margin: 0 auto;
+    border-color: blue;
+    border-radius: 5px;
+}
 footer
 {
-	border: 2px solid rgba(3,130,190,0.5);
-	border-radius: 0px 0px 5px 5px;
-	text-align: center;
+  border: 2px solid rgba(3,130,190,0.5);
+  border-radius: 0px 0px 5px 5px;
+  text-align: center;
 }
+head{
+  border: 2px solid rgba(3,130,190,0.5);
+  border-radius: 5px 5px 0px 0px;
+  margin-bottom: 2px;
+}
+#contenidoDinamico, #body2
+{
+  border: 2px solid rgba(3,130,190,0.5);
+  border-radius: 5px 5px 5px 5px;
+  margin-bottom: 2px; 
+}
+
 #datos
 {
-	border: 2px solid rgba(3,130,190,0.5);
-	border-radius: 5px 5px 0px 0px;
+  border: 2px solid rgba(3,130,190,0.5);
+  border-radius: 5px 5px 0px 0px;
 }
 #principal
 {
-	border: 2px solid rgba(3,130,190,0.5);
-	border-radius: 5px 5px 0px 0px;
+  border: 2px solid rgba(3,130,190,0.5);
+  border-radius: 5px 5px 0px 0px;
 }
 #datosPractica
 {
-	border: 2px solid rgba(3,130,190,0.5);
-	border-radius: 5px 5px 0px 0px;
-	text-align: left;
-	height: 400px;
+  border: 2px solid rgba(3,130,190,0.5);
+  border-radius: 5px 5px 0px 0px;
+  text-align: left;
+  height: 400px;
   display: none;
 }
 #logo img
 {
-	width: 100%;
+  width: 100%;
 }
 #tecladoNumerico .filaNumeros .btn-large
 {
-	height: 65px;
+  height: 65px;
     line-height: 4;
 }
 .filaNumeros
 {
-	margin-bottom: 35px;
+  margin-bottom: 35px;
 }
 /*MATERIALIZE*/
 input[type=number]
@@ -89,7 +107,7 @@ input[type=number]
    }
    .switch label
    {
-   	color:black;
+    color:black;
    }
 .switch label input[type=checkbox]:checked + .lever {
     background-color: #039be5;
