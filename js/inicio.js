@@ -4,7 +4,7 @@ var inicio = function ()
 	{
 		console.log("hola");
 		$(".acceso").hide();
-		$("#accesoAlumno").show("slow");
+		$(".accesoAlumno").show("slow");
 		console.log("adios");
 	}
 	//Configuramos los eventos
