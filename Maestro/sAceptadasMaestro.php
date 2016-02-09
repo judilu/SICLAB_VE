@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<?php include '..\Inicio\head.php';?>
+	<!--<?php include '..\Inicio\head.php';?>-->
+	<script src="..\js\maestros.js"></script>
 </head>
 <body>
 	<div class="solAceptadasMaestro">
@@ -29,7 +30,9 @@
 		</div>
 	</div>
 </body>
+<!--
 <footer>
 		<?php include '..\Inicio\footer.php';?>
 </footer>
+-->
 </html>

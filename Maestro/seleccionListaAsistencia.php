@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<?php include '..\Inicio\head.php';?>
+	<!--<?php include '..\Inicio\head.php';?>-->
 </head>
 <body>
 	<div class="listaAsistencia">
@@ -63,11 +63,11 @@
 			</div>
 		</div>
 		<div id="lista">
-			{{> listaAsistencia}}
+			<?php include 'listaAsistencia.php';?>
 		</div>
 	</div>
 </body>
 <footer>
-		<?php include '..\Inicio\footer.php';?>
+	<?php include '..\Inicio\footer.php';?>
 </footer>
 </html>
