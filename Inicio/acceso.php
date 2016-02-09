@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+	<link rel="stylesheet" href="..\css\materialize\css\materialize.css">
+	<link rel="stylesheet" href="..\css\siclab.css">
 	<?php include 'head.php';?>
+	<script src="..\js\inicio.js"></script>
 </head>
 <body>
 	<form id="acceso">
