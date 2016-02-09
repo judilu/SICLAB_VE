@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<link rel="stylesheet" href="..\css\maestro.css">
 	<!--<?php include '..\Inicio\head.php';?>-->
 </head>
 <body>
@@ -9,7 +10,7 @@
 			<div class="col s12 m8 offset-m2 l6 offset-l3">
 				<div class="row valign-wrapper">
 					<div class="col s4">
-						<img src="images/yuna.jpg" alt="" class="circle responsive-img">
+						<img src="..\img\persona.png" alt="" class="circle responsive-img">
 					</div>
 					<div class="input-field col s3">
 						<input id="txtClaveMaestro" type="text" class="validate">

@@ -1,13 +1,27 @@
 var inicio = function ()
 {
-	var ingresar = function ()
+	$('ul.tabs').tabs();
+	var solAceptadas = function ()
 	{
-		console.log("hola");
-		$("#acceso").hide();
-		$("#accesoAlumno").show("slow");
-		console.log("adios");
+		$("#sNuevaMaestro").hide();
+		$("#sPendientesMaestro").hide();
+		$("#sAceptadasMaestro").show("");
+	}
+	var solPendientes = function()
+	{
+		$("#sNuevaMaestro").hide();
+		$("#sAceptadasMaestro").hide();
+		$("#sPendientesMaestro").show("");	
+	}
+	var solNueva = function()
+	{
+		$("#sAceptadasMaestro").hide();
+		$("#sPendientesMaestro").hide();
+		$("#sNuevaMaestro").show("");
 	}
 	//Configuramos los eventos
-	$("#btnIngresar").on("click",ingresar);
+	$("#btnSolicitudesAceptadas").on("click",solAceptadas);
+	$("#btnSolicitudesPendientes").on("click",solPendientes);
+	$("#btnNuevaSolicitud").on("click",solNueva);
 }
 $(document).on("ready",inicio);
