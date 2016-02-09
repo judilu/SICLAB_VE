@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<?php include '..\Inicio\head.php';?>
+	<!--<?php include '..\Inicio\head.php';?>-->
 </head>
 <body>
 	<div class="solPendientesMaestro">
@@ -34,11 +34,13 @@
 		</div>
 		<div id="editarSolicitudLab">
 			<h5>Editar Solicitud</h5>
-			{{> editarSolicitudLab}}
+			<?php include 'editarSolicitudLab.php';?>
 		</div>
 	</div>
 </body>
+<!--
 <footer>
 		<?php include '..\Inicio\footer.php';?>
 </footer>
+-->
 </html>
