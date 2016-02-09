@@ -3,7 +3,7 @@ var inicio = function ()
 	var ingresar = function ()
 	{
 		console.log("hola");
-		$("#acceso").hide();
+		$(".acceso").hide();
 		$("#accesoAlumno").show("slow");
 		console.log("adios");
 	}

@@ -5,7 +5,7 @@
 	<script src="..\js\inicio.js"></script>
 </head>
 <body>
-	<form id="acceso">
+	<form class="acceso" id="body2">
 		<div class="row">
 			<div class="col s6 offset-s3 card-panel white">
 				<div class="row">

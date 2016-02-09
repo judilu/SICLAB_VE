@@ -4,7 +4,7 @@
 	<?php include '..\Inicio\head.php';?>
 </head>
 <body>
-	<div class="eleccionMaterial">
+	<div class="eleccionMaterial" id="body2">
 		<div class="row">
 			<h4>Elección de material           </h4>
 			<div class="col s10 offset-s1">
