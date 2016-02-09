@@ -5,7 +5,7 @@ var inicio = function ()
 		console.log("hola");
 		$(".acceso").hide();
 		$(".accesoAlumno").show("slow");
-		console.log("adios");
+		alert("pudiste");
 	}
 	//Configuramos los eventos
 	$("#btnIngresar").on("click",ingresar);

@@ -4,7 +4,7 @@
 	<?php include '..\Inicio\head.php';?>
 </head>
 <body>
-	<section id="accesoExterno">
+	<section class="accesoExterno" id="body2">
 		<div class="row">
 			<div class="col s2">Fecha: 01/12/2015</div>	
 			<div class="col s3 offset-s9">

@@ -2,7 +2,6 @@
 <html lang="es">
 <head>
 	<?php include 'head.php';?>
-	<script src="..\js\inicio.js"></script>
 </head>
 <body>
 	<form class="acceso" id="body2">
@@ -35,6 +34,7 @@
 	        </div>
 	    </div>
 	</form>
+	<?php include '../Alumno/accesoAlumno.php';?>
 </body>
 <footer>
 		<?php include 'footer.php';?>

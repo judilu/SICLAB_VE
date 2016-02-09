@@ -49,6 +49,10 @@ head{
   height: 65px;
     line-height: 4;
 }
+.accesoAlumno
+{
+  display: none;
+}
 .filaNumeros
 {
   margin-bottom: 35px;
