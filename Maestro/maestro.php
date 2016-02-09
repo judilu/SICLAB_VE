@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-	<?php include '..\Inicio\head.php';?>
-	<link rel="stylesheet" href="..\css\maestro.css">
-	<script src="..\js\maestros.js"></script>
+	<?php include '../Inicio/head.php';?>
+	<link rel="stylesheet" href="../css/maestro.css">
+	<script src="../js/maestros.js"></script>
 </head>
 <body>
 	<div class="menuMaestro" id="body2">
@@ -19,9 +19,9 @@
 		<div id="solicitudes" class="col s12">
 			<div id="menuSolicitudesMaestro">
 				<ul>
-					<a class="waves-effect waves-light btn grey" id="btnSolicitudesAceptadas">Aceptadas</a>
-					<a class="waves-effect waves-light btn blue darken-1" id="btnSolicitudesPendientes">Pendientes</a>
-					<a class="waves-effect waves-light btn blue darken-2" id="btnNuevaSolicitud">Nueva</a>
+					<button class="waves-effect waves-light btn grey" id="btnSolicitudesAceptadas">Aceptadas</button>
+					<button class="waves-effect waves-light btn blue darken-1" id="btnSolicitudesPendientes">Pendientes</button>
+					<button class="waves-effect waves-light btn blue darken-2" id="btnNuevaSolicitud">Nueva</button>
 				</ul>
 			</div>
 			<div id="sAceptadasMaestro">
@@ -41,7 +41,7 @@
 			<?php include 'seleccionListaAsistencia.php';?>
 		</div>
 		<div id="salir">
-			<?php include 'salirSistema.php';?>
+			<?php include '..\Genericos\salirSistema.php';?>
 		</div>
 	</div>
 </body>

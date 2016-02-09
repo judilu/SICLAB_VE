@@ -11,7 +11,7 @@
 		<div class="col s12">
 			<div class="row valign-wrapper">
 				<div class="col s4">
-					<img src="images/yuna.jpg" alt="" class="circle responsive-img">
+					<img src="..\img\persona.png" alt="" class="circle responsive-img">
 				</div>
 				<div class="input-field col s3 offset-s1">
 					<input id="txtClaveMaestro" type="text" class="validate">

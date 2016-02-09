@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<?php include '..\Inicio\head.php';?>
+	<!--<?php include '..\Inicio\head.php';?>-->
 </head>
 <body>
 	<form class="col s12 card-panel transparent" id="salir" name="frmAcceder">
@@ -23,7 +23,9 @@
 		</div>
 	</form>
 </body>
+<!--
 <footer>
 		<?php include '..\Inicio\footer.php';?>
 </footer>
+-->
 </html>

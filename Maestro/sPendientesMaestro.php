@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<!--<?php include '..\Inicio\head.php';?>-->
+	<link rel="stylesheet" href="../css/maestro.css">
+	<!--<?php include '../Inicio/head.php';?>-->
 </head>
 <body>
 	<div class="solPendientesMaestro">

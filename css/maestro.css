@@ -1,4 +1,12 @@
-#reportes
+#editarSolicitudLab
+{
+	display: none;
+}
+#eleccionMaterial
+{
+	display: none;
+}
+#lista
 {
 	display: none;
 }
@@ -7,10 +15,6 @@
 	display: none;
 }
 #sPendientesMaestro
-{
-	display: none;
-}
-#salir
 {
 	display: none;
 }
