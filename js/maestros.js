@@ -1,6 +1,7 @@
 var inicio = function ()
 {
 	$('ul.tabs').tabs();
+	$('select').material_select(); //agregado
 	var solAceptadas = function ()
 	{
 		$("#sNuevaMaestro").hide();
