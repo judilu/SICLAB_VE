@@ -1,4 +1,4 @@
-var inicio = function ()
+/*var inicio = function ()
 {
 	var ingresar = function ()
 	{
@@ -10,4 +10,4 @@ var inicio = function ()
 	//Configuramos los eventos
 	$("#btnIngresar").on("click",ingresar);
 }
-$(document).on("ready",inicio);
+$(document).on("ready",inicio);*/

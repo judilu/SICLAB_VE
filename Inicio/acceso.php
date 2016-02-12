@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 	<?php include 'head.php';?>
+	<script src="../js/usuarios.js"></script>
 </head>
 <body>
 	<form class="acceso" id="body2">
@@ -21,8 +22,8 @@
 					<div class="col s12">
 						<div class="input-field col s10 offset-s1">
 				          <i class="material-icons prefix">lock</i>
-				          <input id="txtContraseña" type="password" class="validate">
-				          <label for="txtContraseña">Contraseña</label>
+				          <input id="txtClave" type="password" class="validate">
+				          <label for="txtClave">Contraseña</label>
 				        </div>
 					</div>
 					<div class="col s12">

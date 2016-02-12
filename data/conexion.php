@@ -30,14 +30,12 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 	}
 	return $theValue;
 }
-
-
 function conectaBDSIE()
 {
 	//Servidor, Usuario, Contraseña
-	$conexion = mysql_connect('itculiacan.edu.mx', 'sieapibduser', 'B5fa4x_7*.*');
+	$conexion = mysql_connect("itculiacan.edu.mx", "sieapibduser", "B5fa4x_7*.*");
 	//Seleccionamos la BD
-mysql_select_db('sieapibd',$conexion);
+mysql_select_db("sieapibd",$conexion);
 	return $conexion;
 }
 function conectaBDSICLAB()
