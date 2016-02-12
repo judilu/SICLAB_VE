@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 	<!--<?php include '..\Inicio\head.php';?>-->
 	<script src="..\js\maestros.js"></script>
 </head>
 <body>
-	<div class="editarSolLab">
+	<div id = "editarSolLab" class="body2">
 		<div class="row">
 		<div class="col s12">
 			<div class="row">

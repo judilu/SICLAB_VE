@@ -6,7 +6,7 @@
 	<script src="../js/maestros.js"></script>
 </head>
 <body>
-	<div class="menuMaestro" id="body2">
+	<div id="menuMaestro" class="body2">
 		<div class="row">
 			<div class="col s12">
 				<ul class="tabs">
@@ -45,7 +45,4 @@
 		</div>
 	</div>
 </body>
-<footer>
-	<?php include '..\Inicio\footer.php';?>
-</footer>
 </html>

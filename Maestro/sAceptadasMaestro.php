@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 	<!--<?php include '..\Inicio\head.php';?>-->
 	<script src="..\js\maestros.js"></script>
