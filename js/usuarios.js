@@ -19,23 +19,23 @@ var inicio = function ()
 						switch (response.tipo){
 							case "1":
 								$("#acceso").hide();
-								$("#pantallaLaboratorios").show("slow");
+								$("#genericos").show("slow");
 							break;
 							case "2":
 								$("#acceso").hide();
-								$("#pantallaLaboratorios").show("slow");
+								$("#genericos").show("slow");
 							break;
 							case "3":
 								$("#acceso").hide();
-								$("#pantallaLaboratorios").show("slow");
+								$("#genericos").show("slow");
 							break;
 							case "4":
 								$("#acceso").hide();
-								$("#accesoAlumno").show("slow");
+								$("#alumno").show("slow");
 							break;
 							case "5":
 								$("#acceso").hide();
-								$("#pantallaLaboratorios").show("slow");
+								$("#genericos").show("slow");
 							break;
 							case "6":
 								$("#acceso").hide();
