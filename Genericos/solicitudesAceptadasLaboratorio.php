@@ -4,7 +4,7 @@
 	<?php include '..\Inicio\head.php';?>
 </head>
 <body>
-	<div class="row" id="solicitudesAceptadasLab">
+	<div class="row body2" id="solicitudesAceptadasLab">
 		<div class="col s10 offset-s1">
 			<table>
 				<thead>

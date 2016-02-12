@@ -35,15 +35,15 @@ function conectaBDSIE()
 	//Servidor, Usuario, Contraseña
 	$conexion = mysql_connect("itculiacan.edu.mx", "sieapibduser", "B5fa4x_7*.*");
 	//Seleccionamos la BD
-mysql_select_db("sieapibd",$conexion);
+mysql_select_db("sieapibd");
 	return $conexion;
 }
 function conectaBDSICLAB()
 {
 	//Servidor, Usuario, Contraseña
-	$conexion = mysql_connect('localhost','root','');
+	$conexion = mysql_connect("localhost","root","");
 	//Seleccionamos la BD
-mysql_select_db('siclab',$conexion);
+mysql_select_db("siclab");
 	return $conexion;
 }
 ?>

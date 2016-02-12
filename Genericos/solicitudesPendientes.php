@@ -4,7 +4,7 @@
 	<?php include '..\Inicio\head.php';?>
 </head>
 <body>
-	<section class="solicitudesPendientes">
+	<section id="solicitudesPendientes" class="body2">
 		<div id= "solicitudes" class="row">
 			<div class="col s10 offset-s1" id="peticiones">
 				<table class="bordered highlight responsive-table">

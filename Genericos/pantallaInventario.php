@@ -4,7 +4,7 @@
 	<?php include '..\Inicio\head.php';?>
 </head>
 <body>
-	<div class="row" id="listaArt">
+	<div class="row body2" id="listaArt">
 		<div class="col s12">
 			<div class="row">
 				<div class="input-field col s4">

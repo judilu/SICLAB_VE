@@ -2,10 +2,11 @@
 <html lang="es">
 <head>
 	<?php include 'head.php';?>
+	<?php include 'encabezado.php';?>
 	<script src="../js/usuarios.js"></script>
 </head>
 <body>
-	<form class="acceso" id="body2">
+	<form id="acceso" class="body2">
 		<div class="row">
 			<div class="col s6 offset-s3 card-panel white">
 				<div class="row">
@@ -35,7 +36,15 @@
 	        </div>
 	    </div>
 	</form>
-	<?php include '../Alumno/accesoAlumno.php';?>
+	<div id="maestro">
+		<?php include '../Maestro/maestro.php';?>
+	</div>
+	<div id="alumno">
+		<?php include '../Alumno/accesoAlumno.php';?>
+	</div>
+	<div id="genericos">
+		<?php include '../Genericos/pantallaLaboratorios.php';?>
+	</div>
 </body>
 <footer>
 		<?php include 'footer.php';?>
