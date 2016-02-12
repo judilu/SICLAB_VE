@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<?php include '..\Inicio\head.php';?>
+	<?php include '../Inicio/head.php';?>
+	<link rel="stylesheet" href="../css/genericos.css">
+	<script src="../js/genericos.js"></script>
 </head>
 <body>
 	<div id="pantallaLaboratorios" class="body2">
@@ -11,7 +13,7 @@
 					<li id="tabPrestamos" class="tab col s2"><a class="active breadcrumb" href="#prestamos">Préstamos</a></li>
 					<li id="tabLabs" class="tab col s2"><a class="breadcrumb" href="#laboratorios">Laboratorios</a></li>
 					<li id="tabInventario" class="tab col s2"><a class="breadcrumb" href="#inventarios">Inventario</a></li>
-					<li id="tabRe´portes" class="tab col s2"><a class="breadcrumb" href="#reportes">Reportes</a></li>
+					<li id="tabReportes" class="tab col s2"><a class="breadcrumb" href="#reportes">Reportes</a></li>
 					<li class="tab col s2"><a class="breadcrumb" href="#salir">Salir</a></li>
 				</ul>
 			</div>
@@ -25,11 +27,11 @@
 			</div>
 			<div id="solicitudesPendientes">
 				<h5>Solicitudes por atender</h5>
-				{{> solicitudesPendientes}}
+				<?php include 'solicitudesPendientes.php';?>
 			</div>
 			<div id="solicitudesEnProceso">
 				<h5>Solicitudes en proceso</h5>
-				{{> solicitudesEnProceso}}
+				<?php include 'solicitudesEnProceso.php';?>
 			</div>
 		</div>
 		<div id="laboratorios" class="col s12">
@@ -41,11 +43,11 @@
 			</div>
 			<div id="sPendientesLab">
 				<h5>Solicitudes de laboratorio</h5>
-				{{> solicitudesPendientesLaboratorio}}
+				<?php include 'solicitudesPendientesLaboratorio.php';?>
 			</div>
 			<div id="sAceptadasLab">
 				<h5>Solicitudes de laboratorio</h5>
-				{{> solicitudesAceptadasLaboratorio}}
+				<?php include 'solicitudesAceptadasLaboratorio.php';?>
 			</div>
 		</div>
 		<div id="inventarios">
@@ -60,23 +62,23 @@
 			</div>
 			<div id="pantallaInventario">
 				<h5>Inventario</h5>
-				{{> pantallaInventario}}
+				<?php include 'pantallaInventario.php';?>
 			</div>
 			<div id="altaArticulos">
 				<h5>Alta de artículos</h5>
-				{{> altaArticulos}}
+				<?php include 'altaArticulos.php';?>
 			</div>
 			<div id="bajaArticulos">
 				<h5>Baja de artículos</h5>
-				{{> bajaArticulos}}
+				<?php include 'bajaArticulos.php';?>
 			</div>
 			<div id="peticionesPendientes">
 				<h5>Peticiones pendientes</h5>
-				{{> peticionesPendientes}}
+				<?php include 'peticionesPendientes.php';?>
 			</div>
 			<div id="peticionesArticulos">
 				<h5>Peticiones de articulos</h5>
-				{{> peticionesArticulos}}
+				<?php include 'peticionesArticulos.php';?>
 			</div>
 		</div>
 		<div id="reportes">
@@ -87,7 +89,7 @@
 			</div>
 		</div>
 		<div id="salir">
-			{{> salirSistema}}
+			<?php include 'salirSistema.php';?>
 		</div>
 	</div>
 </body>

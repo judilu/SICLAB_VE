@@ -8,7 +8,7 @@
 		<div class="col s12 m8 offset-m2 l6 offset-l3">
 			<div class="row valign-wrapper">
 				<div class="col s2">
-					<img src="images/yuna.jpg" alt="" class="circle responsive-img">
+					<img src="../img/persona.png" alt="" class="circle responsive-img">
 				</div>
 				<div class="col s3 offset-s1">
 					<a class="waves-effect waves-light btn blue darken-1" id="btnSeleccionarImg">Seleccionar</a>
@@ -73,7 +73,4 @@
 		</div>
 	</div>
 </body>
-<footer>
-		<?php include '..\Inicio\footer.php';?>
-</footer>
 </html>

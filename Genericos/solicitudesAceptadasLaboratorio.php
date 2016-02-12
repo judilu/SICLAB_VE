@@ -33,10 +33,7 @@
 		</div>
 	</div>
 	<div id="verMasSolicitud2">
-		{{> verMas2}}
+		<?php include 'verMas2.php';?>
 	</div>
 </body>
-<footer>
-		<?php include '..\Inicio\footer.php';?>
-</footer>
 </html>

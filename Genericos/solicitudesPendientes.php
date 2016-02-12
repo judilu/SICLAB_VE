@@ -4,7 +4,7 @@
 	<?php include '..\Inicio\head.php';?>
 </head>
 <body>
-	<section id="solicitudesPendientes" class="body2">
+	<section id="solicitudesPendientes">
 		<div id= "solicitudes" class="row">
 			<div class="col s10 offset-s1" id="peticiones">
 				<table class="bordered highlight responsive-table">
@@ -33,11 +33,8 @@
 			</div>
 		</div>
 		<div id="atenderSolicitud">
-			{{> atenderSolicitud}}
+		<?php include 'atenderSolicitud.php';?>
 		</div>
 	</section>
 </body>
-<footer>
-		<?php include '..\Inicio\footer.php';?>
-</footer>
 </html>

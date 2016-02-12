@@ -55,7 +55,4 @@
 		</div>
 	</div>
 </body>
-<footer>
-		<?php include '..\Inicio\footer.php';?>
-</footer>
 </html>

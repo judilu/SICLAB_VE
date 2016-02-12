@@ -46,10 +46,7 @@
 		</div>
 	</div>
 	<div id="editar">
-		{{> editarArticulos}}
+		<?php include 'editarArticulos.php';?>
 	</div>
 </body>
-<footer>
-		<?php include '..\Inicio\footer.php';?>
-</footer>
 </html>
