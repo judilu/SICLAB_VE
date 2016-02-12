@@ -4,7 +4,7 @@
 	<?php include '..\Inicio\head.php';?>
 </head>
 <body>
-	<div class="row" id="verPrincipal2">
+	<div class="row body2" id="verPrincipal2">
 		<div class="col s12">
 			<div class="row">
 				<div class="col">

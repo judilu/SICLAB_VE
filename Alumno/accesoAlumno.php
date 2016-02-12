@@ -1,4 +1,4 @@
-	<div class="accesoAlumno" id="body2">
+	<div id="accesoAlumno" class="body2">
 		<form >
 			<div class="row">
 				<div class="col s2">Fecha: 01/12/2015</div>

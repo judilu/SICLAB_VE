@@ -4,7 +4,7 @@
 	<?php include '..\Inicio\head.php';?>
 </head>
 <body>
-	<div class="altaArticulos">
+	<div id="altaArticulos" class="body2">
 		<div class="col s12 m8 offset-m2 l6 offset-l3">
 			<div class="row valign-wrapper">
 				<div class="col s2">

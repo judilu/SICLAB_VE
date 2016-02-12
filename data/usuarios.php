@@ -11,17 +11,19 @@ include '../data/conexion.php';
 function validaUsuario()
 {
 	$respuesta	= false;
-	$usu 		= "'".$_POST["ALUNOM"]."'";
-	$cve 		= "'".$_POST["ALUCTR"]."'";
-	$conexion 	= conectaBDSIE();
-	$qryValida 	= sprintf("select * from DALUMN where ALUNOM=%s and ALUCTR=%s limit 1",$usu,$cve);
+	$usu 		= GetSQLValueString($_POST["usuario"],"text");
+	$cve 		= GetSQLValueString(md5($_POST["cveUsuario"]),"text");
+	$tipo		= "0";
+	$conexion 	= conectaBDSICLAB();
+	$qryValida 	= sprintf("select * from lbusuarios where usuario=%s and cveUsuario=%s limit 1",$usu,$cve);
 	$res		= mysql_query($qryValida);
 	if($row = mysql_fetch_array($res))
 	{
 		$respuesta = true;
+		$tipo = $row["tipoUsuario"];
 	}
 	$arrayJSON = array('respuesta' => $respuesta,
-						'contenido' => $row);
+						'tipo' => $tipo);
 	print json_encode($arrayJSON);
 }
 //Menú principal

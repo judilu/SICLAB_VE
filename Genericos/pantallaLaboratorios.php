@@ -4,7 +4,7 @@
 	<?php include '..\Inicio\head.php';?>
 </head>
 <body>
-	<div class="pantallaLaboratorios">
+	<div id="pantallaLaboratorios" class="body2">
 		<div class="row">
 			<div class="col s12">
 				<ul class="tabs" id="selector">

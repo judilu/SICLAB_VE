@@ -4,7 +4,7 @@
 	<!--<?php include '..\Inicio\head.php';?>-->
 </head>
 <body>
-	<form class="col s12 card-panel transparent" id="salir" name="frmAcceder">
+	<form class="col s12 card-panel transparent body2" id="salir" name="frmAcceder">
 		<div class="row">
 			<div class="col s12">
 				¿Esta seguro que desea salir del sistema?

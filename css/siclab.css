@@ -15,7 +15,11 @@ head{
   border-radius: 5px 5px 0px 0px;
   margin-bottom: 2px;
 }
-#contenidoDinamico, #body2
+#maestro, #alumno, #genericos
+{
+  display: none;
+}
+#contenidoDinamico, .body2
 {
   border: 2px solid rgba(3,130,190,0.5);
   border-radius: 5px 5px 5px 5px;
