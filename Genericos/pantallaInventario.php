@@ -1,52 +1,44 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-	<?php include '..\Inicio\head.php';?>
-</head>
-<body>
-	<div class="row body2" id="listaArt">
-		<div class="col s12">
-			<div class="row">
-				<div class="input-field col s4">
-					<input id="txtArticulo" type="text" class="validate">
-					<label class="active" for="txtArticulo">Artículo</label>
-				</div>
-				<div class="input-field col s3 offset-s2">
-					<input id="txtcodigoBarras" type="text" class="validate">
-					<label class="active" for="txtcodigoBarras">Código de barras</label>
-				</div>
-				<div class="col s3">
-					<a class="waves-effect waves-light btn blue darken-1"><i class="material-icons left">search</i>Buscar</a>
-				</div>
+<div class="row" id="listaArt">
+	<div class="col s12">
+		<div class="row">
+			<div class="input-field col s4">
+				<input id="txtArticulo" type="text" class="validate">
+				<label class="active" for="txtArticulo">Artículo</label>
 			</div>
-			<div class="row">
-				<div class="col s10 offset-s1">
-					<table class="bordered responsive-table centered">
-						<thead>
-							<tr>
-								<th data-field="codigoArt">Código</th>
-								<th data-field="nombreArt">Nombre</th>
-								<th data-field="CantidadArt">Cantidad</th>
-								<th data-field="accionesArt">Acciones</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>12548523652</td>
-								<td>Cautín</td>
-								<td>10</td>
-								<td>
-									<a class="btn-floating btn-large waves-effect waves-light amber darken-2" id="btneditarArt"><i class="material-icons">create</i></a>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+			<div class="input-field col s3 offset-s2">
+				<input id="txtcodigoBarras" type="text" class="validate">
+				<label class="active" for="txtcodigoBarras">Código de barras</label>
+			</div>
+			<div class="col s3">
+				<a class="waves-effect waves-light btn blue darken-1"><i class="material-icons left">search</i>Buscar</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s10 offset-s1">
+				<table class="bordered responsive-table centered">
+					<thead>
+						<tr>
+							<th data-field="codigoArt">Código</th>
+							<th data-field="nombreArt">Nombre</th>
+							<th data-field="CantidadArt">Cantidad</th>
+							<th data-field="accionesArt">Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>12548523652</td>
+							<td>Cautín</td>
+							<td>10</td>
+							<td>
+								<a class="btn-floating btn-large waves-effect waves-light amber darken-2" id="btneditarArt"><i class="material-icons">create</i></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
-	<div id="editar">
-		<?php include 'editarArticulos.php';?>
-	</div>
-</body>
-</html>
+</div>
+<div id="editar">
+	<?php include 'editarArticulos.php';?>
+</div>

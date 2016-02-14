@@ -1,57 +1,46 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-	<?php include '..\Inicio\head.php';?>
-</head>
-<body>
-	<div class="row body2" id="peticionesArticulos">
-		<div class="col s12">	
-			<div class="row">
-				<div class="input-field col s4">
-					<input id="txtArticulo" type="text" class="validate">
-					<label class= "active" for="txtArticulo">Artículo</label>
-				</div>
-				<div class="input-field col s4 offset-s1">
-					<input id="txtCodigoBarras" type="text" class="validate">
-					<label for="txtCodigoBarras">Codigo de barras</label>
-				</div>
-				<div class="col s3">
-					<a class="waves-effect waves-light btn blue darken-1" id="btnBuscar"><i class="material-icons left">search</i>Buscar</a>
-				</div>
+<div class="row" id="peticionesArticulos2">
+	<div class="col s12">	
+		<div class="row">
+			<div class="input-field col s4">
+				<input id="txtArticulo" type="text" class="validate">
+				<label class= "active" for="txtArticulo">Artículo</label>
 			</div>
-			<div class="row">
-				<div class="input-field col s4">
-					<input id="txtNombreArticulo" type="text" class="validate">
-					<label for="txtNombreArticulo">Nombre del artículo</label>
-				</div>
-				<div class="input-field col s4 offset-s1">
-					<input id="txtCantidad" type="number" class="validate">
-					<label for="txtCantidad">Cantidad</label>
-				</div>
+			<div class="input-field col s4 offset-s1">
+				<input id="txtCodigoBarras" type="text" class="validate">
+				<label for="txtCodigoBarras">Codigo de barras</label>
 			</div>
-			<div class="row">
-				<div class="input-field col s4">
-					<input id="txtMarca" type="text" class="validate">
-					<label for="txtMarca">Marca</label>
-				</div>
-				<div class="input-field col s4 offset-s1">
-					<input id="txtModelo" type="text" class="validate">
-					<label for="txtModelo">Modelo</label>
-				</div>
-			</div>
-			<div class="row">
-				<div class="input-field col s12">
-					<input id="txtDescripcionArt" type="text" class="validate">
-					<label for="txtDescripcionArt">Descripción del artículo</label>
-				</div>
+			<div class="col s3">
+				<a class="waves-effect waves-light btn blue darken-1" id="btnBuscar"><i class="material-icons left">search</i>Buscar</a>
 			</div>
 		</div>
-		<div class="col s3 offset-s5">
-			<a class="waves-effect waves-light btn green darken-2 " id="btnEnviarSolicitud">Enviar</a>
+		<div class="row">
+			<div class="input-field col s4">
+				<input id="txtNombreArticulo" type="text" class="validate">
+				<label for="txtNombreArticulo">Nombre del artículo</label>
+			</div>
+			<div class="input-field col s4 offset-s1">
+				<input id="txtCantidad" type="number" class="validate">
+				<label for="txtCantidad">Cantidad</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s4">
+				<input id="txtMarca" type="text" class="validate">
+				<label for="txtMarca">Marca</label>
+			</div>
+			<div class="input-field col s4 offset-s1">
+				<input id="txtModelo" type="text" class="validate">
+				<label for="txtModelo">Modelo</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<input id="txtDescripcionArt" type="text" class="validate">
+				<label for="txtDescripcionArt">Descripción del artículo</label>
+			</div>
 		</div>
 	</div>
-</body>
-<footer>
-		<?php include '..\Inicio\footer.php';?>
-</footer>
-</html>
+	<div class="col s3 offset-s5">
+		<a class="waves-effect waves-light btn green darken-2 " id="btnEnviarSolicitud">Enviar</a>
+	</div>
+</div>
