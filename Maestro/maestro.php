@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<?php include '../Inicio/head.php';?>
 	<link rel="stylesheet" href="../css/maestro.css">
 	<script src="../js/maestros.js"></script>
 </head>
@@ -10,7 +9,7 @@
 		<div class="row">
 			<div class="col s12">
 				<ul class="tabs">
-					<li class="tab col s3 active"><a href="#solicitudes">Solicitudes</a></li>
+					<li class="tab col s3 active"><a id="soliAceptadas" href="#solicitudes">Solicitudes</a></li>
 					<li class="tab col s3"><a href="#reportes">Reportes</a></li>
 					<li class="tab col s3"><a href="#salir">Salir</a></li>
 				</ul>

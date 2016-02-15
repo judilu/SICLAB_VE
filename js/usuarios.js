@@ -52,7 +52,6 @@ var inicio = function ()
 				},
 				error: function(xhr,ajaxOptions,x){
 					alert("Error de conexión");
-					console.log(xhr,x);
 				}
 			});
 		}
