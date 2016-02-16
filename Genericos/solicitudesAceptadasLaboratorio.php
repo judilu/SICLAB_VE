@@ -1,4 +1,5 @@
 <div class="row" id="solicitudesAceptadasLab2">
+	<h5>Solicitudes aceptadas de laboratorio</h5>
 	<div class="col s10 offset-s1">
 		<table>
 			<thead>
@@ -19,7 +20,7 @@
 					<td>10/12/15</td>
 					<td>14:56</td>
 					<td>
-						<a class="btn-floating btn-large waves-effect amber darken-2" id="btneditarSolicitudLab"><i class="material-icons">add</i></a>
+						<a class="btn-floating btn-large waves-effect amber darken-2" id="btnEditarSolicitudLab"><i class="material-icons">add</i></a>
 					</td>
 				</tr>
 			</tbody>

@@ -1,5 +1,8 @@
 var inicio = function()
 {
+	$('.collapsible').collapsible({
+      accordion : false
+    });
 	$('ul.tabs').tabs();
 	$('select').material_select(); //agregado
 	var prestamosPendientes = function()
@@ -68,6 +71,21 @@ var inicio = function()
 		$("#solicitudesPendientes2").hide();
 		$("#atenderSolicitud").show("slow");
 	}
+	var verMas = function()
+	{		
+		$("#solicitudesPendientesLab2").hide();
+		$("#verMasSolicitud").show("slow");
+	}
+	var verMas2 = function()
+	{		
+		$("#solicitudesAceptadasLab2").hide();
+		$("#verMasSolicitud2").show("slow");
+	}
+	var editarArticulo = function()
+	{		
+		$("#listaArt").hide();
+		$("#editar").show("slow");
+	}
 	$("#btnPendientes").on("click",prestamosPendientes);
 	$("#btnEnProceso").on("click",prestamosProceso);
 	$("#btnPendientesLab").on("click",sLaboratorioPendientes);
@@ -78,5 +96,9 @@ var inicio = function()
 	$("#btnPeticionesPendientes").on("click",peticionesPendientesArt);
 	$("#btnPeticionArticulo").on("click",peticionesArticulos);
 	$("#btnAtender").on("click",atenderSolicitud);	
+	$("#btnVerMas").on("click",verMas);
+	$("#btnEditarSolicitudLab").on("click",verMas2);
+	$("#btnEditarArt").on("click",editarArticulo);
+
 }
 $(document).on("ready",inicio);

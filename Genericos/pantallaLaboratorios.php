@@ -26,11 +26,9 @@
 				</ul>
 			</div>
 			<div id="solicitudesPendientes">
-				<h5>Solicitudes por atender</h5>
 				<?php include 'solicitudesPendientes.php';?>
 			</div>
 			<div id="solicitudesEnProceso">
-				<h5>Solicitudes en proceso</h5>
 				<?php include 'solicitudesEnProceso.php';?>
 			</div>
 		</div>
@@ -42,11 +40,9 @@
 				</ul>
 			</div>
 			<div id="sPendientesLab">
-				<h5>Solicitudes de laboratorio</h5>
 				<?php include 'solicitudesPendientesLaboratorio.php';?>
 			</div>
 			<div id="sAceptadasLab">
-				<h5>Solicitudes de laboratorio</h5>
 				<?php include 'solicitudesAceptadasLaboratorio.php';?>
 			</div>
 		</div>
@@ -57,7 +53,7 @@
 					<a class="waves-effect waves-light btn blue darken-2" id="btnAlta">Alta</a>
 					<a class="waves-effect waves-light btn blue darken-2" id="btnBaja">Baja</a>
 					<a class="waves-effect waves-light btn blue darken-1" id="btnPeticionesPendientes">Peticiones pendientes</a>
-					<a class="waves-effect waves-light btn blue darken-1" id="btnPeticiónArticulo">Petición artículo</a>
+					<a class="waves-effect waves-light btn blue darken-1" id="btnPeticionArticulo">Petición artículo</a>
 				</ul>
 			</div>
 			<div id="pantallaInventario">

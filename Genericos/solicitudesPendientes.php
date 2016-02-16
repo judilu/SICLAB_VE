@@ -1,5 +1,5 @@
 <section id="solicitudesPendientes2">
-	<div id= "solicitudes" class="row">
+	<h5>Solicitudes por atender</h5>
 		<div class="col s10 offset-s1" id="peticiones">
 			<table class="bordered highlight responsive-table">
 				<thead>
@@ -25,7 +25,6 @@
 				</tbody>
 			</table>
 		</div>
-	</div>
 </section>
 <div id="atenderSolicitud">
 	<?php include 'atenderSolicitud.php';?>

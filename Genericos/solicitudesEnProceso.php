@@ -1,4 +1,5 @@
 <div class="row" id="solicitudesEnProceso2">
+	<h5>Solicitudes en proceso</h5>
 	<div class="col s10 offset-s1" id="prestamos">
 		<ul class="collapsible" data-collapsible="accordion">
 			<li>
@@ -13,8 +14,9 @@
 			<div class="collapsible-body"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos earum dolor minima autem, sit voluptatibus, praesentium eum perspiciatis, atque corrupti ducimus fugit. Sint aspernatur culpa deserunt odio, magnam accusantium sed.</p>
 				<p>
 					<a class="waves-effect waves-light btn amber darken-2" id="btnDevolucion">Devolución</a>
-				</p></div>
-			</li>
-		</ul>
-	</div>
+				</p>
+			</div>
+		</li>
+	</ul>
+</div>
 </div>

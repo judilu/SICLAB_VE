@@ -30,7 +30,7 @@
 							<td>Cautín</td>
 							<td>10</td>
 							<td>
-								<a class="btn-floating btn-large waves-effect waves-light amber darken-2" id="btneditarArt"><i class="material-icons">create</i></a>
+								<a class="btn-floating btn-large waves-effect waves-light amber darken-2" id="btnEditarArt"><i class="material-icons">create</i></a>
 							</td>
 						</tr>
 					</tbody>
