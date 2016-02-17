@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-	<!--<?php include '..\Inicio\head.php';?>-->
 	<script src="..\js\maestros.js"></script>
 </head>
 <body>
@@ -66,15 +65,10 @@
 	</div>
 	<div class="row">
 	<div class="col s5 offset-s7">
-			<a class="waves-effect waves-light btn green darken-2 "><i class="material-icons left">print</i>Imprimir</a>
-			<a class="waves-effect btn amber darken-1"><i class="material-icons left">reply</i>Regresar</a>
+			<a id="btnImprimir" class="waves-effect waves-light btn green darken-2 "><i class="material-icons left">print</i>Imprimir</a>
+			<a id="btnRegresarla" class="waves-effect btn amber darken-1"><i class="material-icons left">reply</i>Regresar</a>
 		</div>
 	</div>
 	</div>
 </body>
-<!--
-<footer>
-		<?php include '..\Inicio\footer.php';?>
-</footer>
--->
 </html>

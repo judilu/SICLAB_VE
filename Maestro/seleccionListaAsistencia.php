@@ -5,7 +5,7 @@
 	<!--<?php include '..\Inicio\head.php';?>-->
 </head>
 <body>
-	<div class="listaAsistencia">
+	<div id="listaAsistencia">
 		<div id="selecionarLista">
 			<div class="col s12 m8 offset-m2 l6 offset-l3">
 				<div class="row valign-wrapper">
