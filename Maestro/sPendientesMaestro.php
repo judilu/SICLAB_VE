@@ -8,8 +8,8 @@
 	<div class="solPendientesMaestro">
 		<div class="row" id="solicitudesPendientesLab">
 			<div class="col s10 offset-s1">
-				<table>
-					<thead>
+				<table id="tabSolPendientes">
+					<!--<thead>
 						<tr>
 							<th data-field="materia">Materia</th>
 							<th data-field="nombrePractica">Nombre de la práctica</th>
@@ -29,7 +29,7 @@
 								<a class="btn-floating btn-large waves-effect waves-light red darken-1" id="btneliminarSolicitudLab"><i class="material-icons">delete</i></a>
 							</td>
 						</tr>
-					</tbody>
+					</tbody>-->
 				</table>
 			</div>
 		</div>

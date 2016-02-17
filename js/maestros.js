@@ -36,6 +36,27 @@ var inicio = function ()
 	{
 		$("#sNuevaMaestro").hide();
 		$("#sAceptadasMaestro").hide();
+		var parametros = "opc=solicitudesPendientes1"+
+		"&maestro="+"ALEJANDRA"+
+		"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/maestros.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					$("#tabSolPendientes").html(response.renglones);
+				}
+				else
+					alert("No hay solicitudes");
+			},
+			error: function(xhr, ajaxOptions,x){
+				alert("Error de conexión");	
+			}
+		});
 		$("#sPendientesMaestro").show("");	
 	}
 	var solNueva = function()
