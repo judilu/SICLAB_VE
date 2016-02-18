@@ -36,6 +36,7 @@ var inicio = function ()
 	{
 		$("#sNuevaMaestro").hide();
 		$("#sAceptadasMaestro").hide();
+		$("#editarSolicitudLab").hide();
 		var parametros = "opc=solicitudesPendientes1"+
 		"&maestro="+"ALEJANDRA"+
 		"&id="+Math.random();
@@ -57,7 +58,8 @@ var inicio = function ()
 				alert("Error de conexión");	
 			}
 		});
-		$("#sPendientesMaestro").show("");	
+		$("#sPendientesMaestro").show("slow");
+		$("#solicitudesPendientesLab").show("slow");	
 	}
 	var solNueva = function()
 	{
@@ -74,7 +76,7 @@ var inicio = function ()
 	}
 	var editarSolicitudLab = function()
 	{
-		$(this).closest("td").children("input").val();
+		alert($(this).closest("td").children("input").val());
 		$("#solicitudesPendientesLab").hide();
 		$("#editarSolicitudLab").show("slow");
 	}

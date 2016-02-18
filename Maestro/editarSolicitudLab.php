@@ -5,7 +5,8 @@
 	<script src="..\js\maestros.js"></script>
 </head>
 <body>
-	<div id = "editarSolLab" class="body2">
+	<div id = "editarSolLab">
+		<h5>Editar Solicitud</h5>
 		<div class="row">
 		<div class="col s12">
 			<div class="row">

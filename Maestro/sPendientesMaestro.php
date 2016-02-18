@@ -7,6 +7,7 @@
 <body>
 	<div class="solPendientesMaestro">
 		<div class="row" id="solicitudesPendientesLab">
+		<h5>Solicitudes pendientes</h5>
 			<div class="col s10 offset-s1">
 				<table id="tabSolPendientes">
 					<!--<thead>
@@ -34,7 +35,6 @@
 			</div>
 		</div>
 		<div id="editarSolicitudLab">
-			<h5>Editar Solicitud</h5>
 			<?php include 'editarSolicitudLab.php';?>
 		</div>
 	</div>

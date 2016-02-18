@@ -28,7 +28,6 @@
 				<?php include 'sAceptadasMaestro.php';?>
 			</div>
 			<div id="sPendientesMaestro">
-				<h5 id="etiquetaPendientes">Solicitudes pendientes</h5>
 				<?php include 'sPendientesMaestro.php';?>
 			</div>
 			<div id="sNuevaMaestro">
