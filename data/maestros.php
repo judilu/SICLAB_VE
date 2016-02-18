@@ -31,7 +31,7 @@ function solicitudesAceptadas ()
 		$respuesta = true;
 	}
 	$arrayJSON = array('respuesta' => $respuesta,
-						'renglones' => $renglones);
+		'renglones' => $renglones);
 	print json_encode($arrayJSON);
 }
 function solicitudesPendientes ()
@@ -49,23 +49,30 @@ function solicitudesPendientes ()
 	$renglones	.= "<th data-field='laboratorio'>Laboratorio</th>";
 	$renglones	.= "<th data-field='fecha'>Fecha</th>";
 	$renglones	.= "<th data-field='hora'>Hora</th>";
+	$renglones	.= "<th data-field='acciones'>Acciones</th>";
 	$renglones	.= "</tr>";
 	$renglones	.= "</thead>";
+	$con=1;
 	while($row = mysql_fetch_array($res))
 	{
-		$renglones .= "<tbody>";
+		$cont = "'".$con."'";
 		$renglones .= "<tr>";
 		$renglones .= "<td>".$row["ALUCTR"]."</td>";
 		$renglones .= "<td>".$row["ALUAPP"]."</td>";
 		$renglones .= "<td>".$row["ALUAPM"]."</td>";
 		$renglones .= "<td>".$row["ALUNOM"]."</td>";
 		$renglones .= "<td>".$row["ALUSEX"]."</td>";
+		$renglones .= "<td><input type='hidden' value='876' /><a class='btn-floating btn-large 
+		waves-effect waves-light amber darken-2' id='btnEditarSolicitudLab'>
+		<i class='material-icons'>mode_edit</i></a><a class='btn-floating btn-large 
+		waves-effect waves-light red darken-1' id='btnEliminarSolicitudLab'><i class='material-icons'>
+		delete</i></a></td>";
 		$renglones .= "</tr>";
-		$renglones .= "</tbody>";
 		$respuesta = true;
+		$con = $con+1;
 	}
 	$arrayJSON = array('respuesta' => $respuesta,
-						'renglones' => $renglones);
+		'renglones' => $renglones);
 	print json_encode($arrayJSON);
 }
 //Menú principal

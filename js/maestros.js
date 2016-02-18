@@ -72,6 +72,12 @@ var inicio = function ()
 		$("#principal").hide();
 		$("#eleccionMaterial").show("slow");
 	}
+	var editarSolicitudLab = function()
+	{
+		$(this).closest("td").children("input").val();
+		$("#solicitudesPendientesLab").hide();
+		$("#editarSolicitudLab").show("slow");
+	}
 	//eventos menu Reportes
 	var listaAsistencia = function()
 	{
@@ -89,6 +95,7 @@ var inicio = function ()
 	$("#btnNuevaSolicitud").on("click",solNueva);
 	$("#btnElegirMaterial").on("click",elegirMaterial);
 	$("#btnRegresar").on("click",solNueva);
+	$("#tabSolPendientes").on("click", "#btnEditarSolicitudLab" , editarSolicitudLab);
 	//Configuramos los eventos Menu Reportes
 	$("#btnListaAsistencia").on("click",listaAsistencia);
 	$("#btnRegresarla").on("click",regresar);
