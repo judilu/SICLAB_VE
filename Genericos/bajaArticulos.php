@@ -66,7 +66,7 @@
 			<div class="row">
 				<div class="col s5 offset-s7">
 					<a id="btnAltaArt" class="waves-effect waves-light btn green darken-2"><i class="material-icons left">done</i>Dar de Baja</a>
-					<a id="btnCancelar" class="waves-effect btn red darken-1"><i class="material-icons left">clear</i>Cancelar</a>
+					<a id="btnCancelarBaja" class="waves-effect btn red darken-1"><i class="material-icons left">clear</i>Cancelar</a>
 				</div>
 			</div>
 		</div>
