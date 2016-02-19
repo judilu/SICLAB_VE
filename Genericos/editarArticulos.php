@@ -66,7 +66,7 @@
 			<div class="row">
 				<div class="col s7 offset-s5">
 					<a id="btnAceptar" class="waves-effect waves-light btn green darken-2 "><i class="material-icons left">done</i>Aceptar</a>
-					<a id="btnRegresar" class="waves-effect btn amber darken-2"><i class="material-icons left">reply</i>Regresar</a>
+					<a id="btnRegresarEditarArt" class="waves-effect btn amber darken-2"><i class="material-icons left">reply</i>Regresar</a>
 				</div>
 			</div>
 		</div>

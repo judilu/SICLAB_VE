@@ -1,7 +1,7 @@
 <section id="solicitudesPendientes2">
 	<h5>Solicitudes por atender</h5>
 		<div class="col s10 offset-s1" id="peticiones">
-			<table class="bordered highlight responsive-table">
+			<table class="bordered highlight responsive-table" id="tabSolPendientesAlumnos">
 				<thead>
 					<tr>
 						<th data-field="numeroControl">No. de control</th>

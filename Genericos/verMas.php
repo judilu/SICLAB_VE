@@ -44,7 +44,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<a class="btn-floating btn-large waves-effect amber darken-2" id="btnRegresar"><i class="material-icons">reply</i></a>
+			<a class="btn-floating btn-large waves-effect amber darken-2" id="btnRegresarVerMas"><i class="material-icons">reply</i></a>
 		</div>
 	</div>
 </div>

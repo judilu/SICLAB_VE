@@ -58,12 +58,10 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col s6 offset-s6">
-			<a class="btn waves-effect waves-light  light-blue darken-2" type="submit" name="action">Finalizar</a>
-			<a class="btn waves-effect waves-light amber" type="submit" name="action" id="btnCancelar">Cancelar</a>
-			<a class="btn waves-effect waves-light amber" type="submit" name="action">Eliminar</a>
+		<div class="col s8 offset-s4">
 			<a class="btn waves-effect waves-light green darken-2 " type="submit" name="action" id="btnFinalizar">Finalizar</a>
-			<a class="btn waves-effect waves-light red darken-1" type="submit" name="action" id="btnCancelar">Cancelar</a>
+			<a class="btn waves-effect waves-light red darken-1" type="submit" name="action" id="btnCancelarSolPendiente">Cancelar</a>
+			<a class="btn waves-effect waves-light amber" type="submit" name="action">Eliminar</a>
 		</div>
 	</div>
 </section>

@@ -23,6 +23,7 @@
 				<ul>
 					<a class="waves-effect waves-light btn blue darken-1" id="btnPendientes">Pendientes</a>
 					<a class="waves-effect waves-light btn blue darken-2" id="btnEnProceso">En proceso</a>
+					<a class="waves-effect waves-light btn blue darken-2" id="btnListaSanciones">Sanciones</a>
 				</ul>
 			</div>
 			<div id="solicitudesPendientes">
@@ -30,6 +31,9 @@
 			</div>
 			<div id="solicitudesEnProceso">
 				<?php include 'solicitudesEnProceso.php';?>
+			</div>
+			<div id="alumnosSancionados">
+				<?php include 'listaSanciones.php';?>
 			</div>
 		</div>
 		<div id="laboratorios" class="col s12">

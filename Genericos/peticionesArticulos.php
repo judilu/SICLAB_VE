@@ -42,5 +42,6 @@
 	</div>
 	<div class="col s3 offset-s5">
 		<a class="waves-effect waves-light btn green darken-2 " id="btnEnviarSolicitud">Enviar</a>
+		<a id="btnCancelarPeticion" class="waves-effect red darken-1 btn"><i class="material-icons left">clear</i>Cancelar</a>
 	</div>
 </div>
