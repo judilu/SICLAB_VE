@@ -84,8 +84,28 @@
 		<div id="reportes">
 			<div id="menuReportes">
 				<ul>
-					<a class="waves-effect waves-light btn blue darken-2" id="btnReporteLabs">Laboratorios</a>
+					<a class="waves-effect waves-light btn blue darken-2" id="btnResumenReportes">Resumen</a>
+					<!-- Dropdown Trigger -->
+					  <a class='dropdown-button btn waves-effect waves-light blue darken-2' data-activates='dropdown1'>Inventarios</a>
+
+					  <!-- Dropdown Structure -->
+					  <ul id='dropdown1' class='dropdown-content'>
+					    <li><a id="btnExistenciaInventario">Existencias</a></li>
+					    <li><a id="btnMaterialDañado">En reparación</a></li>
+					    <li><a id="btnMaterialEnPrestamo">En prestamo</a></li>
+					    <li><a id="btnPedidoMaterial">Pedidos</a></li>
+					  </ul>
 				</ul>
+			</div>
+			<div id="resumenReportes">
+				<h5>Resumen</h5>
+				<?php include 'resumenReportes.php';?>
+			</div>
+			<div id="existenciaInventario">
+				<?php include 'existenciaInventario.php';?>
+			</div>
+			<div id="pedidoMaterial">
+				<?php include 'pedidoMaterial.php';?>
 			</div>
 		</div>
 		<div id="salir">

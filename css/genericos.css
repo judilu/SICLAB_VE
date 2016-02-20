@@ -1,7 +1,7 @@
 #altaArticulos, #alumnosSancionados, #atenderSolicitud, #bajaArticulos, #devolucionMaterial, 
 #editar, #inventarios, #laboratorios, #peticionesArticulos, #peticionesPendientes,#reportes,
 #sAceptadasLab, #salir, #sancionesAlumnos, #aplicaSanciones, #solicitudesEnProceso,  
-#verMasSolicitud, #verMasSolicitud2
+#verMasSolicitud, #verMasSolicitud2,#existenciaInventario,#pedidoMaterial
 {
 	display: none;
 }

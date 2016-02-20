@@ -116,6 +116,27 @@ var inicio = function()
 		$("#listaArt").hide();
 		$("#editar").show("slow");
 	}
+
+	//Reportes
+	var resumenReportes=function()
+	{
+		$("#resumenReportes").show("slow");
+		$("#existenciaInventario").hide();
+		$("#pedidoMaterial").hide();
+	}
+	var existenciaInventario=function()
+	{
+		$("#existenciaInventario").show("slow");
+		$("#resumenReportes").hide();
+		$("#pedidoMaterial").hide();
+		
+	}
+	var pedidoMaterial=function()
+	{
+		$("#pedidoMaterial").show("slow");
+		$("#resumenReportes").hide();
+		$("#existenciaInventario").hide();
+	}
 	
 	//Prestamos
 	$("#btnPendientes").on("click",prestamosPendientes);
@@ -142,5 +163,22 @@ var inicio = function()
 	$("#btnPeticionesPendientes").on("click",peticionesPendientesArt);
 	$("#btnPeticionArticulo").on("click",peticionesArticulos);
 	$("#btnAtender").on("click",atenderSolicitud);	
+
+	//Reportes
+	$("#btnResumenReportes").on("click",resumenReportes);
+	$("#btnExistenciaInventario").on("click",existenciaInventario)
+	$("#btnPedidoMaterial").on("click",pedidoMaterial);
+
+
+	$('.dropdown-button').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrain_width: true, // Does not change width of dropdown to that of the activator
+      hover: true, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: false, // Displays dropdown below the button
+      alignment: 'left' // Displays dropdown with edge aligned to the left of button
+    }
+  );
 }
 $(document).on("ready",inicio);
