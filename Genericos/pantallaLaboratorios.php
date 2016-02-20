@@ -91,6 +91,7 @@
 					  <!-- Dropdown Structure -->
 					  <ul id='dropdown1' class='dropdown-content'>
 					    <li><a id="btnExistenciaInventario">Existencias</a></li>
+					    <li><a id="btnBajoInventario">Bajo inventario</a></li>
 					    <li><a id="btnMaterialDañado">En reparación</a></li>
 					    <li><a id="btnMaterialEnPrestamo">En prestamo</a></li>
 					    <li><a id="btnPedidoMaterial">Pedidos</a></li>
@@ -100,6 +101,9 @@
 			<div id="resumenReportes">
 				<h5>Resumen</h5>
 				<?php include 'resumenReportes.php';?>
+			</div>
+			<div id="bajoInventario">
+				<?php include 'bajoInventario.php';?>
 			</div>
 			<div id="existenciaInventario">
 				<?php include 'existenciaInventario.php';?>

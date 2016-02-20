@@ -5,115 +5,115 @@ var inicio = function()
 	//Prestamos
 	var prestamosPendientes = function()
 	{
-		$("#atenderSolicitud").hide();
-		$("#solicitudesEnProceso").hide();
+		$("#atenderSolicitud").hide("slow");
+		$("#solicitudesEnProceso").hide("slow");
 		$("#solicitudesPendientes").show("slow");
 		$("#solicitudesPendientes2").show("slow");
 	}
 	var prestamosProceso = function()
 	{
-		$("#solicitudesPendientes").hide();
-		$("#devolucionMaterial").hide();
-		$("#alumnosSancionados").hide();
+		$("#solicitudesPendientes").hide("slow");
+		$("#devolucionMaterial").hide("slow");
+		$("#alumnosSancionados").hide("slow");
 		$("#solicitudesEnProceso").show("slow");
 		$("#solicitudesEnProceso2").show("slow");
 	}
 	var listaSanciones = function()
 	{	
-		$("#solicitudesPendientes").hide();
-		$("#devolucionMaterial").hide();
-		$("#solicitudesEnProceso").hide();
+		$("#solicitudesPendientes").hide("slow");
+		$("#devolucionMaterial").hide("slow");
+		$("#solicitudesEnProceso").hide("slow");
 		$("#alumnosSancionados").show("slow");
 		$("#listaSanciones2").show("slow");
 	}
 	var aplicaSancion = function()
 	{		
-		$("#devolucionMaterial2").hide();
+		$("#devolucionMaterial2").hide("slow");
 		$("#aplicaSanciones").show("slow");
 	}
 	var devolucionMaterial = function()
 	{		
-		$("#solicitudesEnProceso2").hide();
-		$("#aplicaSanciones").hide();
+		$("#solicitudesEnProceso2").hide("slow");
+		$("#aplicaSanciones").hide("slow");
 		$("#devolucionMaterial").show("slow");
 		$("#devolucionMaterial2").show("slow");
 	}
 	//Laboratorios
 	var sLaboratorioPendientes = function()
 	{
-		$("#sAceptadasLab").hide();
-		$("#verMasSolicitud").hide();
+		$("#sAceptadasLab").hide("slow");
+		$("#verMasSolicitud").hide("slow");
 		$("#sPendientesLab").show("slow");
 		$("#solicitudesPendientesLab2").show("slow");
 	}
 	var sLaboratorioAceptadas = function()
 	{
-		$("#sPendientesLab").hide();
-		$("#verMasSolicitud2").hide();
+		$("#sPendientesLab").hide("slow");
+		$("#verMasSolicitud2").hide("slow");
 		$("#sAceptadasLab").show("slow");
 		$("#solicitudesAceptadasLab2").show("slow");
 	}
 	var verMas = function()
 	{		
-		$("#solicitudesPendientesLab2").hide();
+		$("#solicitudesPendientesLab2").hide("slow");
 		$("#verMasSolicitud").show("slow");
 	}
 	var verMas2 = function()
 	{		
-		$("#solicitudesAceptadasLab2").hide();
+		$("#solicitudesAceptadasLab2").hide("slow");
 		$("#verMasSolicitud2").show("slow");
 	}
 	//Inventario
 	var listaArticulos = function()
 	{
-		$("#altaArticulos").hide();
-		$("#bajaArticulos").hide();
-		$("#editar").hide();
-		$("#peticionesPendientes").hide();
-		$("#peticionesArticulos").hide();
+		$("#altaArticulos").hide("slow");
+		$("#bajaArticulos").hide("slow");
+		$("#editar").hide("slow");
+		$("#peticionesPendientes").hide("slow");
+		$("#peticionesArticulos").hide("slow");
 		$("#listaArt").show("slow");
 		$("#pantallaInventario").show("slow");
 	}
 	var altaArticulos = function()
 	{
-		$("#pantallaInventario").hide();
-		$("#bajaArticulos").hide();
-		$("#peticionesPendientes").hide();
-		$("#peticionesArticulos").hide();
+		$("#pantallaInventario").hide("slow");
+		$("#bajaArticulos").hide("slow");
+		$("#peticionesPendientes").hide("slow");
+		$("#peticionesArticulos").hide("slow");
 		$("#altaArticulos").show("slow");
 	}
 	var bajaArticulos = function()
 	{
-		$("#altaArticulos").hide();
-		$("#pantallaInventario").hide();
-		$("#peticionesPendientes").hide();
-		$("#peticionesArticulos").hide();
+		$("#altaArticulos").hide("slow");
+		$("#pantallaInventario").hide("slow");
+		$("#peticionesPendientes").hide("slow");
+		$("#peticionesArticulos").hide("slow");
 		$("#bajaArticulos").show("slow");
 	}
 	var peticionesPendientesArt = function()
 	{
-		$("#altaArticulos").hide();
-		$("#pantallaInventario").hide();
-		$("#bajaArticulos").hide();
-		$("#peticionesArticulos").hide();
+		$("#altaArticulos").hide("slow");
+		$("#pantallaInventario").hide("slow");
+		$("#bajaArticulos").hide("slow");
+		$("#peticionesArticulos").hide("slow");
 		$("#peticionesPendientes").show("slow");
 	}
 	var peticionesArticulos = function()
 	{
-		$("#altaArticulos").hide();
-		$("#pantallaInventario").hide();
-		$("#bajaArticulos").hide();
-		$("#peticionesPendientes").hide();
+		$("#altaArticulos").hide("slow");
+		$("#pantallaInventario").hide("slow");
+		$("#bajaArticulos").hide("slow");
+		$("#peticionesPendientes").hide("slow");
 		$("#peticionesArticulos").show("slow");
 	}
 	var atenderSolicitud = function()
 	{		
-		$("#solicitudesPendientes2").hide();
+		$("#solicitudesPendientes2").hide("slow");
 		$("#atenderSolicitud").show("slow");
 	}
 	var editarArticulo = function()
 	{		
-		$("#listaArt").hide();
+		$("#listaArt").hide("slow");
 		$("#editar").show("slow");
 	}
 
@@ -121,21 +121,32 @@ var inicio = function()
 	var resumenReportes=function()
 	{
 		$("#resumenReportes").show("slow");
-		$("#existenciaInventario").hide();
-		$("#pedidoMaterial").hide();
+		$("#existenciaInventario").hide("slow");
+		$("#pedidoMaterial").hide("slow");
+		$("#bajoInventario").hide("slow");
 	}
 	var existenciaInventario=function()
 	{
 		$("#existenciaInventario").show("slow");
-		$("#resumenReportes").hide();
-		$("#pedidoMaterial").hide();
+		$("#resumenReportes").hide("slow");
+		$("#pedidoMaterial").hide("slow");
+		$("#bajoInventario").hide("slow");
+		
+	}
+	var bajoInventario = function()
+	{
+		$("#bajoInventario").show("slow");
+		$("#resumenReportes").hide("slow");
+		$("#existenciaInventario").hide("slow");
+		$("#pedidoMaterial").hide("slow");
 		
 	}
 	var pedidoMaterial=function()
 	{
 		$("#pedidoMaterial").show("slow");
-		$("#resumenReportes").hide();
-		$("#existenciaInventario").hide();
+		$("#resumenReportes").hide("slow");
+		$("#existenciaInventario").hide("slow");
+		$("#bajoInventario").hide("slow");
 	}
 	
 	//Prestamos
@@ -166,8 +177,10 @@ var inicio = function()
 
 	//Reportes
 	$("#btnResumenReportes").on("click",resumenReportes);
-	$("#btnExistenciaInventario").on("click",existenciaInventario)
+	$("#btnExistenciaInventario").on("click",existenciaInventario);
+	$("#btnBajoInventario").on("click",bajoInventario);
 	$("#btnPedidoMaterial").on("click",pedidoMaterial);
+
 
 
 	$('.dropdown-button').dropdown({

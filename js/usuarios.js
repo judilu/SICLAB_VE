@@ -43,7 +43,7 @@ var inicio = function ()
 							break;
 
 						}
-						$(".acceso").hide();
+						$(".acceso").hide("slow");
 						$(".accesoAlumno").show("slow");
 						console.log(response.tipo);
 					}
