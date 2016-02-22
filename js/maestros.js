@@ -30,7 +30,7 @@ var inicio = function ()
 				alert("Error de conexión");	
 			}
 		});
-		$("#sAceptadasMaestro").show("");	
+		$("#sAceptadasMaestro").show("slow");	
 	}
 	var solPendientes = function()
 	{
@@ -66,17 +66,17 @@ var inicio = function ()
 		$("#sAceptadasMaestro").hide();
 		$("#sPendientesMaestro").hide();
 		$("#eleccionMaterial").hide();
-		$("#sNuevaMaestro").show("");
-		$("#principal").show("slow");
+		$("#sNuevaMaestro").show("slow");
+		$("#nuevaMaestro").show("slow");
 	}
 	var elegirMaterial = function()
 	{
-		$("#principal").hide();
+		$("#nuevaMaestro").hide();
 		$("#eleccionMaterial").show("slow");
 	}
 	var editarSolicitudLab = function()
 	{
-		alert($(this).closest("td").children("input").val());
+		$(this).closest("td").children("input").val();
 		$("#solicitudesPendientesLab").hide();
 		$("#editarSolicitudLab").show("slow");
 	}
@@ -102,7 +102,7 @@ var inicio = function ()
 	$("#btnElegirMaterial").on("click",elegirMaterial);
 	$("#btnRegresar").on("click",solNueva);
 	$("#tabSolPendientes").on("click", "#btnEditarSolicitudLab" , editarSolicitudLab);
-	$('ul.tabs').tabs('select_tab', 'solicitudestab',probando);
+	$('ul.tabs').tabs('select_tab', 'solicitudestab');
 	//Configuramos los eventos Menu Reportes
 	$("#btnListaAsistencia").on("click",listaAsistencia);
 	$("#btnRegresarla").on("click",regresar);

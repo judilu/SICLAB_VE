@@ -6,24 +6,23 @@
 <body>
 	<div id="listaAsistencia">
 		<div id="selecionarLista">
-			<div class="col s12 m8 offset-m2 l6 offset-l3">
-				<div class="row valign-wrapper">
-					<div class="col s4">
-						<img src="..\img\persona.png" alt="" class="circle responsive-img">
-					</div>
-					<div class="input-field col s3">
-						<input id="txtClaveMaestro" type="text" class="validate">
-						<label for="txtClaveMaestro">Clave</label>
-					</div>
-					<div class="input-field col s5">
-						<input id="txtNombreMaestro" type="text" class="validate">
-						<label for="txtNombreMaestro">Nombre</label>
+			<div class="row">
+				<div class="col s12">
+					<div class="row">
+						<div class="input-field col s3">
+							<input id="txtClaveMaestro" type="text" class="validate">
+							<label for="txtClaveMaestro">Clave</label>
+						</div>
+						<div class="input-field col s5 offset-s3">
+							<input id="txtNombreMaestro" type="text" class="validate">
+							<label for="txtNombreMaestro">Nombre</label>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col s12">
-					<div class="input-field col s5 offset-s1" id="selectGrupo">
+					<div class="input-field col s5" id="selectGrupo">
 						<select>
 							<option value="" disabled selected>Seleccione el grupo</option>
 							<option value="1">Option 1</option>
@@ -32,7 +31,7 @@
 						</select>
 						<label>Grupo</label>
 					</div>
-					<div class="input-field col s5 " id="selectPractica">
+					<div class="input-field col s5 offset-s1" id="selectPractica">
 						<select>
 							<option value="" disabled selected>Seleccione la práctica</option>
 							<option value="1">Option 1</option>
@@ -48,9 +47,9 @@
 					<div class="row">
 						<div class="input-field col s3">
 							<input type="date" class="datepicker">
-							<label for="txtFecha">Fecha</label>
+							<label for="txtFecha"></label>
 						</div>
-						<div class="input-field col s3">
+						<div class="input-field col s2">
 							<input type="time" value="07:00:00">
 							<label class="active" for="txtHora">Hora</label>
 						</div>
