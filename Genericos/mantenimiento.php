@@ -1,4 +1,4 @@
-<div id="formularioEditar">
+<div id="mantenimientoArt">
 	<div class="col s12 m8 offset-m2 l6 offset-l3">
 		<div class="row">
 			<div class="col s2">
@@ -9,7 +9,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row" >
+	<div class="row">
 		<div class="col s12">
 			<div class="row">
 				<div class="input-field col s4">
@@ -40,33 +40,34 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="input-field col s6">
-					<textarea id="txtDescripcionArt" type="text" class="materialize-textarea"></textarea>
-					<label class="active" for="txtDescripcionArt">Descripción del artículo</label>
+				<div class="input-field col s5">
+					<input id="txtLugarReparacion" type="text" class="validate">
+					<label class="active" for="txtNombreArt">Lugar de reparación</label>
 				</div>
-				<div class="input-field col s6">
-					<textarea id="txtDescripcionUso" type="text" class="materialize-textarea"></textarea>
-					<label class="active" for="txtDescripcionUso">Descripción de uso</label>
-				</div>
-			</div>
-			<div class="row">
-				<div class="input-field col s2">
-					<input id="txtUnidadMedida" type="text" class="validate">
-					<label class="active" for="txtUnidadMedida">Unidad de medida</label>
+				<div class="input-field col s4">
+					<input type="date" class="datepicker">
+					<label for="txtFecha"></label>
 				</div>
 				<div class="input-field col s2 offset-s1">
-					<input id="txtTipoContenedor" type="text" class="validate">
-					<label class="active" for="txtTipoContenedor">Tipo de contenedor</label>
-				</div>
-				<div class="input-field col s6 offset-s1">
-					<textarea id="txtMotivoBaja" type="text" class="materialize-textarea"></textarea>
-					<label class="active" for="txtMotivoBaja">Observaciones</label>
+					<select>
+						<option value="" disabled selected>Hora</option>
+						<option value="1">10:00</option>
+						<option value="2">11:00</option>
+						<option value="3">12:00</option>
+					</select>
+					<label>Hora</label>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col s7 offset-s5">
-					<a id="btnAceptar" class="waves-effect waves-light btn green darken-2 "><i class="material-icons left">done</i>Aceptar</a>
-					<a id="btnRegresarEditarArt" class="waves-effect btn amber darken-2"><i class="material-icons left">reply</i>Regresar</a>
+				<div class="input-field col s6">
+					<textarea id="txtDescripcionUso" type="text" class="materialize-textarea"></textarea>
+					<label class="active" for="txtDescripcionUso">Motivo de la reparación</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s5 offset-s7">
+					<a id="btnGuardaMantenimiento" class="waves-effect waves-light btn green darken-2"><i class="material-icons left">done</i>Aceptar</a>
+					<a id="btnCancelarBaja" class="waves-effect btn red darken-1"><i class="material-icons left">clear</i>Cancelar</a>
 				</div>
 			</div>
 		</div>

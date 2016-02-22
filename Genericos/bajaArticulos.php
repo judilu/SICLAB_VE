@@ -1,6 +1,6 @@
 <div id="bajaArticulos2">
 	<div class="col s12 m8 offset-m2 l6 offset-l3">
-		<div class="row valign-wrapper">
+		<div class="row">
 			<div class="col s2">
 				<img src="../img/persona.png" alt="" class="circle responsive-img">
 			</div>
@@ -64,8 +64,16 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col s5 offset-s7">
-					<a id="btnAltaArt" class="waves-effect waves-light btn green darken-2"><i class="material-icons left">done</i>Dar de Baja</a>
+			<div class="input-field col s5">
+					<select>
+						<option value="" disabled selected>Seleccione el tipo de salida</option>
+						<option value="1">Baja</option>
+						<option value="2">Merma</option>
+					</select>
+					<label>Tipo de salida</label>
+				</div>
+				<div class="col s5 offset-s2">
+					<a id="btnBajaArt" class="waves-effect waves-light btn green darken-2"><i class="material-icons left">done</i>Dar de Baja</a>
 					<a id="btnCancelarBaja" class="waves-effect btn red darken-1"><i class="material-icons left">clear</i>Cancelar</a>
 				</div>
 			</div>
