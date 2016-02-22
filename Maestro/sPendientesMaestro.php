@@ -2,7 +2,6 @@
 <html lang="es">
 <head>
 	<link rel="stylesheet" href="../css/maestro.css">
-	<!--<?php include '../Inicio/head.php';?>-->
 </head>
 <body>
 	<div class="solPendientesMaestro">
@@ -39,9 +38,4 @@
 		</div>
 	</div>
 </body>
-<!--
-<footer>
-		<?php include '..\Inicio\footer.php';?>
-</footer>
--->
 </html>

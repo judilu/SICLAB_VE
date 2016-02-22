@@ -91,6 +91,10 @@ var inicio = function ()
 		$("#lista").hide();
 		$("#selecionarLista").show("slow");
 	}
+	var probando = function()
+	{
+		alert("nose estoy probando");
+	}
 	//Configuramos los eventos Menu Solicitudes
 	$("#btnSolicitudesAceptadas").on("click",solAceptadas);
 	$("#btnSolicitudesPendientes").on("click",solPendientes);
@@ -98,6 +102,7 @@ var inicio = function ()
 	$("#btnElegirMaterial").on("click",elegirMaterial);
 	$("#btnRegresar").on("click",solNueva);
 	$("#tabSolPendientes").on("click", "#btnEditarSolicitudLab" , editarSolicitudLab);
+	$('ul.tabs').tabs('select_tab', 'solicitudestab',probando);
 	//Configuramos los eventos Menu Reportes
 	$("#btnListaAsistencia").on("click",listaAsistencia);
 	$("#btnRegresarla").on("click",regresar);

@@ -64,7 +64,7 @@ function solicitudesPendientes ()
 		$renglones .= "<td>".$row["ALUSEX"]."</td>";
 		$renglones .= "<td><input type='hidden' value='876' /><a class='btn-floating btn-large 
 		waves-effect waves-light amber darken-2' id='btnEditarSolicitudLab'>
-		<i class='material-icons'>mode_edit</i></a><a class='btn-floating btn-large 
+		<i class='material-icons'>mode_edit</i></a> <a class='btn-floating btn-large 
 		waves-effect waves-light red darken-1' id='btnEliminarSolicitudLab'><i class='material-icons'>
 		delete</i></a></td>";
 		$renglones .= "</tr>";
