@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col s12">
 				<ul class="tabs">
-					<li class="tab col s3 active"><a id="soliAceptadas" href="#solicitudes">Solicitudes</a></li>
+					<li id= "solicitudestab" class="tab col s3 active"><a id="soliAceptadas" href="#solicitudes">Solicitudes</a></li>
 					<li class="tab col s3"><a href="#reportes">Reportes</a></li>
 					<li class="tab col s3"><a href="#salir">Salir</a></li>
 				</ul>

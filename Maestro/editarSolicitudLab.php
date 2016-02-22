@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<!--<?php include '..\Inicio\head.php';?>-->
 	<script src="..\js\maestros.js"></script>
 </head>
 <body>
@@ -63,9 +62,4 @@
 	</div>
 	</div>
 </body>
-<!--
-<footer>
-		<?php include '..\Inicio\footer.php';?>
-</footer>
--->
 </html>
