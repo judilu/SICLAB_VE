@@ -1,40 +1,56 @@
-<div id="eleccionMaterial" class="body2">
+<div id="eleccionMaterialAlumno2">
 	<div class="row">
-		<h4>Elección de material           </h4>
+			<div class="col s3">
+				<div class="input-field col s12">
+					<input id="txtNumeroControl" type="text" class="validate">
+					<label for="txtNumeroControl">No. de control</label>
+				</div>
+			</div>
+			<div class="col s5">
+				<div class="input-field col s12">
+					<input id="txtNombre" type="text" class="validate">
+					<label for="txtNombre">Nombre</label>
+				</div>
+			</div>
+		<div class="col s2 offset-s1">Fecha: 01/12/2015</div>
+	</div>
+	<p id="textoMaterial">Por favor, seleccione los articulos y la cantidad de ellos que necesitará para su práctica.</p>
+	<div class="row">
 		<div class="col s10 offset-s1">
-			<table>
+			<table class="responsive-table highlight bordered">
 				<thead>
-					<tr class="col s12">
-						<th data-field="cantidad" class="col s2">Cantidad</th>
-						<th data-field="descripcion" class="col s9">Descripción</th>
-						<th data-field="seleccionar" class="col s1">Seleccionar</th>
+					<tr>
+						<th data-field="cantidad">Cantidad</th>
+						<th data-field="descripcion">Descripción</th>
+						<th data-field="disponibles">Disponibles</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="col s12">
-						<td class="col s2"><input type="number"></td>
-						<td class="col s9">Cautín</td>
-						<td class="col s1">
-							<p>
-								<input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
-								<label for="filled-in-box"></label>
-							</p>						
-						</td>
+					<tr>
+						<td>
+							<select class="browser-default col s5">
+								<option value="" disabled selected>Cantidad</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="1">4</option>
+								<option value="2">5</option>
+								<option value="3">6</option>
+							</select>
+						</td >
+						<td>Pasta para soldar</td>
+						<td>3</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col s5 offset-s4">
+		<div class="col s6 offset-s4">
 			<button class="btn waves-effect waves-light  green darken-2" type="submit" name="action" id="btnAceptar">Aceptar
 			</button>
 			<a class="waves-effect waves-light btn red darken-1" id="btnCancelar">Cancelar</a>
 		</div>
 	</div>
 </div>
-</body>
-<footer>
-	<?php include '..\Inicio\footer.php';?>
-</footer>
-</html>
+</div>
