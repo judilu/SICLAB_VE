@@ -4,5 +4,7 @@
 <link rel="stylesheet" href="..\css\materialize\css\materialize.css">
 <link rel="stylesheet" href="..\css\siclab.css">
 <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<script src="..\js\jquery-2.2.0.js"></script>
-<script src="..\js\materialize.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../sweetalert-master/dist/sweetalert.css">
+<script src="../js/jquery-2.2.0.js"></script>
+<script src="../js/materialize.min.js"></script>
+<script src="../sweetalert-master/dist/sweetalert.min.js"></script>

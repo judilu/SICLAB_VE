@@ -54,7 +54,7 @@
 			</div>
 			<div class="row">
 				<div class="col s4 offset-s4">
-					<a class="waves-effect waves-light btn green darken-2 " id="btnAceptar">Aceptar</a>
+					<a class="waves-effect waves-light btn green darken-2 " id="btnAceptarEdit">Aceptar</a>
 					<a class="waves-effect waves-light btn red darken-1" id="btnCancelarEdicionSolicitud">Cancelar</a>
 				</div>
 			</div>

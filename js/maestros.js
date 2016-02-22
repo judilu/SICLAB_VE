@@ -93,7 +93,22 @@ var inicio = function ()
 	}
 	var probando = function()
 	{
-		alert("nose estoy probando");
+		swal({
+			title: "Estas seguro que deseas editar la solicitud?",
+			text: "Una vez editado, puedes volver a editar..!",   
+			type: "warning",   
+			showCancelButton: true,   
+			confirmButtonColor: "#DD6B55",   
+			confirmButtonText: "SI",   
+			cancelButtonText: "NO",   
+			closeOnConfirm: false,   
+			closeOnCancel: false }, function(isConfirm){   
+				if (isConfirm) {swal("Deleted!", 
+					"Tu solicitud ha sido editada con éxito", 
+					"success");   } 
+				else {swal("Cancelled", "Tu solicitud no ha sido modificada", 
+					"error");} 
+			});
 	}
 	//Configuramos los eventos Menu Solicitudes
 	$("#btnSolicitudesAceptadas").on("click",solAceptadas);
@@ -102,7 +117,7 @@ var inicio = function ()
 	$("#btnElegirMaterial").on("click",elegirMaterial);
 	$("#btnRegresar").on("click",solNueva);
 	$("#tabSolPendientes").on("click", "#btnEditarSolicitudLab" , editarSolicitudLab);
-	$('ul.tabs').tabs('select_tab', 'solicitudestab');
+	$("#btnAceptarEdit").on("click",probando)
 	//Configuramos los eventos Menu Reportes
 	$("#btnListaAsistencia").on("click",listaAsistencia);
 	$("#btnRegresarla").on("click",regresar);
