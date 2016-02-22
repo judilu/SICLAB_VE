@@ -1,7 +1,8 @@
-#altaArticulos, #alumnosSancionados, #atenderSolicitud, #bajaArticulos, #devolucionMaterial, 
-#editar, #inventarios, #laboratorios, #peticionesArticulos, #peticionesPendientes,#reportes,
-#sAceptadasLab, #salir, #sancionesAlumnos, #aplicaSanciones, #solicitudesEnProceso,  
-#verMasSolicitud, #verMasSolicitud2,#existenciaInventario,#pedidoMaterial,#bajoInventario
+#altaArticulos, #alumnosSancionados, #aplicaSanciones, #atenderSolicitud, #bajaArticulos,
+#bajoInventario, #devolucionMaterial, #editar, #existenciaInventario, #inventarios, 
+#laboratorios, #pedidoMaterial, #peticionesArticulos, #peticionesPendientes, #reportes, 
+#sAceptadasLab, #salir, #sancionesAlumnos, #solicitudesEnProceso,  #verMasSolicitud, 
+#verMasSolicitud2
 {
 	display: none;
 }

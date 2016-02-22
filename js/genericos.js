@@ -2,6 +2,9 @@ var inicio = function()
 {
 	$('ul.tabs').tabs();
 	$('select').material_select(); //agregado
+	$('.collapsible').collapsible({
+      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
 	//Prestamos
 	var prestamosPendientes = function()
 	{
@@ -130,8 +133,7 @@ var inicio = function()
 		$("#existenciaInventario").show("slow");
 		$("#resumenReportes").hide("slow");
 		$("#pedidoMaterial").hide("slow");
-		$("#bajoInventario").hide("slow");
-		
+		$("#bajoInventario").hide("slow");	
 	}
 	var bajoInventario = function()
 	{
@@ -139,7 +141,6 @@ var inicio = function()
 		$("#resumenReportes").hide("slow");
 		$("#existenciaInventario").hide("slow");
 		$("#pedidoMaterial").hide("slow");
-		
 	}
 	var pedidoMaterial=function()
 	{
@@ -148,7 +149,6 @@ var inicio = function()
 		$("#existenciaInventario").hide("slow");
 		$("#bajoInventario").hide("slow");
 	}
-	
 	//Prestamos
 	$("#btnPendientes").on("click",prestamosPendientes);
 	$("#btnEnProceso").on("click",prestamosProceso);
@@ -174,14 +174,11 @@ var inicio = function()
 	$("#btnPeticionesPendientes").on("click",peticionesPendientesArt);
 	$("#btnPeticionArticulo").on("click",peticionesArticulos);
 	$("#btnAtender").on("click",atenderSolicitud);	
-
 	//Reportes
 	$("#btnResumenReportes").on("click",resumenReportes);
 	$("#btnExistenciaInventario").on("click",existenciaInventario);
 	$("#btnBajoInventario").on("click",bajoInventario);
 	$("#btnPedidoMaterial").on("click",pedidoMaterial);
-
-
 
 	$('.dropdown-button').dropdown({
       inDuration: 300,
