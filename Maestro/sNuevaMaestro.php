@@ -4,8 +4,8 @@
 	<link rel="stylesheet" href="../css/maestro.css">
 </head>
 <body>
-	<div class="solNuevaMaestro">
-		<div class="row" id="principal">
+	<div id="solNuevaMaestro">
+		<div class="row" id="nuevaMaestro">
 			<div class="col s12">
 				<div class="row">
 					<div class="input-field col s2">
@@ -26,16 +26,25 @@
 						<input type="date" class="datepicker">
 						<label for="txtFecha"></label>
 					</div>
-					<div class="input-field col s5">
+					<div class="input-field col s8">
 						<select>
-							<option value="" disabled selected>Seleccione el grupo</option>
-							<option value="1">Option 1</option>
-							<option value="2">Option 2</option>
-							<option value="3">Option 3</option>
+							<option value="" disabled selected>Seleccione la materia</option>
+							<option value="1">Principios electricos y aplicaciones digitales</option>
+							<option value="2">Circuitos Electricos</option>
+							<option value="3">Electronica analogica</option>
 						</select>
-						<label>Grupo</label>
+						<label>Materia</label>
 					</div>
-					<div class="input-field col s5">
+					<div class="input-field col s2">
+						<select>
+							<option value="" disabled selected>Seleccione la hora</option>
+							<option value="1">12:30</option>
+							<option value="2">01:00</option>
+							<option value="3">15:00</option>
+						</select>
+						<label>Hora</label>
+					</div>
+					<div class="input-field col s6">
 						<select>
 							<option value="" disabled selected>Seleccione la práctica</option>
 							<option value="1">Option 1</option>
@@ -50,7 +59,7 @@
 						<textarea id="textarea1" class="materialize-textarea"></textarea>
 						<label for="textarea1">Motivo de uso</label>
 					</div>
-					<div class="col s4">
+					<div class="col s4 offset-s1">
 						<a class="waves-effect waves-light btn amber darken-2" id="btnElegirMaterial">Elegir material</a>
 					</div>
 				</div>
@@ -61,7 +70,7 @@
 				<div class="col s12">
 					<div class="row">
 						<div class="input-field col s4 offset-s1">
-							<input placeholder="Nombre del artículo" id="txtNombreArticulo" type="text" class="validate">
+							<input id="txtNombreArticulo" type="text" class="validate">
 							<label for="txtNombreArticulo">Nombre del artículo</label>
 						</div>
 						<div class="col s3">
