@@ -1,6 +1,6 @@
 <div id="altaArticulos2">
 	<div class="col s12 m8 offset-m2 l6 offset-l3">
-		<div class="row valign-wrapper">
+		<div class="row">
 			<div class="col s2">
 				<img src="../img/persona.png" alt="" class="circle responsive-img">
 			</div>

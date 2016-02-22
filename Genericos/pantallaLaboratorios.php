@@ -55,6 +55,7 @@
 					<a class="waves-effect waves-light btn grey" id="btnArticulos">Articulos</a>
 					<a class="waves-effect waves-light btn blue darken-2" id="btnAlta">Alta</a>
 					<a class="waves-effect waves-light btn blue darken-2" id="btnBaja">Baja</a>
+					<a class="waves-effect waves-light btn blue darken-2" id="btnMantenimiento">Mantenimiento</a>
 					<a class="waves-effect waves-light btn blue darken-1" id="btnPeticionesPendientes">Peticiones pendientes</a>
 					<a class="waves-effect waves-light btn blue darken-1" id="btnPeticionArticulo">Petición artículo</a>
 				</ul>
@@ -70,6 +71,10 @@
 			<div id="bajaArticulos">
 				<h5>Baja de artículos</h5>
 				<?php include 'bajaArticulos.php';?>
+			</div>
+			<div id="mantenimientoArticulos">
+				<h5>Envío de articulos a mantenimiento</h5>
+				<?php include 'mantenimiento.php';?>
 			</div>
 			<div id="peticionesPendientes">
 				<h5>Peticiones pendientes</h5>

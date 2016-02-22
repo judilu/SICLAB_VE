@@ -9,6 +9,7 @@ var inicio = function()
 	var prestamosPendientes = function()
 	{
 		$("#atenderSolicitud").hide("slow");
+		$("#alumnosSancionados").hide("slow");
 		$("#solicitudesEnProceso").hide("slow");
 		$("#solicitudesPendientes").show("slow");
 		$("#solicitudesPendientes2").show("slow");
@@ -71,6 +72,7 @@ var inicio = function()
 	{
 		$("#altaArticulos").hide("slow");
 		$("#bajaArticulos").hide("slow");
+		$("#mantenimientoArticulos").hide("slow");
 		$("#editar").hide("slow");
 		$("#peticionesPendientes").hide("slow");
 		$("#peticionesArticulos").hide("slow");
@@ -81,6 +83,7 @@ var inicio = function()
 	{
 		$("#pantallaInventario").hide("slow");
 		$("#bajaArticulos").hide("slow");
+		$("#mantenimientoArticulos").hide("slow");
 		$("#peticionesPendientes").hide("slow");
 		$("#peticionesArticulos").hide("slow");
 		$("#altaArticulos").show("slow");
@@ -88,24 +91,36 @@ var inicio = function()
 	var bajaArticulos = function()
 	{
 		$("#altaArticulos").hide("slow");
+		$("#mantenimientoArticulos").hide("slow");
 		$("#pantallaInventario").hide("slow");
 		$("#peticionesPendientes").hide("slow");
 		$("#peticionesArticulos").hide("slow");
 		$("#bajaArticulos").show("slow");
 	}
+	var mantenimientoArticulos = function()
+	{
+		$("#altaArticulos").hide("slow");
+		$("#bajaArticulos").hide("slow");
+		$("#pantallaInventario").hide("slow");
+		$("#peticionesPendientes").hide("slow");
+		$("#peticionesArticulos").hide("slow");
+		$("#mantenimientoArticulos").show("slow");
+	}
 	var peticionesPendientesArt = function()
 	{
 		$("#altaArticulos").hide("slow");
-		$("#pantallaInventario").hide("slow");
 		$("#bajaArticulos").hide("slow");
+		$("#mantenimientoArticulos").hide("slow");
+		$("#pantallaInventario").hide("slow");
 		$("#peticionesArticulos").hide("slow");
 		$("#peticionesPendientes").show("slow");
 	}
 	var peticionesArticulos = function()
 	{
 		$("#altaArticulos").hide("slow");
-		$("#pantallaInventario").hide("slow");
 		$("#bajaArticulos").hide("slow");
+		$("#mantenimientoArticulos").hide("slow");
+		$("#pantallaInventario").hide("slow");
 		$("#peticionesPendientes").hide("slow");
 		$("#peticionesArticulos").show("slow");
 	}
@@ -171,6 +186,7 @@ var inicio = function()
 	$("#btnRegresarEditarArt").on("click",listaArticulos);
 	$("#btnAlta").on("click",altaArticulos);
 	$("#btnBaja").on("click",bajaArticulos);
+	$("#btnMantenimiento").on("click",mantenimientoArticulos);
 	$("#btnPeticionesPendientes").on("click",peticionesPendientesArt);
 	$("#btnPeticionArticulo").on("click",peticionesArticulos);
 	$("#btnAtender").on("click",atenderSolicitud);	
