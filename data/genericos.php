@@ -34,11 +34,17 @@ function solicitudesAceptadas ()
 						'renglones' => $renglones);
 	print json_encode($arrayJSON);
 }
+function altaInventario1 ()
+{
+	
+}
 //Menú principal
 $opc = $_POST["opc"];
 switch ($opc){
 	case 'solicitudesAceptadas1':
 	solicitudesAceptadas();
 	break;
+	case 'altaInventario1':
+	altaInventario1();
 } 
 ?>

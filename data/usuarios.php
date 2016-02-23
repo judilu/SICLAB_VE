@@ -1,36 +1,50 @@
 <?php
-/*function conectaBDSIE()
-{
-	//Servidor, Usuario, Contraseña
-	$conexion = mysql_connect('itculiacan.edu.mx', 'sieapibduser', 'B5fa4x_7*.*');
-	//Seleccionamos la BD
-	mysql_select_db('sieapibd');
-	return $conexion;
-}*/
 include '../data/conexion.php';
 function validaUsuario()
 {
-	$respuesta	= false;
-	$usu 		= GetSQLValueString($_POST["usuario"],"text");
-	$cve 		= GetSQLValueString(md5($_POST["cveUsuario"]),"text");
-	$tipo		= "0";
-	$conexion 	= conectaBDSICLAB();
-	$qryValida 	= sprintf("select * from lbusuarios where usuario=%s and cveUsuario=%s limit 1",$usu,$cve);
-	$res		= mysql_query($qryValida);
+	$respuesta		= false;
+	$usu 			= GetSQLValueString($_POST["usuario"],"text");
+	$cve 			= GetSQLValueString(md5($_POST["cveUsuario"]),"text");
+	$tipo			= "0";
+	$usuario 		= "";
+	$conexion 		= conectaBDSICLAB();
+	$qryValida 		= sprintf("select * from lbusuarios where usuario=%s and cveUsuario=%s limit 1",$usu,$cve);
+	$res			= mysql_query($qryValida);
 	if($row = mysql_fetch_array($res))
 	{
 		$respuesta = true;
 		$tipo = $row["tipoUsuario"];
+		$usuario = $row["usuario"];
 	}
 	$arrayJSON = array('respuesta' => $respuesta,
-						'tipo' => $tipo);
+						'tipo' => $tipo,
+						'usuario' => $usuario);
 	print json_encode($arrayJSON);
 }
+function claveUsuario1()
+{
+	$usu 			= GetSQLValueString($_POST["usuario"],"text");
+	$respuesta		= false;
+	$claveUsuario	= -1;
+	$conexion 		= conectaBDSICLAB();
+	$qryValida 		= sprintf("select * from lbusuarios where usuario=%s limit 1",$usu);
+	$res			= mysql_query($qryValida);
+	if($row = mysql_fetch_array($res))
+	{
+		$respuesta = true;
+		$claveUsuario = $row["claveUsuario"];
+	}
+	$arrayJSON = array('respuesta' => $respuesta,
+						'claveUsuario' => $claveUsuario);
+	print json_encode($arrayJSON); 
+} 
 //Menú principal
 $opc = $_POST["opc"];
 switch ($opc){
 	case 'validaUsuario':
 	validaUsuario();
 	break;
+	case 'claveUsuario1':
+	 claveUsuario1();
 } 
 ?>

@@ -1,3 +1,5 @@
+//<?php include 'usuarios.js';?>
+document.write('<script type="text/javascript"src="../js/usuarios.js"></script>');
 var inicio = function()
 {
 	$('ul.tabs').tabs();
@@ -87,6 +89,31 @@ var inicio = function()
 		$("#peticionesPendientes").hide("slow");
 		$("#peticionesArticulos").hide("slow");
 		$("#altaArticulos").show("slow");
+	}
+	var altaInventario = function()
+	{
+		var cveUsuario = usuarioNombre();
+		var parametros = "opc=altaInventario1"+
+		"&maestro="+"ALEJANDRO"+
+		"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/maestros.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					$("#tbSolAceptadas").html(response.renglones);
+				}
+				else
+					alert("No hay solicitudes");
+			},
+			error: function(xhr, ajaxOptions,x){
+				alert("Error de conexión");	
+			}
+		});
 	}
 	var bajaArticulos = function()
 	{
@@ -185,6 +212,7 @@ var inicio = function()
 	$("#btnEditarArt").on("click",editarArticulo);
 	$("#btnRegresarEditarArt").on("click",listaArticulos);
 	$("#btnAlta").on("click",altaArticulos);
+	$("#btnAltaArt").on("click",altaInventario);
 	$("#btnBaja").on("click",bajaArticulos);
 	$("#btnMantenimiento").on("click",mantenimientoArticulos);
 	$("#btnPeticionesPendientes").on("click",peticionesPendientesArt);
