@@ -41,9 +41,9 @@ mysql_select_db("sieapibd");
 function conectaBDSICLAB()
 {
 	//Servidor, Usuario, Contraseña
-	$conexion = mysql_connect("localhost","root","");
+	$conexion = mysql_connect("localhost","siclabuser","Ef22Ap17Jg12*.*");
 	//Seleccionamos la BD
-mysql_select_db("siclab");
+mysql_select_db("siclabbd");
 	return $conexion;
 }
 ?>
