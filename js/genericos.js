@@ -92,9 +92,63 @@ var inicio = function()
 	}
 	var altaInventario = function()
 	{
+		if($("#txtCodigoBarras").val()!="" && $("#txtModeloArt").val()!= "")
+		{
+			//aqui empieza todo
+			var cb 			= $("#txtCodigoBarras").val();
+			var modelo 		= $("#txtModeloArt").val();
+			var numSerie 	= $("#txtNumSerie").val();
+			var nombreArt	= $("#txtNombreArt").val();
+			var marca		= $("#txtMarcaArt").val();
+			var tc 			= $("#txtTipoContenedor").val();
+			var descripcion	= $("#txtDescripcionArt").val();
+			var desUso		= $("#txtDescripcionUso").val();
+			var um 			= $("#txtUnidadMedida").val();
+			var fechacad	= $("#txtFechaCaducidad").val();
+			var parametros = "opc=altaInventario1"+
+								"&cveUsuario="+$cveUsuario+
+								"&cb="+$cb+
+								"&modelo="+$modelo+
+								"&numSerie="+$numSerie+
+								"&nombreArt="+$nombreArt+
+								"&marca="+$marca+
+								"&tc="+$marca+
+								"&descripcion="+$descripcion+
+								"&desUso="+$desUso+
+								"&um="+$um+
+								"&fechacad="+fechacad+
+								"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/genericos.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					//aqui hace algo
+				}
+				else
+					alert("No se pudo insertar");
+			},
+			error: function(xhr, ajaxOptions,x){
+				alert("Error de conexión");	
+			}
+		});
+
+		}
+		else
+		{
+			sweetAlert("Error", 
+					"LLene todos los campos", 
+					"error"
+			);
+		}
 		var cveUsuario = usuarioNombre();
+		console.log(cveUsuario);
 		var parametros = "opc=altaInventario1"+
-		"&maestro="+"ALEJANDRO"+
+		"&cveUsuario="+$cveUsuario+
 		"&id="+Math.random();
 		$.ajax({
 			cache:false,

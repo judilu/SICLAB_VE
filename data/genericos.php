@@ -36,8 +36,33 @@ function solicitudesAceptadas ()
 }
 function altaInventario1 ()
 {
-	
-}
+	$cb 			= GetSQLValueString($_POST["cb"],"text");
+	$modelo			= GetSQLValueString($_POST["modelo"],"text");
+	$numSerie		= GetSQLValueString($_POST["numSerie"],"text");
+	$nombreArt 		= GetSQLValueString($_POST["nombreArt"],"text");
+	$marca			= GetSQLValueString($_POST["marca"],"text");
+	$tc				= GetSQLValueString($_POST["tc"],"text");
+	$descripcion	= GetSQLValueString($_POST["descripcion"],"text");
+	$desUso			= GetSQLValueString($_POST["desUso"],"text");
+	$um				= GetSQLValueString($_POST["um"],"text");
+	$fechacad		= GetSQLValueString($_POST["cveUsuario"],"text");
+	$cveUsuario		= GetSQLValueString($_POST["fechacad"],"text");
+	$cveArticulo 	= ""//pendiente
+	$idenArticulo	= ""//pendiente
+	$kit			= ""//pendiente
+	$ubicacion		= ""//pendiente
+	$estatus		= "V"
+	$ima			= "../img/person.png";
+	$respuesta 		= false;
+
+	$consulta		= sprintf("insert into lbarticulos values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                $cveArticulo,$nombreArt,$desUso,$descripcion,$numSerie,$marca,$modelo,$estatus,$um,$fechacad,$tc,$ima,$idenArticulo,$ubicacion,$kit);
+	$res = mysql_query($consulta);
+	if(mysql_affected_rows()>0)
+	{
+		$respuesta= true;
+	}
+}	
 //Menú principal
 $opc = $_POST["opc"];
 switch ($opc){
