@@ -12,8 +12,8 @@
 					<li id="tabPrestamos" class="tab col s2"><a class="active breadcrumb" href="#prestamos">Préstamos</a></li>
 					<li id="tabLabs" class="tab col s2"><a class="breadcrumb" href="#laboratorios">Laboratorios</a></li>
 					<li id="tabInventario" class="tab col s2"><a class="breadcrumb" href="#inventarios">Inventario</a></li>
-					<li id="tabReportes" class="tab col s2"><a class="breadcrumb" href="#reportes">Reportes</a></li>
-					<li class="tab col s2"><a class="breadcrumb" href="#salir">Salir</a></li>
+					<li id="tabReportesGenericos" class="tab col s2"><a class="breadcrumb" href="#reportesGenericos">Reportes</a></li>
+					<li id="tabSalir"class="tab col s2"><a class="breadcrumb" href="#salir">Salir</a></li>
 				</ul>
 			</div>
 		</div>
@@ -85,7 +85,7 @@
 				<?php include 'peticionesArticulos.php';?>
 			</div>
 		</div>
-		<div id="reportes">
+		<div id="reportesGenericos">
 			<div id="menuReportes">
 				<ul>
 					<a class="waves-effect waves-light btn blue darken-2" id="btnResumenReportes">Resumen</a>

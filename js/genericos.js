@@ -138,31 +138,31 @@ var inicio = function()
 	//Reportes
 	var resumenReportes=function()
 	{
-		$("#resumenReportes").show("slow");
 		$("#existenciaInventario").hide("slow");
 		$("#pedidoMaterial").hide("slow");
 		$("#bajoInventario").hide("slow");
+		$("#resumenReportes").show("slow");
 	}
 	var existenciaInventario=function()
 	{
-		$("#existenciaInventario").show("slow");
 		$("#resumenReportes").hide("slow");
 		$("#pedidoMaterial").hide("slow");
 		$("#bajoInventario").hide("slow");	
+		$("#existenciaInventario").show("slow");
 	}
 	var bajoInventario = function()
 	{
-		$("#bajoInventario").show("slow");
 		$("#resumenReportes").hide("slow");
 		$("#existenciaInventario").hide("slow");
 		$("#pedidoMaterial").hide("slow");
+		$("#bajoInventario").show("slow");
 	}
 	var pedidoMaterial=function()
 	{
-		$("#pedidoMaterial").show("slow");
 		$("#resumenReportes").hide("slow");
 		$("#existenciaInventario").hide("slow");
 		$("#bajoInventario").hide("slow");
+		$("#pedidoMaterial").show("slow");
 	}
 	//Prestamos
 	$("#btnPendientes").on("click",prestamosPendientes);
