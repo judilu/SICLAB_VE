@@ -95,79 +95,64 @@ var inicio = function()
 		if($("#txtCodigoBarras").val()!="" && $("#txtModeloArt").val()!= "")
 		{
 			//aqui empieza todo
+			var cveUsuario = usuarioNombre();
+			console.log(cveUsuario);
+			var img			= "../img/".$("#txtImg").val();
 			var idenArt		= $("#txtCodigoBarras").val();
 			var modelo 		= $("#txtModeloArt").val();
 			var numSerie 	= $("#txtNumSerie").val();
-			var nombreArt	= $("#txtNombreArt").val();
+			var nombreArt	= $("#txtNombreArt").val();//ocupo sacar el valor del select
 			var marca		= $("#txtMarcaArt").val();
 			var tc 			= $("#txtTipoContenedor").val();
 			var descripcion	= $("#txtDescripcionArt").val();
 			var desUso		= $("#txtDescripcionUso").val();
-			var um 			= $("#txtUnidadMedida").val();
+			var posicion	= document.getElementById('cmbNombreArt').options.selectedIndex;
+			var um 			= document.getElementById('cmbNombreArt').options[posicion].text);
+			console.log(um);
 			var fechacad	= $("#txtFechaCaducidad").val();
+			var claveKit	= $("#txtClaveKit").val();
+			var ubicacion	= $("#txtUbicacion").val();
 			var parametros = "opc=altaInventario1"+
-								"&cveUsuario="+$cveUsuario+
+								"&cveUsuario="+cveUsuario+
+								"&img="+$img+
 								"&idenArt="+$idenArt+
 								"&modelo="+$modelo+
 								"&numSerie="+$numSerie+
 								"&nombreArt="+$nombreArt+
 								"&marca="+$marca+
-								"&tc="+$marca+
-								"&descripcion="+$descripcion+
-								"&desUso="+$desUso+
-								"&um="+$um+
-								"&fechacad="+fechacad+
+								"&tc="+$tc+
+								"&=descripcion"+$descripcion+
+								"&=desUso"+$desUso+
+								"&=um"+$um+
+								"&=fechacad"+$fechacad+
+								"&=claveKit"+$claveKit+
+								"&=ubicacion"+$ubicacion+
 								"&id="+Math.random();
-		$.ajax({
-			cache:false,
-			type: "POST",
-			dataType: "json",
-			url:"../data/genericos.php",
-			data: parametros,
-			success: function(response){
-				if(response.respuesta == true)
-				{
-					//aqui hace algo
-				}
-				else
-					alert("No se pudo insertar");
-			},
-			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión");	
-			}
-		});
+								$.ajax({
+									cache:false,
+									type: "POST",
+									dataType: "json",
+									url:"../data/genericos.php",
+									data: parametros,
+									success: function(response){
+										if(response.respuesta == true)
+										{
+											//aqui hace algo
+										}
+										else
+											alert("No se pudo insertar");
+									},
+									error: function(xhr, ajaxOptions,x){
+										alert("Error de conexión");
+										sweetAlert("Error", 
+											"LLene todos los campos", 
+											"error"
+										);
+										console.log(um);	
+									}
+								});
 
 		}
-		else
-		{
-			sweetAlert("Error", 
-					"LLene todos los campos", 
-					"error"
-			);
-		}
-		var cveUsuario = usuarioNombre();
-		console.log(cveUsuario);
-		var parametros = "opc=altaInventario1"+
-		"&cveUsuario="+$cveUsuario+
-		"&id="+Math.random();
-		$.ajax({
-			cache:false,
-			type: "POST",
-			dataType: "json",
-			url:"../data/maestros.php",
-			data: parametros,
-			success: function(response){
-				if(response.respuesta == true)
-				{
-					$("#tbSolAceptadas").html(response.renglones);
-				}
-				else
-					alert("No hay solicitudes");
-			},
-			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión");	
-			}
-		});
 	}
 	var bajaArticulos = function()
 	{

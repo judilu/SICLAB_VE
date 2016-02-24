@@ -34,7 +34,7 @@
 			</div>
 			<div class="row">
 				<div class="input-field col s4">
-					<select>
+					<select id="cmbNombreArt">
 						<option value="" disabled selected>Seleccione</option>
 						<option value="1">Osiloscopio</option>
 						<option value="2">Cautín</option>
@@ -53,7 +53,7 @@
 			</div>
 			<div class="row">
 				<div class="input-field col s2">
-					<select>
+					<select id="cmbUm">
 						<option value="" disabled selected>Seleccione</option>
 						<option value="1">Pieza</option>
 						<option value="2">Litros</option>
@@ -65,8 +65,8 @@
 					<label>Unidad medida</label>
 				</div>
 				<div class="input-field col s2">
-					<input id="txtUnidadMedida" type="text" class="validate">
-					<label class="active" for="txtUnidadMedida">Clave kit</label>
+					<input id="txtClaveKit" type="text" class="validate">
+					<label class="active" for="txtClaveKit">Clave kit</label>
 				</div>
 				<div class="input-field col s3  offset-s1">
 					<input id="txtFechaCaducidad" type="text" class="validate">
