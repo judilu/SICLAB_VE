@@ -95,7 +95,7 @@ var inicio = function()
 		if($("#txtCodigoBarras").val()!="" && $("#txtModeloArt").val()!= "")
 		{
 			//aqui empieza todo
-			var cb 			= $("#txtCodigoBarras").val();
+			var idenArt		= $("#txtCodigoBarras").val();
 			var modelo 		= $("#txtModeloArt").val();
 			var numSerie 	= $("#txtNumSerie").val();
 			var nombreArt	= $("#txtNombreArt").val();
@@ -107,7 +107,7 @@ var inicio = function()
 			var fechacad	= $("#txtFechaCaducidad").val();
 			var parametros = "opc=altaInventario1"+
 								"&cveUsuario="+$cveUsuario+
-								"&cb="+$cb+
+								"&idenArt="+$idenArt+
 								"&modelo="+$modelo+
 								"&numSerie="+$numSerie+
 								"&nombreArt="+$nombreArt+
