@@ -1,5 +1,4 @@
-//<?php include 'usuarios.js';?>
-document.write('<script type="text/javascript"src="../js/usuarios.js"></script>');
+//document.write("<script type='text/javascript' src='../js/usuarios.js'></script>");
 var inicio = function()
 {
 	$('ul.tabs').tabs();
@@ -92,12 +91,13 @@ var inicio = function()
 	}
 	var altaInventario = function()
 	{
-		if($("#txtCodigoBarras").val()!="" && $("#txtModeloArt").val()!= "")
-		{
+		/*if($("#txtCodigoBarras").val()!="" && $("#txtModeloArt").val()!= "")
+		{*/
 			//aqui empieza todo
-			var cveUsuario = usuarioNombre();
-			console.log(cveUsuario);
-			var img			= "../img/".$("#txtImg").val();
+			alert("entroif");
+       		var cveUsuario = usuarioNombre();
+       		console.log(cveUsuario);
+			/*var img			= "../img/".$("#txtImg").val();
 			var idenArt		= $("#txtCodigoBarras").val();
 			var modelo 		= $("#txtModeloArt").val();
 			var numSerie 	= $("#txtNumSerie").val();
@@ -107,13 +107,11 @@ var inicio = function()
 			var descripcion	= $("#txtDescripcionArt").val();
 			var desUso		= $("#txtDescripcionUso").val();
 			var posicion	= document.getElementById('cmbNombreArt').options.selectedIndex;
-			var um 			= document.getElementById('cmbNombreArt').options[posicion].text);
-			console.log(um);
+			var um 			= document.getElementById('cmbNombreArt').options[posicion].text;
 			var fechacad	= $("#txtFechaCaducidad").val();
 			var claveKit	= $("#txtClaveKit").val();
 			var ubicacion	= $("#txtUbicacion").val();
 			var parametros = "opc=altaInventario1"+
-								"&cveUsuario="+cveUsuario+
 								"&img="+$img+
 								"&idenArt="+$idenArt+
 								"&modelo="+$modelo+
@@ -121,12 +119,12 @@ var inicio = function()
 								"&nombreArt="+$nombreArt+
 								"&marca="+$marca+
 								"&tc="+$tc+
-								"&=descripcion"+$descripcion+
-								"&=desUso"+$desUso+
-								"&=um"+$um+
-								"&=fechacad"+$fechacad+
-								"&=claveKit"+$claveKit+
-								"&=ubicacion"+$ubicacion+
+								"&descripcion="+$descripcion+
+								"&desUso="+$desUso+
+								"&um="+$um+
+								"&fechacad="+$fechacad+
+								"&claveKit="+$claveKit+
+								"&ubicacion="+$ubicacion+
 								"&id="+Math.random();
 								$.ajax({
 									cache:false,
@@ -143,16 +141,14 @@ var inicio = function()
 											alert("No se pudo insertar");
 									},
 									error: function(xhr, ajaxOptions,x){
-										alert("Error de conexión");
 										sweetAlert("Error", 
-											"LLene todos los campos", 
+											"Error de conexión", 
 											"error"
-										);
-										console.log(um);	
+										);	
 									}
 								});
-
-		}
+*/
+		//}
 	}
 	var bajaArticulos = function()
 	{
@@ -271,7 +267,6 @@ var inicio = function()
       gutter: 0, // Spacing from edge
       belowOrigin: false, // Displays dropdown below the button
       alignment: 'left' // Displays dropdown with edge aligned to the left of button
-    }
-  );
+    });
 }
 $(document).on("ready",inicio);

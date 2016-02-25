@@ -8,17 +8,17 @@ function validaUsuario()
 	$tipo			= "0";
 	$usuario 		= "";
 	$conexion 		= conectaBDSICLAB();
-	$qryValida 		= sprintf("select * from lbusuarios where usuario=%s and cveUsuario=%s limit 1",$usu,$cve);
-	$res			= mysql_query($qryValida);
+	$consulta 		= sprintf("select * from lbusuarios where usuario=%s and cveUsuario=%s limit 1",$usu,$cve);
+	$res			= mysql_query($consulta);
 	if($row = mysql_fetch_array($res))
 	{
 		$respuesta = true;
 		$tipo = $row["tipoUsuario"];
 		$usuario = $row["usuario"];
 	}
-	$arrayJSON = array('respuesta' => $respuesta,
-						'tipo' => $tipo,
-						'usuario' => $usuario);
+	$arrayJSON = array('respuesta' 	=> $respuesta,
+						'tipo' 		=> $tipo,
+						'usuario' 	=> $usuario);
 	print json_encode($arrayJSON);
 }
 function claveUsuario1()
@@ -27,8 +27,8 @@ function claveUsuario1()
 	$respuesta		= false;
 	$claveUsuario	= -1;
 	$conexion 		= conectaBDSICLAB();
-	$qryValida 		= sprintf("select * from lbusuarios where usuario=%s limit 1",$usu);
-	$res			= mysql_query($qryValida);
+	$consulta 		= sprintf("select * from lbusuarios where usuario=%s limit 1",$usu);
+	$res			= mysql_query($consulta);
 	if($row = mysql_fetch_array($res))
 	{
 		$respuesta = true;
