@@ -91,13 +91,14 @@ var inicio = function()
 	}
 	var altaInventario = function()
 	{
-		/*if($("#txtCodigoBarras").val()!="" && $("#txtModeloArt").val()!= "")
-		{*/
+		console.log("entro");
+		//if(($("#txtCodigoBarras").val())!="" && ($("#txtModeloArt").val())!= "")
+		//{
+			console.log("entro if");
 			//aqui empieza todo
-			alert("entroif");
-       		var cveUsuario = usuarioNombre();
-       		console.log(cveUsuario);
-			/*var img			= "../img/".$("#txtImg").val();
+       		//var cveUsuario = usuarioNombre();
+			var img			= "../img/"+$("#txtImg").val();
+			console.log(img);
 			var idenArt		= $("#txtCodigoBarras").val();
 			var modelo 		= $("#txtModeloArt").val();
 			var numSerie 	= $("#txtNumSerie").val();
@@ -111,7 +112,7 @@ var inicio = function()
 			var fechacad	= $("#txtFechaCaducidad").val();
 			var claveKit	= $("#txtClaveKit").val();
 			var ubicacion	= $("#txtUbicacion").val();
-			var parametros = "opc=altaInventario1"+
+			var parametros 	= "opc=altaInventario1"+
 								"&img="+$img+
 								"&idenArt="+$idenArt+
 								"&modelo="+$modelo+
@@ -135,19 +136,20 @@ var inicio = function()
 									success: function(response){
 										if(response.respuesta == true)
 										{
-											//aqui hace algo
+											console.log("true");
+											swal("El articulo fue dado de alta con éxito!", "Da clic en el botón OK!", "success");
 										}
 										else
-											alert("No se pudo insertar");
+										{
+											console.log("no se inserto");
+											sweetAlert("Error", "No se pudo insertar el articulo!", "error");
+										}
 									},
 									error: function(xhr, ajaxOptions,x){
-										sweetAlert("Error", 
-											"Error de conexión", 
-											"error"
-										);	
+										console.log("error conexión");
+										sweetAlert("Error", "Error de conexión", "error");	
 									}
 								});
-*/
 		//}
 	}
 	var bajaArticulos = function()

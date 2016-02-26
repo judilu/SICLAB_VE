@@ -27,6 +27,7 @@ function altaInventario1 ()
 	if(mysql_affected_rows()>0)
 	{
 		$respuesta= true;
+		
 	}
 	//insert a tabla lbmovimientosarticulos
 	$consulta2		= sprintf("insert into lbmovimientosarticulos values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
