@@ -91,32 +91,44 @@ var inicio = function()
 	}
 	var altaInventario = function()
 	{
-		console.log("entro");
-		//if(($("#txtCodigoBarras").val())!="" && ($("#txtModeloArt").val())!= "")
-		//{
-			console.log("entro if");
+		if(($("#txtCodigoBarras").val())!=' ' && ($("#txtModeloArt").val())!= ' ')
+		{
 			//aqui empieza todo
        		//var cveUsuario = usuarioNombre();
-			var ima			= $("#txtImg").val();
-			var idenArt		= $("#txtCodigoBarras").val();
-			var modelo 		= $("#txtModeloArt").val();
-			var numSerie 	= $("#txtNumSerie").val();
-			var nombreArt	= $("#txtNombreArt").val();//ocupo sacar el valor del select
-			var marca		= $("#txtMarcaArt").val();
-			var tc 			= $("#txtTipoContenedor").val();
-			var descripcion	= $("#txtDescripcionArt").val();
-			var desUso		= $("#txtDescripcionUso").val();
-			//var posicion	= document.getElementById('cmbNombreArt').options.selectedIndex;
-			//var um 			= document.getElementById('cmbNombreArt').options[posicion].text;
-			var fechacad	= $("#txtFechaCaducidad").val();
-			var claveKit	= $("#txtClaveKit").val();
-			var ubicacion	= $("#txtUbicacion").val();
-			var parametros 	= "opc=altaInventario1"+"&ima="+$ima+"&idenArt="+$idenArt+"&modelo="+$modelo+"&numSerie="+$numSerie+"&nombreArt="+$nombreArt+"&marca="+$marca+"&tc="+$tc+"&descripcion="+$descripcion+"&desUso="+$desUso+"&um="+$um+"&fechacad="+$fechacad+"&claveKit="+$claveKit+"&ubicacion="+$ubicacion+"&id="+Math.random();
+       		var claveArticulo				="2";
+			var imagen						= $("#txtImagen").val();
+			var identificadorArticulo		= "1";
+			var modelo 						= "uno";
+			var numeroSerie 				= "2313";
+			var nombreArticulo				= $("#cmbNombreArt").val();//ocupo sacar el valor del select
+			var marca						= "dos";
+			var tipoContenedor 				= "tres";
+			var descripcionArticulo			= "cuatro";
+			var descripcionUso				= "cinco";
+			var unidadMedida 				= $("#cmbUm").val();
+			var fechaCaducidad				= "12/12/1212";
+			var claveKit					= "32323";
+			var ubicacionAsignada			= $("#txtUbicacion").val();
+			var parametros 	= "opc=altaInventario1"+"&claveArticulo="+claveArticulo
+								+"&imagen="+imagen
+								+"&identificadorArticulo="+identificadorArticulo
+								+"&modelo="+modelo
+								+"&numeroSerie="+numeroSerie
+								+"&nombreArticulo="+nombreArticulo
+								+"&marca="+marca
+								+"&tipoContenedor="+tipoContenedor
+								+"&descripcionArticulo="+descripcionArticulo
+								+"&descripcionUso="+descripcionUso
+								+"&unidadMedida="+unidadMedida
+								+"&fechaCaducidad="+fechaCaducidad
+								+"&claveKit="+claveKit
+								+"&ubicacionAsignada="+ubicacionAsignada
+								+"&id="+Math.random();
 								$.ajax({
 									cache:false,
 									type: "POST",
 									dataType: "json",
-									url:"../data/genericos.php",
+									url:'../data/genericos.php',
 									data: parametros,
 									success: function(response){
 										if(response.respuesta == true)
@@ -129,11 +141,12 @@ var inicio = function()
 										}
 									},
 									error: function(xhr, ajaxOptions,x){
-										sweetAlert("Error", "Error de conexión", "error");	
+										sweetAlert("Error", "Error de conexión", "error");
+										console.log(xhr);
 									}
 								});
-								console.log("a"+parametros);
-		//}
+								console.log(parametros);
+		}
 	}
 	var bajaArticulos = function()
 	{

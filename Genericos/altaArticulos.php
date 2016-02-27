@@ -9,7 +9,7 @@
 							<input type="file">
 						</div>
 						<div class="file-path-wrapper">
-							<input class="file-path validate" type="text" id="txtImg">
+							<input class="file-path validate" type="text" id="txtImagen">
 						</div>
 					</div>
 				</form>
@@ -55,12 +55,12 @@
 				<div class="input-field col s2">
 					<select id="cmbUm">
 						<option value="" disabled selected>Seleccione</option>
-						<option value="1">Pieza</option>
-						<option value="2">Litros</option>
-						<option value="3">Mililitros</option>
-						<option value="4">Kilogramos</option>
-						<option value="5">Gramos</option>
-						<option value="6">Miligramos</option>
+						<option value="Pieza">Pieza</option>
+						<option value="Litros">Litros</option>
+						<option value="Mililitros">Mililitros</option>
+						<option value="Kilogramos">Kilogramos</option>
+						<option value="Gramos">Gramos</option>
+						<option value="Miligramos">Miligramos</option>
 					</select>
 					<label>Unidad medida</label>
 				</div>
