@@ -48,10 +48,14 @@ var inicio = function ()
 						$(".accesoAlumno").show("slow");
 					}
 					else
-						alert("Usuario y/o contraseña incorrectos");
+					{
+						sweetAlert("Usuario y/o contraseña incorrectos", "tecle un usuario y/o contraseña correctos", "error");
+					}
 				},
 				error: function(xhr,ajaxOptions,x){
-					alert("Error de conexión");
+					sweetAlert("Error de conexión", "Problemas de conexión!", "error");
+					usu = $("#txtUsuario").val("");
+					cve = $("#txtClave").val("");
 				}
 			});
 		}
@@ -75,7 +79,7 @@ var inicio = function ()
 				if(response.respuesta == true)
 				{
 					return response.claveUsuario;
-					console.log(response.claveUsuario);
+					console.log("clave"+response.claveUsuario);
 				}
 			},
 			error: function(xhr, ajaxOptions,x){

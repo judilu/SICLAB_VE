@@ -97,8 +97,7 @@ var inicio = function()
 			console.log("entro if");
 			//aqui empieza todo
        		//var cveUsuario = usuarioNombre();
-			var img			= "../img/"+$("#txtImg").val();
-			console.log(img);
+			var ima			= $("#txtImg").val();
 			var idenArt		= $("#txtCodigoBarras").val();
 			var modelo 		= $("#txtModeloArt").val();
 			var numSerie 	= $("#txtNumSerie").val();
@@ -107,26 +106,12 @@ var inicio = function()
 			var tc 			= $("#txtTipoContenedor").val();
 			var descripcion	= $("#txtDescripcionArt").val();
 			var desUso		= $("#txtDescripcionUso").val();
-			var posicion	= document.getElementById('cmbNombreArt').options.selectedIndex;
-			var um 			= document.getElementById('cmbNombreArt').options[posicion].text;
+			//var posicion	= document.getElementById('cmbNombreArt').options.selectedIndex;
+			//var um 			= document.getElementById('cmbNombreArt').options[posicion].text;
 			var fechacad	= $("#txtFechaCaducidad").val();
 			var claveKit	= $("#txtClaveKit").val();
 			var ubicacion	= $("#txtUbicacion").val();
-			var parametros 	= "opc=altaInventario1"+
-								"&img="+$img+
-								"&idenArt="+$idenArt+
-								"&modelo="+$modelo+
-								"&numSerie="+$numSerie+
-								"&nombreArt="+$nombreArt+
-								"&marca="+$marca+
-								"&tc="+$tc+
-								"&descripcion="+$descripcion+
-								"&desUso="+$desUso+
-								"&um="+$um+
-								"&fechacad="+$fechacad+
-								"&claveKit="+$claveKit+
-								"&ubicacion="+$ubicacion+
-								"&id="+Math.random();
+			var parametros 	= "opc=altaInventario1"+"&ima="+$ima+"&idenArt="+$idenArt+"&modelo="+$modelo+"&numSerie="+$numSerie+"&nombreArt="+$nombreArt+"&marca="+$marca+"&tc="+$tc+"&descripcion="+$descripcion+"&desUso="+$desUso+"&um="+$um+"&fechacad="+$fechacad+"&claveKit="+$claveKit+"&ubicacion="+$ubicacion+"&id="+Math.random();
 								$.ajax({
 									cache:false,
 									type: "POST",
@@ -136,20 +121,18 @@ var inicio = function()
 									success: function(response){
 										if(response.respuesta == true)
 										{
-											console.log("true");
 											swal("El articulo fue dado de alta con éxito!", "Da clic en el botón OK!", "success");
 										}
 										else
 										{
-											console.log("no se inserto");
 											sweetAlert("Error", "No se pudo insertar el articulo!", "error");
 										}
 									},
 									error: function(xhr, ajaxOptions,x){
-										console.log("error conexión");
 										sweetAlert("Error", "Error de conexión", "error");	
 									}
 								});
+								console.log("a"+parametros);
 		//}
 	}
 	var bajaArticulos = function()
