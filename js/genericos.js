@@ -88,6 +88,28 @@ var inicio = function()
 		$("#peticionesPendientes").hide("slow");
 		$("#peticionesArticulos").hide("slow");
 		$("#altaArticulos").show("slow");
+
+		var parametros = "opc=comboBoxAlta1"+
+		"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:'../data/genericos.php',
+			data: parametros,
+			success: function(response){
+			if(response.respuesta == true)
+				{
+					$("#cmbNombreArt").append(response.option);
+				}
+				else
+					alert("No hay materiales");
+			},
+			error: function(xhr, ajaxOptions,x){
+				alert("Error de conexión");
+				console.log(xhr);
+			}
+		});
 	}
 	var altaInventario = function()
 	{
