@@ -3,12 +3,11 @@ include '../data/conexion.php';
 function altaInventario1 ()
 {
 	//$cveUsuario		= GetSQLValueString($_POST[""],"text");
-	$conexion4 					= conectaBDSICLAB();
+	$conexion					= conectaBDSICLAB();
 	$imagen						= GetSQLValueString($_POST["imagen"],"text");
 	$identificadorArticulo 		= GetSQLValueString($_POST["identificadorArticulo"],"text");
 	$modelo						= GetSQLValueString($_POST["modelo"],"text");
 	$numeroSerie				= GetSQLValueString($_POST["numeroSerie"],"text");
-	$nombreArticulo				= GetSQLValueString($_POST["nombreArticulo"],"text");
 	$marca						= GetSQLValueString($_POST["marca"],"text");
 	$tipoContenedor				= GetSQLValueString($_POST["tipoContenedor"],"text");
 	$descripcionArticulo		= GetSQLValueString($_POST["descripcionArticulo"],"text");
@@ -19,16 +18,14 @@ function altaInventario1 ()
 	$ubicacionAsignada			= GetSQLValueString($_POST["ubicacionAsignada"],"text");
 	$claveArticulo 				= GetSQLValueString($_POST["claveArticulo"],"text");	
 	//$claveArticulo = claveArt(nombreArt);
-	$estatus 					= "V";
+	$estatus 					= GetSQLValueString($_POST["estatus"],"text");
 	$respuesta 					= false;
 	//insert a tabla lbarticulos
 	$consulta= sprintf("insert into lbarticulos values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 				$claveArticulo,$descripcionUso,$descripcionArticulo,$numeroSerie,$marca,$modelo,$estatus,$unidadMedida,$fechaCaducidad,$tipoContenedor,$imagen,$identificadorArticulo,$ubicacionAsignada,$claveKit);
-	$res = mysql_query($consulta);
-	echo($consulta);
-		if(mysql_affected_rows()>0){
+		$resconsulta = mysql_query($consulta);
+		if(mysql_affected_rows()>0)
 			$respuesta = true; 
-		}
 	
 $salidaJSON = array('respuesta' => $respuesta);
 print json_encode($salidaJSON);

@@ -95,26 +95,25 @@ var inicio = function()
 		{
 			//aqui empieza todo
        		//var cveUsuario = usuarioNombre();
-       		var claveArticulo				="2";
-			var imagen						= $("#txtImagen").val();
-			var identificadorArticulo		= "1";
-			var modelo 						= "uno";
-			var numeroSerie 				= "2313";
-			var nombreArticulo				= $("#cmbNombreArt").val();//ocupo sacar el valor del select
-			var marca						= "dos";
-			var tipoContenedor 				= "tres";
-			var descripcionArticulo			= "cuatro";
-			var descripcionUso				= "cinco";
+       		var imagen						= $("#txtImagenAlta").val();
+			var identificadorArticulo		= $("#txtCodigoBarrasAlta").val();
+			var modelo 						= $("#txtModeloArtAlta").val();
+			var numeroSerie 				= $("#txtNumSerieAlta").val();
+			var claveArticulo				= $("#cmbNombreArt").val();//ocupo sacar el valor del select
+			var marca						= $("#txtMarcaArtAlta").val();
+			var tipoContenedor 				= $("#txtTipoContenedorAlta").val();
+			var descripcionArticulo			= $("#txtDescripcionArtAlta").val();
+			var descripcionUso				= $("#txtDescripcionUsoAlta").val();
 			var unidadMedida 				= $("#cmbUm").val();
-			var fechaCaducidad				= "12/12/1212";
-			var claveKit					= "32323";
-			var ubicacionAsignada			= $("#txtUbicacion").val();
+			var fechaCaducidad				= $("#txtFechaCaducidadAlta").val();
+			var claveKit					= $("#txtClaveKitAlta").val();
+			var ubicacionAsignada			= $("#txtUbicacionAlta").val();
+			var estatus						= "V";
 			var parametros 	= "opc=altaInventario1"+"&claveArticulo="+claveArticulo
 								+"&imagen="+imagen
 								+"&identificadorArticulo="+identificadorArticulo
 								+"&modelo="+modelo
 								+"&numeroSerie="+numeroSerie
-								+"&nombreArticulo="+nombreArticulo
 								+"&marca="+marca
 								+"&tipoContenedor="+tipoContenedor
 								+"&descripcionArticulo="+descripcionArticulo
@@ -123,6 +122,7 @@ var inicio = function()
 								+"&fechaCaducidad="+fechaCaducidad
 								+"&claveKit="+claveKit
 								+"&ubicacionAsignada="+ubicacionAsignada
+								+"&estatus="+estatus
 								+"&id="+Math.random();
 								$.ajax({
 									cache:false,
@@ -142,7 +142,6 @@ var inicio = function()
 									},
 									error: function(xhr, ajaxOptions,x){
 										sweetAlert("Error", "Error de conexión", "error");
-										console.log(xhr);
 									}
 								});
 								console.log(parametros);
