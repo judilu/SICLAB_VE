@@ -42,6 +42,7 @@ head{
 #logo img
 {
   width: 100%;
+  margin-top: 6px;
 }
 #tecladoNumerico .filaNumeros .btn-large
 {
