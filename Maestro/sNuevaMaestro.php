@@ -44,7 +44,7 @@
 						</select>
 						<label>Hora</label>
 					</div>
-					<div class="input-field col s6">
+					<div class="input-field col s7">
 						<select>
 							<option value="" disabled selected>Seleccione la práctica</option>
 							<option value="1">Option 1</option>
@@ -52,6 +52,10 @@
 							<option value="3">Option 3</option>
 						</select>
 						<label>Práctica</label>
+					</div>
+					<div class="input-field col s3 offset-s1">
+							<input id="txtCantAlumnos" type="number" class="validate">
+							<label for="txtCantAlumnos">Cantidad de alumnos</label>
 					</div>
 				</div>
 				<div class="row">

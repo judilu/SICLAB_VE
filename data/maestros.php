@@ -15,6 +15,7 @@ function solicitudesAceptadas ()
 	$renglones	.= "<th data-field='laboratorio'>Laboratorio</th>";
 	$renglones	.= "<th data-field='fecha'>Fecha</th>";
 	$renglones	.= "<th data-field='hora'>Hora</th>";
+	$renglones	.= "<th data-field='accion'>Acción</th>";
 	$renglones	.= "</tr>";
 	$renglones	.= "</thead>";
 	while($row = mysql_fetch_array($res))
@@ -26,6 +27,7 @@ function solicitudesAceptadas ()
 		$renglones .= "<td>".$row["ALUAPM"]."</td>";
 		$renglones .= "<td>".$row["ALUNOM"]."</td>";
 		$renglones .= "<td>".$row["ALUSEX"]."</td>";
+		$renglones .= "<td><a class='btn-floating btn-large waves-effect waves-light green darken-2' id='btnPracticaRealizada'><i class='material-icons'>thumb_up</i></a></td>";
 		$renglones .= "</tr>";
 		$renglones .= "</tbody>";
 		$respuesta = true;
