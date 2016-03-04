@@ -42,9 +42,11 @@
 							<option value="2">01:00</option>
 							<option value="3">15:00</option>
 						</select>
-						<label>Hora</label>
+						<label>Hora de la materia</label>
 					</div>
-					<div class="input-field col s7">
+				</div>
+				<div class="row">
+					<div class="input-field col s8">
 						<select>
 							<option value="" disabled selected>Seleccione la práctica</option>
 							<option value="1">Option 1</option>
@@ -53,9 +55,18 @@
 						</select>
 						<label>Práctica</label>
 					</div>
-					<div class="input-field col s3 offset-s1">
-							<input id="txtCantAlumnos" type="number" class="validate">
-							<label for="txtCantAlumnos">Cantidad de alumnos</label>
+					<div class="input-field col s2">
+						<select>
+							<option value="" disabled selected>Seleccione la hora</option>
+							<option value="1">12:30</option>
+							<option value="2">01:00</option>
+							<option value="3">15:00</option>
+						</select>
+						<label>Hora de la práctica</label>
+					</div>
+					<div class="input-field col s2">
+						<input id="txtCantAlumnos" type="number" class="validate">
+						<label for="txtCantAlumnos">Cant. de alumnos</label>
 					</div>
 				</div>
 				<div class="row">
@@ -69,6 +80,7 @@
 				</div>
 			</div>
 		</div>
+		<!-- //elección material -->
 		<div id="eleccionMaterial">
 			<div class="row">
 				<div class="col s12">
@@ -115,6 +127,7 @@
 				</div>
 			</div>
 		</div>
+		<!-- Termina elección material -->
 	</div>
 </body>
 </html>
