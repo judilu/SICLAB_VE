@@ -11,7 +11,7 @@
 				<ul class="tabs">
 					<li id= "solicitudestab" class="tab col s3 active"><a id="soliAceptadas" href="#solicitudes">Solicitudes</a></li>
 					<li class="tab col s3"><a href="#reportes">Reportes</a></li>
-					<li class="tab col s3"><a href="#salir">Salir</a></li>
+					<li class="tab col s4"><a href="#salir">Salir</a></li>
 				</ul>
 			</div>
 		</div>
@@ -20,18 +20,20 @@
 				<ul>
 					<button class="waves-effect waves-light btn grey" id="btnSolicitudesAceptadas">Aceptadas</button>
 					<button class="waves-effect waves-light btn blue darken-1" id="btnSolicitudesPendientes">Pendientes</button>
+					<button class="waves-effect waves-light btn blue darken-1" id="btnSolicitudesRealizadas">Realizadas</button>
 					<button class="waves-effect waves-light btn blue darken-2" id="btnNuevaSolicitud">Nueva</button>
 				</ul>
 			</div>
 			<div id="sAceptadasMaestro">
-				<h5>Solicitudes aceptadas</h5>
 				<?php include 'sAceptadasMaestro.php';?>
 			</div>
 			<div id="sPendientesMaestro">
 				<?php include 'sPendientesMaestro.php';?>
 			</div>
+			<div id="sRealizadas">
+				<?php include 'sRealizadasMaestro.php';?>
+			</div>
 			<div id="sNuevaMaestro">
-				<h5>Nueva solicitud</h5>
 				<?php include 'sNuevaMaestro.php';?>
 			</div>
 		</div>

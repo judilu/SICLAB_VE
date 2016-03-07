@@ -4,11 +4,11 @@
 	<script src="..\js\maestros.js"></script>
 </head>
 <body>
-	<div class="solAceptadasMaestro">
+	<div class="solRealizadasMaestro">
+	<h5>Prácticas Realizadas</h5>
 		<div class="row">
-		<h5>Solicitudes aceptadas</h5>
 			<div class="col s8 offset-s2">
-				<table id="tbSolAceptadas">
+				<table id="tbSolRealizadas">
 					<!-- <thead>
 						<tr>
 							<th data-field="materia">Materia</th>

@@ -14,7 +14,7 @@
 					<li id="tabLabs" class="tab col s2"><a class="breadcrumb" href="#laboratorios">Laboratorios</a></li>
 					<li id="tabInventario" class="tab col s2"><a class="breadcrumb" href="#inventarios">Inventario</a></li>
 					<li id="tabReportesGenericos" class="tab col s2"><a class="breadcrumb" href="#reportesGenericos">Reportes</a></li>
-					<li id="tabSalir"class="tab col s2"><a class="breadcrumb" href="#salir">Salir</a></li>
+					<li id="tabSalir"class="tab col s3"><a class="breadcrumb" href="#salir">Salir</a></li>
 				</ul>
 			</div>
 		</div>

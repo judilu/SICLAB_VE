@@ -8,6 +8,7 @@ var inicio = function ()
 		//ocultar los div
 		$("#sNuevaMaestro").hide();
 		$("#sPendientesMaestro").hide();
+		$("#sRealizadas").hide();
 		//contenido dinamico
 		var parametros = "opc=solicitudesAceptadas1"+
 		"&maestro="+"ALEJANDRO"+
@@ -37,6 +38,7 @@ var inicio = function ()
 		$("#sNuevaMaestro").hide();
 		$("#sAceptadasMaestro").hide();
 		$("#editarSolicitudLab").hide();
+		$("#sRealizadas").hide();
 		var parametros = "opc=solicitudesPendientes1"+
 		"&maestro="+"ALEJANDRA"+
 		"&id="+Math.random();
@@ -61,13 +63,89 @@ var inicio = function ()
 		$("#sPendientesMaestro").show("slow");
 		$("#solicitudesPendientesLab").show("slow");	
 	}
+	var solRealizadas = function()
+	{
+		//ocultar los div
+		$("#sNuevaMaestro").hide();
+		$("#sAceptadasMaestro").hide();
+		$("#sPendientesMaestro").hide();
+		$("#sRealizadas").hide();
+		//contenido dinamico
+		var parametros = "opc=solicitudesRealizadas1"+
+		"&maestro="+"ALEJANDRA"+
+		"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/maestros.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					$("#tbSolRealizadas").html(response.renglones);
+				}
+				else
+					alert("No hay practicas realizadas");
+			},
+			error: function(xhr, ajaxOptions,x){
+				alert("Error de conexión");	
+			}
+		});
+		$("#sRealizadas").show("slow");
+	}
 	var solNueva = function()
 	{
 		$("#sAceptadasMaestro").hide();
 		$("#sPendientesMaestro").hide();
+		$("#sRealizadas").hide();
 		$("#eleccionMaterial").hide();
 		$("#sNuevaMaestro").show("slow");
 		$("#nuevaMaestro").show("slow");
+		//contenido Dinamico
+		if(($("#txtCodigoBarras").val())!=' ' && ($("#txtModeloArt").val())!= ' ')
+		{
+			//aqui empieza todo
+       		//var cveUsuario = usuarioNombre();
+       		var imagen						= $("#txtImagenAlta").val();
+			var parametros 	= "opc=altaInventario1"+"&claveArticulo="+claveArticulo
+			+"&imagen="+imagen
+			+"&identificadorArticulo="+identificadorArticulo
+			+"&modelo="+modelo
+			+"&numeroSerie="+numeroSerie
+			+"&marca="+marca
+			+"&tipoContenedor="+tipoContenedor
+			+"&descripcionArticulo="+descripcionArticulo
+			+"&descripcionUso="+descripcionUso
+			+"&unidadMedida="+unidadMedida
+			+"&fechaCaducidad="+fechaCaducidad
+			+"&claveKit="+claveKit
+			+"&ubicacionAsignada="+ubicacionAsignada
+			+"&estatus="+estatus
+			+"&id="+Math.random();
+			$.ajax({
+				cache:false,
+				type: "POST",
+				dataType: "json",
+				url:'../data/genericos.php',
+				data: parametros,
+				success: function(response){
+					if(response.respuesta == true)
+					{
+						swal("El articulo fue dado de alta con éxito!", "Da clic en el botón OK!", "success");
+					}
+					else
+					{
+						sweetAlert("Error", "No se pudo insertar el articulo!", "error");
+					}
+				},
+				error: function(xhr, ajaxOptions,x){
+					sweetAlert("Error", "Error de conexión", "error");
+				}
+			});
+			console.log(parametros);
+		}
+		
 	}
 	var elegirMaterial = function()
 	{
@@ -106,13 +184,14 @@ var inicio = function ()
 				if (isConfirm) {swal("Deleted!", 
 					"Tu solicitud ha sido editada con éxito", 
 					"success");   } 
-				else {swal("Cancelled", "Tu solicitud no ha sido modificada", 
-					"error");} 
-			});
+					else {swal("Cancelled", "Tu solicitud no ha sido modificada", 
+						"error");} 
+				});
 	}
 	//Configuramos los eventos Menu Solicitudes
 	$("#btnSolicitudesAceptadas").on("click",solAceptadas);
 	$("#btnSolicitudesPendientes").on("click",solPendientes);
+	$("#btnSolicitudesRealizadas").on("click",solRealizadas)
 	$("#btnNuevaSolicitud").on("click",solNueva);
 	$("#btnElegirMaterial").on("click",elegirMaterial);
 	$("#btnRegresar").on("click",solNueva);
