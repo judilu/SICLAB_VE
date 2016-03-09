@@ -11,7 +11,6 @@ var inicio = function ()
 		$("#sRealizadas").hide();
 		//contenido dinamico
 		var parametros = "opc=solicitudesAceptadas1"+
-		"&maestro="+"ALEJANDRO"+
 		"&id="+Math.random();
 		$.ajax({
 			cache:false,
@@ -28,7 +27,8 @@ var inicio = function ()
 					alert("No hay solicitudes");
 			},
 			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión");	
+				alert("Error de conexión");
+				console.log(xhr);	
 			}
 		});
 		$("#sAceptadasMaestro").show("slow");	

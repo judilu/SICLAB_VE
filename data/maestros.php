@@ -1,36 +1,48 @@
 <?php
 include '../data/conexion.php';
+function usuario ()
+{
+	session_start();
+	//$maestro2	= "'".$_POST["clave1"]."'";
+	$_SESSION['nombre'] = $_POST['clave1'];
+
+}
 function solicitudesAceptadas ()
-{	
-	$maestro	= "'".$_POST["maestro"]."'";
+{
 	$respuesta 	= false;
-	$renglones	= "";
-	$conexion 	= conectaBDSIE();
-	$consulta	= sprintf("select * from DALUMN WHERE ALUNOM=%s LIMIT 5",$maestro);
-	$res 		= mysql_query($consulta);
-	$renglones	.= "<thead>";
-	$renglones	.= "<tr>";
-	$renglones	.= "<th data-field='materia'>Materia</th>";
-	$renglones	.= "<th data-field='nombrePractica'>Nombre de la práctica</th>";
-	$renglones	.= "<th data-field='laboratorio'>Laboratorio</th>";
-	$renglones	.= "<th data-field='fecha'>Fecha</th>";
-	$renglones	.= "<th data-field='hora'>Hora</th>";
-	$renglones	.= "<th data-field='accion'>Acción</th>";
-	$renglones	.= "</tr>";
-	$renglones	.= "</thead>";
-	while($row = mysql_fetch_array($res))
-	{
-		$renglones .= "<tbody>";
-		$renglones .= "<tr>";
-		$renglones .= "<td>".$row["ALUCTR"]."</td>";
-		$renglones .= "<td>".$row["ALUAPP"]."</td>";
-		$renglones .= "<td>".$row["ALUAPM"]."</td>";
-		$renglones .= "<td>".$row["ALUNOM"]."</td>";
-		$renglones .= "<td>".$row["ALUSEX"]."</td>";
-		$renglones .= "<td><a class='btn-floating btn-large waves-effect waves-light green darken-2' id='btnPracticaRealizada'><i class='material-icons'>thumb_up</i></a></td>";
-		$renglones .= "</tr>";
-		$renglones .= "</tbody>";
-		$respuesta = true;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{ 
+
+		$maestro	= $_SESSION['nombre'];
+		$renglones	= "";
+		$conexion 	= conectaBDSIE();
+		$consulta	= sprintf("select * from DALUMN WHERE ALUCTR=%s LIMIT 1",$maestro);
+		$res 		= mysql_query($consulta);
+		$renglones	.= "<thead>";
+		$renglones	.= "<tr>";
+		$renglones	.= "<th data-field='materia'>Materia</th>";
+		$renglones	.= "<th data-field='nombrePractica'>Nombre de la práctica</th>";
+		$renglones	.= "<th data-field='laboratorio'>Laboratorio</th>";
+		$renglones	.= "<th data-field='fecha'>Fecha</th>";
+		$renglones	.= "<th data-field='hora'>Hora</th>";
+		$renglones	.= "<th data-field='accion'>Acción</th>";
+		$renglones	.= "</tr>";
+		$renglones	.= "</thead>";
+		while($row = mysql_fetch_array($res))
+		{
+			$renglones .= "<tbody>";
+			$renglones .= "<tr>";
+			$renglones .= "<td>".$row["ALUCTR"]."</td>";
+			$renglones .= "<td>".$row["ALUAPP"]."</td>";
+			$renglones .= "<td>".$row["ALUAPM"]."</td>";
+			$renglones .= "<td>".$row["ALUNOM"]."</td>";
+			$renglones .= "<td>".$row["ALUSEX"]."</td>";
+			$renglones .= "<td><a class='btn-floating btn-large waves-effect waves-light green darken-2' id='btnPracticaRealizada'><i class='material-icons'>thumb_up</i></a></td>";
+			$renglones .= "</tr>";
+			$renglones .= "</tbody>";
+			$respuesta = true;
+		}
 	}
 	$arrayJSON = array('respuesta' => $respuesta,
 		'renglones' => $renglones);
@@ -115,6 +127,9 @@ function solicitudesRealizadas ()
 //Menú principal
 $opc = $_POST["opc"];
 switch ($opc){
+	case 'usuario1':
+	usuario();
+	break;
 	case 'solicitudesAceptadas1':
 	solicitudesAceptadas();
 	break;

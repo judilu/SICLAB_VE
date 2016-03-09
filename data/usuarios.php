@@ -13,12 +13,19 @@ function validaUsuario()
 	if($row = mysql_fetch_array($res))
 	{
 		$respuesta = true;
-		$tipo = $row["tipoUsuario"];
+		$claveUsuario = $row["claveUsuario"];
 		$usuario = $row["usuario"];
+		$tipo = $row["tipoUsuario"];
+		$percve = $row["PERCVE"];
+		$aluctr = $row["ALUCTR"];
 	}
-	$arrayJSON = array('respuesta' 	=> $respuesta,
-						'tipo' 		=> $tipo,
-						'usuario' 	=> $usuario);
+	$arrayJSON = array('respuesta' 		=> $respuesta,
+						'claveUsuario' 	=> $claveUsuario,
+						'usuario' 		=> $usuario,
+						'tipo' 			=> $tipo,
+						'percve'		=> $percve,
+						'aluctr'		=> $aluctr
+						);
 	print json_encode($arrayJSON);
 }
 function claveUsuario1()

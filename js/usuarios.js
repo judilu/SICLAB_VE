@@ -42,10 +42,24 @@ var inicio = function ()
 							case "6":
 							$("#acceso").hide();
 							$("#maestro").show("slow");
+							//MODIFIQUE
+							 var parametros = "opc=usuario1"+"&clave1="+response.aluctr+"&id="+Math.random();
+				               $.ajax({  
+				                    cache:false,
+				                    type: "POST",
+				                    dataType: "json",
+				                    url:"../data/maestros.php",
+				                    data: parametros, 
+				                    success: function(data) {  
+				                            $(".acceso").hide("slow");
+				                            $(".accesoAlumno").show("slow");  
+				                    }  
+				                }); 
+							//FIN MODIFICACIONES
 							break;
 						}
-						$(".acceso").hide("slow");
-						$(".accesoAlumno").show("slow");
+						/*$(".acceso").hide("slow");
+						$(".accesoAlumno").show("slow");*/
 					}
 					else
 					{
@@ -61,7 +75,7 @@ var inicio = function ()
 		}
 		else
 		{
-			alert("nombre de usuario y contraseña incorrectos");
+			sweetAlert("Usuario y/o contraseña incorrectos", "tecle un usuario y/o contraseña correctos", "error");
 		}
 	}
 	var usuarioNombre = function()
