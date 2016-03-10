@@ -10,8 +10,8 @@
 			<div class="col s12">
 				<ul class="tabs">
 					<li id= "solicitudestab" class="tab col s3 active"><a id="soliAceptadas" href="#solicitudes">Solicitudes</a></li>
-					<li class="tab col s3"><a href="#reportes">Reportes</a></li>
-					<li class="tab col s4"><a href="#salir">Salir</a></li>
+					<li id="reportestab" class="tab col s3"><a href="#reportes">Reportes</a></li>
+					<li id= "salirTab" class="tab col s4"><a href="#salir">Salir</a></li>
 				</ul>
 			</div>
 		</div>

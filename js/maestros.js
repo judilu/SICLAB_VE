@@ -3,6 +3,23 @@ var inicio = function ()
 	$('ul.tabs').tabs();
 	$('select').material_select(); //agregado
 	//eventos menu Solicitudes
+	var salir = function()
+	{
+		swal({   	title: "¿Estas seguro que deseas salir?",   
+			text: "",   
+			type: "warning",   
+			showCancelButton: true,   
+			confirmButtonColor: "#DD6B55",   
+			confirmButtonText: "Si",   
+			cancelButtonText: "No",   
+			closeOnConfirm: false,   closeOnCancel: false }, function(isConfirm)
+			{   
+				if (isConfirm) 
+					{ swal("Adios..!");} 
+			else {swal("OK..!",
+				"Aún sigues en el sistema", "error");   } 
+		});
+	}
 	var solAceptadas = function()
 	{
 		//ocultar los div
@@ -108,56 +125,56 @@ var inicio = function ()
 			//aqui empieza todo
        		//var cveUsuario = usuarioNombre();
        		var imagen						= $("#txtImagenAlta").val();
-			var parametros 	= "opc=altaInventario1"+"&claveArticulo="+claveArticulo
-			+"&imagen="+imagen
-			+"&identificadorArticulo="+identificadorArticulo
-			+"&modelo="+modelo
-			+"&numeroSerie="+numeroSerie
-			+"&marca="+marca
-			+"&tipoContenedor="+tipoContenedor
-			+"&descripcionArticulo="+descripcionArticulo
-			+"&descripcionUso="+descripcionUso
-			+"&unidadMedida="+unidadMedida
-			+"&fechaCaducidad="+fechaCaducidad
-			+"&claveKit="+claveKit
-			+"&ubicacionAsignada="+ubicacionAsignada
-			+"&estatus="+estatus
-			+"&id="+Math.random();
-			$.ajax({
-				cache:false,
-				type: "POST",
-				dataType: "json",
-				url:'../data/genericos.php',
-				data: parametros,
-				success: function(response){
-					if(response.respuesta == true)
-					{
-						swal("El articulo fue dado de alta con éxito!", "Da clic en el botón OK!", "success");
-					}
-					else
-					{
-						sweetAlert("Error", "No se pudo insertar el articulo!", "error");
-					}
-				},
-				error: function(xhr, ajaxOptions,x){
-					sweetAlert("Error", "Error de conexión", "error");
-				}
-			});
-			console.log(parametros);
-		}
-		
-	}
-	var elegirMaterial = function()
-	{
-		$("#nuevaMaestro").hide();
-		$("#eleccionMaterial").show("slow");
-	}
-	var editarSolicitudLab = function()
-	{
-		$(this).closest("td").children("input").val();
-		$("#solicitudesPendientesLab").hide();
-		$("#editarSolicitudLab").show("slow");
-	}
+       		var parametros 	= "opc=altaInventario1"+"&claveArticulo="+claveArticulo
+       		+"&imagen="+imagen
+       		+"&identificadorArticulo="+identificadorArticulo
+       		+"&modelo="+modelo
+       		+"&numeroSerie="+numeroSerie
+       		+"&marca="+marca
+       		+"&tipoContenedor="+tipoContenedor
+       		+"&descripcionArticulo="+descripcionArticulo
+       		+"&descripcionUso="+descripcionUso
+       		+"&unidadMedida="+unidadMedida
+       		+"&fechaCaducidad="+fechaCaducidad
+       		+"&claveKit="+claveKit
+       		+"&ubicacionAsignada="+ubicacionAsignada
+       		+"&estatus="+estatus
+       		+"&id="+Math.random();
+       		$.ajax({
+       			cache:false,
+       			type: "POST",
+       			dataType: "json",
+       			url:'../data/genericos.php',
+       			data: parametros,
+       			success: function(response){
+       				if(response.respuesta == true)
+       				{
+       					swal("El articulo fue dado de alta con éxito!", "Da clic en el botón OK!", "success");
+       				}
+       				else
+       				{
+       					sweetAlert("Error", "No se pudo insertar el articulo!", "error");
+       				}
+       			},
+       			error: function(xhr, ajaxOptions,x){
+       				sweetAlert("Error", "Error de conexión", "error");
+       			}
+       		});
+       		console.log(parametros);
+       	}
+
+       }
+       var elegirMaterial = function()
+       {
+       	$("#nuevaMaestro").hide();
+       	$("#eleccionMaterial").show("slow");
+       }
+       var editarSolicitudLab = function()
+       {
+       	$(this).closest("td").children("input").val();
+       	$("#solicitudesPendientesLab").hide();
+       	$("#editarSolicitudLab").show("slow");
+       }
 	//eventos menu Reportes
 	var listaAsistencia = function()
 	{
@@ -188,6 +205,9 @@ var inicio = function ()
 						"error");} 
 				});
 	}
+	//Configuramos el evento del Tab
+	$("#salirTab").on("click",salir);
+	$("#solicitudestab").on("click",solAceptadas);
 	//Configuramos los eventos Menu Solicitudes
 	$("#btnSolicitudesAceptadas").on("click",solAceptadas);
 	$("#btnSolicitudesPendientes").on("click",solPendientes);
