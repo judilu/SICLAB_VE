@@ -15,7 +15,7 @@ var inicio = function ()
 			closeOnConfirm: false,   closeOnCancel: false }, function(isConfirm)
 			{   
 				if (isConfirm) 
-					{ swal("Adios..!");} 
+					{ swal("Adios!", "Tu puedes volver a ingresar al sistema", "success");} 
 			else {swal("OK..!",
 				"Aún sigues en el sistema", "error");   } 
 		});

@@ -3,7 +3,6 @@ include '../data/conexion.php';
 function usuario ()
 {
 	session_start();
-	//$maestro2	= "'".$_POST["clave1"]."'";
 	$_SESSION['nombre'] = $_POST['clave1'];
 
 }
@@ -16,8 +15,8 @@ function solicitudesAceptadas ()
 
 		$maestro	= $_SESSION['nombre'];
 		$renglones	= "";
-		$conexion 	= conectaBDSIE();
-		$consulta	= sprintf("select * from DALUMN WHERE ALUCTR=%s LIMIT 1",$maestro);
+		$conexion 	= conectaBDSICLAB();
+		$consulta	= sprintf("select s.MATCVE, s.clavePractica, s.claveLaboratorio, c.fechaAsignada, c.horaAsignada from lbcalendarizaciones c INNER JOIN lbsolicitudlaboratorios s ON s.claveSolicitud = c.claveSolicitud WHERE c.PDOCVE = '2161' AND s.claveUsuario =%s AND estatus = 'NR'",$maestro);
 		$res 		= mysql_query($consulta);
 		$renglones	.= "<thead>";
 		$renglones	.= "<tr>";
@@ -33,11 +32,11 @@ function solicitudesAceptadas ()
 		{
 			$renglones .= "<tbody>";
 			$renglones .= "<tr>";
-			$renglones .= "<td>".$row["ALUCTR"]."</td>";
-			$renglones .= "<td>".$row["ALUAPP"]."</td>";
-			$renglones .= "<td>".$row["ALUAPM"]."</td>";
-			$renglones .= "<td>".$row["ALUNOM"]."</td>";
-			$renglones .= "<td>".$row["ALUSEX"]."</td>";
+			$renglones .= "<td>".$row["MATCVE"]."</td>";
+			$renglones .= "<td>".$row["clavePractica"]."</td>";
+			$renglones .= "<td>".$row["claveLaboratorio"]."</td>";
+			$renglones .= "<td>".$row["fechaAsignada"]."</td>";
+			$renglones .= "<td>".$row["horaAsignada"]."</td>";
 			$renglones .= "<td><a class='btn-floating btn-large waves-effect waves-light green darken-2' id='btnPracticaRealizada'><i class='material-icons'>thumb_up</i></a></td>";
 			$renglones .= "</tr>";
 			$renglones .= "</tbody>";

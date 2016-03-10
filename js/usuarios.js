@@ -43,7 +43,7 @@ var inicio = function ()
 							$("#acceso").hide();
 							$("#maestro").show("slow");
 							//MODIFIQUE
-							 var parametros = "opc=usuario1"+"&clave1="+response.aluctr+"&id="+Math.random();
+							 var parametros = "opc=usuario1"+"&clave1="+response.claveUsuario+"&id="+Math.random();
 				               $.ajax({  
 				                    cache:false,
 				                    type: "POST",
