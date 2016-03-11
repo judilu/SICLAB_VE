@@ -5,7 +5,8 @@ var inicio = function ()
 	//eventos menu Solicitudes
 	var salir = function()
 	{
-		swal({   	title: "¿Estas seguro que deseas salir?",   
+		swal({   	
+			title: "¿Estas seguro que deseas salir?",   
 			text: "",   
 			type: "warning",   
 			showCancelButton: true,   
@@ -15,10 +16,36 @@ var inicio = function ()
 			closeOnConfirm: false,   closeOnCancel: false }, function(isConfirm)
 			{   
 				if (isConfirm) 
-					{ swal("Adios!", "Tu puedes volver a ingresar al sistema", "success");} 
-			else {swal("OK..!",
-				"Aún sigues en el sistema", "error");   } 
+				{ 
+					var parametros = "opc=salir1"+
+					"&id="+Math.random();
+					$.ajax({
+						cache:false,
+						type: "POST",
+						dataType: "json",
+						url:"../data/funciones.php",
+						data: parametros,
+						success: function(response){
+							if(response.respuesta)
+							{
+					//aqui va algo
+					document.location.href= "acceso.php";
+				}
+				else
+				{
+					alert("no entra");
+					console.log(response.respuesta);
+				}
+			},
+			error: function(xhr, ajaxOptions,x){
+				alert("Error de conexión");
+				console.log(xhr);	
+			}
 		});
+				} 
+				else {swal("OK..!",
+					"Aún sigues en el sistema", "error");   } 
+			});
 	}
 	var solAceptadas = function()
 	{

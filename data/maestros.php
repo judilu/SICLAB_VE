@@ -1,5 +1,6 @@
 <?php
 include '../data/conexion.php';
+include '../data/funciones.php';
 function usuario ()
 {
 	session_start();
@@ -14,6 +15,9 @@ function solicitudesAceptadas ()
 	{ 
 
 		$maestro	= $_SESSION['nombre'];
+		$mat 		= "";
+		$prac 		= "";
+		$lab 		= "";
 		$renglones	= "";
 		$conexion 	= conectaBDSICLAB();
 		$consulta	= sprintf("select s.MATCVE, s.clavePractica, s.claveLaboratorio, c.fechaAsignada, c.horaAsignada from lbcalendarizaciones c INNER JOIN lbsolicitudlaboratorios s ON s.claveSolicitud = c.claveSolicitud WHERE c.PDOCVE = '2161' AND s.claveUsuario =%s AND estatus = 'NR'",$maestro);
@@ -30,9 +34,10 @@ function solicitudesAceptadas ()
 		$renglones	.= "</thead>";
 		while($row = mysql_fetch_array($res))
 		{
+			$mat 		= nomMat($row["MATCVE"]);
 			$renglones .= "<tbody>";
 			$renglones .= "<tr>";
-			$renglones .= "<td>".$row["MATCVE"]."</td>";
+			$renglones .= "<td>".$mat."</td>";
 			$renglones .= "<td>".$row["clavePractica"]."</td>";
 			$renglones .= "<td>".$row["claveLaboratorio"]."</td>";
 			$renglones .= "<td>".$row["fechaAsignada"]."</td>";
