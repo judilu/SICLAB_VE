@@ -17,17 +17,18 @@ function periodoActual ()
 		return $row["PARFOL1"];
 	}
 }
-function nomMat ($clave)
+function nomMat ($claves)
 {
-	$claveMat 	= $clave;
+	$claveMat 	= $claves;
+	$materias	= array();
 	$conexion	= conectaBDSIE();
-	$consulta	= sprintf("select MATNCO from DMATER where MATCVE ='%s'",$claveMat);
+	$consulta	= sprintf("select MATCVE, MATNCO from DMATER where MATCVE IN (%s)",$claveMat);
 	$res 		= mysql_query($consulta);
-	//var_dump($consulta);
-	if($row = mysql_fetch_array($res))
+	while($row = mysql_fetch_array($res))
 	{
-		return  $row["MATNCO"];
+		$materias[$row["MATCVE"]] =$row["MATNCO"];
 	}
+	return $materias;
 }
 function nomPractica ($clave)
 {

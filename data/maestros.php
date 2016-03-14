@@ -1,6 +1,6 @@
 <?php
-include '../data/conexion.php';
-include '../data/funciones.php';
+require_once('../data/conexion.php');
+require_once('../data/funciones.php');
 function usuario ()
 {
 	session_start();
@@ -16,11 +16,12 @@ function solicitudesAceptadas ()
 
 		$maestro	= $_SESSION['nombre'];
 		$mat 		= "";
-		$prac 		= "";
-		$lab 		= "";
+		$materias 	= "";
+		$con 		= 0;
+		$rows		= array();
 		$renglones	= "";
 		$conexion 	= conectaBDSICLAB();
-		$consulta	= sprintf("select s.MATCVE, s.clavePractica, s.claveLaboratorio, c.fechaAsignada, c.horaAsignada from lbcalendarizaciones c INNER JOIN lbsolicitudlaboratorios s ON s.claveSolicitud = c.claveSolicitud WHERE c.PDOCVE = '2161' AND s.claveUsuario =%s AND estatus = 'NR'",$maestro);
+		$consulta	= sprintf("select s.MATCVE, p.tituloPractica, l.nombreLaboratorio, c.fechaAsignada, c.horaAsignada from lbcalendarizaciones c INNER JOIN lbsolicitudlaboratorios s ON s.claveSolicitud = c.claveSolicitud INNER JOIN lblaboratorios l ON l.claveLaboratorio = s.claveLaboratorio INNER JOIN lbpracticas p on p.clavePractica = s.clavePractica WHERE c.PDOCVE = '2161' AND s.claveUsuario =%s AND c.estatus = 'NR'",$maestro);
 		$res 		= mysql_query($consulta);
 		$renglones	.= "<thead>";
 		$renglones	.= "<tr>";
@@ -34,22 +35,44 @@ function solicitudesAceptadas ()
 		$renglones	.= "</thead>";
 		while($row = mysql_fetch_array($res))
 		{
-			$mat 		= nomMat($row["MATCVE"]);
-			$renglones .= "<tbody>";
+			$mat 	.= "'".($row["MATCVE"])."',";
+			$rows[]=$row;
+			/*$renglones .= "<tbody>";
 			$renglones .= "<tr>";
 			$renglones .= "<td>".$mat."</td>";
-			$renglones .= "<td>".$row["clavePractica"]."</td>";
-			$renglones .= "<td>".$row["claveLaboratorio"]."</td>";
+			$renglones .= "<td>".$row["tituloPractica"]."</td>";
+			$renglones .= "<td>".$row["nombreLaboratorio"]."</td>";
 			$renglones .= "<td>".$row["fechaAsignada"]."</td>";
 			$renglones .= "<td>".$row["horaAsignada"]."</td>";
+			$renglones .= "<td><a class='btn-floating btn-large waves-effect waves-light green darken-2' id='btnPracticaRealizada'><i class='material-icons'>thumb_up</i></a></td>";
+			$renglones .= "</tr>";
+			$renglones .= "</tbody>";*/
+			$respuesta = true;
+			$con++;
+		}
+		$mat = (rtrim($mat,","));
+		$materias = nomMat($mat);
+		for($c= 0; $c< $con; $c++)
+		{
+			$renglones .= "<tbody>";
+			$renglones .= "<tr>";
+			$renglones .= "<td>".$materias[$rows[$c]["MATCVE"]]."</td>";
+			$renglones .= "<td>".$rows[$c]["tituloPractica"]."</td>";
+			$renglones .= "<td>".$rows[$c]["nombreLaboratorio"]."</td>";
+			$renglones .= "<td>".$rows[$c]["fechaAsignada"]."</td>";
+			$renglones .= "<td>".$rows[$c]["horaAsignada"]."</td>";
 			$renglones .= "<td><a class='btn-floating btn-large waves-effect waves-light green darken-2' id='btnPracticaRealizada'><i class='material-icons'>thumb_up</i></a></td>";
 			$renglones .= "</tr>";
 			$renglones .= "</tbody>";
 			$respuesta = true;
 		}
 	}
+	else
+	{
+		salir();
+	}
 	$arrayJSON = array('respuesta' => $respuesta,
-		'renglones' => $renglones);
+						'renglones' => $renglones);
 	print json_encode($arrayJSON);
 }
 function solicitudesPendientes ()
