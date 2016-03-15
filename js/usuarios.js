@@ -42,7 +42,7 @@ var inicio = function ()
 							case "6":
 							$("#acceso").hide();
 							$("#maestro").show("slow");
-							//MODIFIQUE
+							//Pasando la claveUsuario
 							 var parametros = "opc=usuario1"+"&clave1="+response.claveUsuario+"&id="+Math.random();
 				               $.ajax({  
 				                    cache:false,
@@ -58,8 +58,6 @@ var inicio = function ()
 							//FIN MODIFICACIONES
 							break;
 						}
-						/*$(".acceso").hide("slow");
-						$(".accesoAlumno").show("slow");*/
 					}
 					else
 					{
@@ -67,7 +65,7 @@ var inicio = function ()
 					}
 				},
 				error: function(xhr,ajaxOptions,x){
-					sweetAlert("Error de conexión", "Problemas de conexión!", "error");
+					sweetAlert("Error de conexión1", "Problemas de conexión!", "error");
 					usu = $("#txtUsuario").val("");
 					cve = $("#txtClave").val("");
 				}
@@ -97,7 +95,7 @@ var inicio = function ()
 				}
 			},
 			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión");	
+				alert("Error de conexión1");	
 			}
 		});
 	}

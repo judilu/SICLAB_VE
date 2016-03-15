@@ -16,15 +16,11 @@ function validaUsuario()
 		$claveUsuario = $row["claveUsuario"];
 		$usuario = $row["usuario"];
 		$tipo = $row["tipoUsuario"];
-		$percve = $row["PERCVE"];
-		$aluctr = $row["ALUCTR"];
 	}
 	$arrayJSON = array('respuesta' 		=> $respuesta,
 						'claveUsuario' 	=> $claveUsuario,
 						'usuario' 		=> $usuario,
 						'tipo' 			=> $tipo,
-						'percve'		=> $percve,
-						'aluctr'		=> $aluctr
 						);
 	print json_encode($arrayJSON);
 }

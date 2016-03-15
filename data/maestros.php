@@ -5,7 +5,6 @@ function usuario ()
 {
 	session_start();
 	$_SESSION['nombre'] = $_POST['clave1'];
-
 }
 function solicitudesAceptadas ()
 {
@@ -13,7 +12,6 @@ function solicitudesAceptadas ()
 	session_start();
 	if(!empty($_SESSION['nombre']))
 	{ 
-
 		$maestro	= $_SESSION['nombre'];
 		$mat 		= "";
 		$materias 	= "";
@@ -21,7 +19,7 @@ function solicitudesAceptadas ()
 		$rows		= array();
 		$renglones	= "";
 		$conexion 	= conectaBDSICLAB();
-		$consulta	= sprintf("select s.MATCVE, p.tituloPractica, l.nombreLaboratorio, c.fechaAsignada, c.horaAsignada from lbcalendarizaciones c INNER JOIN lbsolicitudlaboratorios s ON s.claveSolicitud = c.claveSolicitud INNER JOIN lblaboratorios l ON l.claveLaboratorio = s.claveLaboratorio INNER JOIN lbpracticas p on p.clavePractica = s.clavePractica WHERE c.PDOCVE = '2161' AND s.claveUsuario =%s AND c.estatus = 'NR'",$maestro);
+		$consulta	= sprintf("select c.claveCalendarizacion, s.MATCVE, p.tituloPractica, l.nombreLaboratorio, c.fechaAsignada, c.horaAsignada from lbcalendarizaciones c INNER JOIN lbsolicitudlaboratorios s ON s.claveSolicitud = c.claveSolicitud INNER JOIN lblaboratorios l ON l.claveLaboratorio = s.claveLaboratorio INNER JOIN lbpracticas p on p.clavePractica = s.clavePractica WHERE c.PDOCVE = '2161' AND s.claveUsuario =%s AND c.estatus = 'NR'",$maestro);
 		$res 		= mysql_query($consulta);
 		$renglones	.= "<thead>";
 		$renglones	.= "<tr>";
@@ -37,16 +35,6 @@ function solicitudesAceptadas ()
 		{
 			$mat 	.= "'".($row["MATCVE"])."',";
 			$rows[]=$row;
-			/*$renglones .= "<tbody>";
-			$renglones .= "<tr>";
-			$renglones .= "<td>".$mat."</td>";
-			$renglones .= "<td>".$row["tituloPractica"]."</td>";
-			$renglones .= "<td>".$row["nombreLaboratorio"]."</td>";
-			$renglones .= "<td>".$row["fechaAsignada"]."</td>";
-			$renglones .= "<td>".$row["horaAsignada"]."</td>";
-			$renglones .= "<td><a class='btn-floating btn-large waves-effect waves-light green darken-2' id='btnPracticaRealizada'><i class='material-icons'>thumb_up</i></a></td>";
-			$renglones .= "</tr>";
-			$renglones .= "</tbody>";*/
 			$respuesta = true;
 			$con++;
 		}
@@ -61,7 +49,7 @@ function solicitudesAceptadas ()
 			$renglones .= "<td>".$rows[$c]["nombreLaboratorio"]."</td>";
 			$renglones .= "<td>".$rows[$c]["fechaAsignada"]."</td>";
 			$renglones .= "<td>".$rows[$c]["horaAsignada"]."</td>";
-			$renglones .= "<td><a class='btn-floating btn-large waves-effect waves-light green darken-2' id='btnPracticaRealizada'><i class='material-icons'>thumb_up</i></a></td>";
+			$renglones .= "<td><a name = '".$rows[$c]["claveCalendarizacion"]."' class='btn-floating btn-large waves-effect waves-light green darken-2' id='btnPracticaRealizada'><i class='material-icons'>thumb_up</i></a></td>";
 			$renglones .= "</tr>";
 			$renglones .= "</tbody>";
 			$respuesta = true;
@@ -72,8 +60,16 @@ function solicitudesAceptadas ()
 		salir();
 	}
 	$arrayJSON = array('respuesta' => $respuesta,
-						'renglones' => $renglones);
+		'renglones' => $renglones);
 	print json_encode($arrayJSON);
+}
+function liberarPractica ($clave)
+{
+	$claveCal 		= GetSQLValueString($_POST["clave"],"text");
+	$respuesta 		= false;
+	$conexion 		= conectaBDSICLAB();
+	$consulta  		= sprintf("",$claveCal);
+	$res 	 		=  mysql_query($consulta);
 }
 function solicitudesPendientes ()
 {	
@@ -118,7 +114,6 @@ function solicitudesPendientes ()
 }
 function solicitudesRealizadas ()
 {
-
 	$maestro	= "'".$_POST["maestro"]."'";
 	$respuesta 	= false;
 	$renglones	= "";
@@ -160,6 +155,9 @@ switch ($opc){
 	case 'solicitudesAceptadas1':
 	solicitudesAceptadas();
 	break;
+	case 'liberarPractica1':
+		liberarPractica();
+		break;
 	case 'solicitudesPendientes1':
 	solicitudesPendientes();
 	break;

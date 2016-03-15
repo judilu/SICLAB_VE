@@ -28,23 +28,24 @@ var inicio = function ()
 						success: function(response){
 							if(response.respuesta)
 							{
-					//aqui va algo
-					document.location.href= "acceso.php";
-				}
-				else
-				{
-					alert("no entra");
-					console.log(response.respuesta);
-				}
-			},
-			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión");
-				console.log(xhr);	
-			}
-		});
+								document.location.href= "acceso.php";
+							}
+							else
+							{
+								console.log(response.respuesta);
+							}
+						},
+						error: function(xhr, ajaxOptions,x)
+						{
+							alert("Error de conexión salir");
+						}
+					});
 				} 
-				else {swal("OK..!",
-					"Aún sigues en el sistema", "error");   } 
+				else 
+				{
+					swal("OK..!",
+					"Aún sigues en el sistema", "error");
+				} 
 			});
 	}
 	var solAceptadas = function()
@@ -66,9 +67,10 @@ var inicio = function ()
 				if(response.respuesta == true)
 				{
 					$("#tbSolAceptadas").html(response.renglones);
+					$("#tbSolAceptadas a").on("click",practicaRealizada);
 				}
 				else
-					alert("No hay solicitudes");
+					sweetAlert("No hay solicitudes..!", "Debe crear una solicitud antes", "error");
 			},
 			error: function(xhr, ajaxOptions,x){
 				alert("Error de conexión");
@@ -76,6 +78,37 @@ var inicio = function ()
 			}
 		});
 		$("#sAceptadasMaestro").show("slow");	
+	}
+	var practicaRealizada = function(evt)
+	{
+		//contenido dinamico
+		var realid = $(this).attr("name");
+		var parametros = "opc=liberarPractica1"+
+							"&clave="+realid+
+							"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/maestros.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					swal("Practica realizada..!", "Buen trabajo..!", "success");
+					solAceptadas();
+				}
+				else
+				{
+					sweetAlert("Oops...", "Something went wrong!", "error");
+				}
+			},
+			error: function(xhr, ajaxOptions,x)
+			{
+				alert("Error de conexión");
+				console.log(xhr);	
+			}
+		});	
 	}
 	var solPendientes = function()
 	{
@@ -98,10 +131,10 @@ var inicio = function ()
 					$("#tabSolPendientes").html(response.renglones);
 				}
 				else
-					alert("No hay solicitudes");
+					sweetAlert("No hay solicitudes pendientes", "Han aceptado todas tus solicitudes o no ha enviado ninguna solicitud", "error");
 			},
 			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión");	
+				alert("Error de conexión sp");	
 			}
 		});
 		$("#sPendientesMaestro").show("slow");
@@ -130,10 +163,10 @@ var inicio = function ()
 					$("#tbSolRealizadas").html(response.renglones);
 				}
 				else
-					alert("No hay practicas realizadas");
+					sweetAlert("No hay solicitudes realizadas", "Debes liberar la práctica realizada", "error");
 			},
 			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión");	
+				alert("Error de conexión srealizadas");	
 			}
 		});
 		$("#sRealizadas").show("slow");
@@ -184,7 +217,7 @@ var inicio = function ()
        				}
        			},
        			error: function(xhr, ajaxOptions,x){
-       				sweetAlert("Error", "Error de conexión", "error");
+       				sweetAlert("Error", "Error de conexión articulo", "error");
        			}
        		});
        		console.log(parametros);
@@ -237,6 +270,10 @@ var inicio = function ()
 	$("#solicitudestab").on("click",solAceptadas);
 	//Configuramos los eventos Menu Solicitudes
 	$("#btnSolicitudesAceptadas").on("click",solAceptadas);
+	//para botones que son creados dinamicamente primero se coloca:
+	//el nombre de el id de la tabla que lo contiene despues el on y despues el evento
+	//y de ahi el nombre del boton que desencadenara el evento
+	$("#tbSolRealizadas").on("click","#btnPracticaRealizada",practicaRealizada);
 	$("#btnSolicitudesPendientes").on("click",solPendientes);
 	$("#btnSolicitudesRealizadas").on("click",solRealizadas)
 	$("#btnNuevaSolicitud").on("click",solNueva);

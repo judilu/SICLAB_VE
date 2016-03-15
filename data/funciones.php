@@ -2,7 +2,8 @@
 require_once('../data/conexion.php');
 function salir()
 {
-	//session_destroy();
+	session_start();
+	session_destroy();
 	$respuesta = true;
 	$arrayJSON = array('respuesta' => $respuesta);
 	print json_encode($arrayJSON);
@@ -53,7 +54,6 @@ function nomLab ($clave)
 	{
 		$respuesta = true;
 		return  $row["nombreLaboratorio"];
-
 	}
 }
 $opc = $_POST["opc"];
