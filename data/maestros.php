@@ -4,7 +4,7 @@ require_once('../data/funciones.php');
 function usuario ()
 {
 	session_start();
-	$_SESSION['nombre'] = $_POST['clave1'];
+	$_SESSION['nombre'] = GetSQLValueString($_POST['clave1'],"text");
 }
 function solicitudesAceptadas ()
 {
@@ -49,7 +49,7 @@ function solicitudesAceptadas ()
 			$renglones .= "<td>".$rows[$c]["nombreLaboratorio"]."</td>";
 			$renglones .= "<td>".$rows[$c]["fechaAsignada"]."</td>";
 			$renglones .= "<td>".$rows[$c]["horaAsignada"]."</td>";
-			$renglones .= "<td><a name = '".$rows[$c]["claveCalendarizacion"]."' class='btn-floating btn-large waves-effect waves-light green darken-2' id='btnPracticaRealizada'><i class='material-icons'>thumb_up</i></a></td>";
+			$renglones .= "<td><a name = '".$rows[$c]["claveCalendarizacion"]."' class='btn-floating btn-large waves-effect waves-light green darken-2'><i class='material-icons'>thumb_up</i></a></td>";
 			$renglones .= "</tr>";
 			$renglones .= "</tbody>";
 			$respuesta = true;
@@ -82,7 +82,7 @@ function liberarPractica ()
 }
 function solicitudesPendientes ()
 {	
-	$maestro	= "'".$_POST["maestro"]."'";
+	$maestro	= "'".(GetSQLValueString($_POST["maestro"],"text"))."'";
 	$respuesta 	= false;
 	$renglones	= "";
 	$conexion 	= conectaBDSIE();
@@ -123,33 +123,55 @@ function solicitudesPendientes ()
 }
 function solicitudesRealizadas ()
 {
-	$maestro	= "'".$_POST["maestro"]."'";
+	//MODIFICAR
 	$respuesta 	= false;
-	$renglones	= "";
-	$conexion 	= conectaBDSIE();
-	$consulta	= sprintf("select * from DALUMN WHERE ALUNOM=%s LIMIT 5",$maestro);
-	$res 		= mysql_query($consulta);
-	$renglones	.= "<thead>";
-	$renglones	.= "<tr>";
-	$renglones	.= "<th data-field='materia'>Materia</th>";
-	$renglones	.= "<th data-field='nombrePractica'>Nombre de la práctica</th>";
-	$renglones	.= "<th data-field='laboratorio'>Laboratorio</th>";
-	$renglones	.= "<th data-field='fecha'>Fecha</th>";
-	$renglones	.= "<th data-field='hora'>Hora</th>";
-	$renglones	.= "</tr>";
-	$renglones	.= "</thead>";
-	while($row = mysql_fetch_array($res))
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{ 
+		$maestro	= $_SESSION['nombre'];
+		$mat 		= "";
+		$materias 	= "";
+		$con 		= 0;
+		$rows		= array();
+		$renglones	= "";
+		$conexion 	= conectaBDSICLAB();
+		$consulta	= sprintf("select c.claveCalendarizacion, s.MATCVE, p.tituloPractica, l.nombreLaboratorio, c.fechaAsignada, c.horaAsignada from lbcalendarizaciones c INNER JOIN lbsolicitudlaboratorios s ON s.claveSolicitud = c.claveSolicitud INNER JOIN lblaboratorios l ON l.claveLaboratorio = s.claveLaboratorio INNER JOIN lbpracticas p on p.clavePractica = s.clavePractica WHERE c.PDOCVE = '2161' AND s.claveUsuario =%s AND c.estatus = 'R'",$maestro);
+		$res 		= mysql_query($consulta);
+		$renglones	.= "<thead>";
+		$renglones	.= "<tr>";
+		$renglones	.= "<th data-field='materia'>Materia</th>";
+		$renglones	.= "<th data-field='nombrePractica'>Nombre de la práctica</th>";
+		$renglones	.= "<th data-field='laboratorio'>Laboratorio</th>";
+		$renglones	.= "<th data-field='fecha'>Fecha</th>";
+		$renglones	.= "<th data-field='hora'>Hora</th>";
+		$renglones	.= "</tr>";
+		$renglones	.= "</thead>";
+		while($row = mysql_fetch_array($res))
+		{
+			$mat 	.= "'".($row["MATCVE"])."',";
+			$rows[]=$row;
+			$respuesta = true;
+			$con++;
+		}
+		$mat = (rtrim($mat,","));
+		$materias = nomMat($mat);
+		for($c= 0; $c< $con; $c++)
+		{
+			$renglones .= "<tbody>";
+			$renglones .= "<tr>";
+			$renglones .= "<td>".$materias[$rows[$c]["MATCVE"]]."</td>";
+			$renglones .= "<td>".$rows[$c]["tituloPractica"]."</td>";
+			$renglones .= "<td>".$rows[$c]["nombreLaboratorio"]."</td>";
+			$renglones .= "<td>".$rows[$c]["fechaAsignada"]."</td>";
+			$renglones .= "<td>".$rows[$c]["horaAsignada"]."</td>";
+			$renglones .= "</tr>";
+			$renglones .= "</tbody>";
+			$respuesta = true;
+		}
+	}
+	else
 	{
-		$renglones .= "<tbody>";
-		$renglones .= "<tr>";
-		$renglones .= "<td>".$row["ALUCTR"]."</td>";
-		$renglones .= "<td>".$row["ALUAPP"]."</td>";
-		$renglones .= "<td>".$row["ALUAPM"]."</td>";
-		$renglones .= "<td>".$row["ALUNOM"]."</td>";
-		$renglones .= "<td>".$row["ALUSEX"]."</td>";
-		$renglones .= "</tr>";
-		$renglones .= "</tbody>";
-		$respuesta = true;
+		salir();
 	}
 	$arrayJSON = array('respuesta' => $respuesta,
 		'renglones' => $renglones);
