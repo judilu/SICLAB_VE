@@ -63,13 +63,22 @@ function solicitudesAceptadas ()
 		'renglones' => $renglones);
 	print json_encode($arrayJSON);
 }
-function liberarPractica ($clave)
+function liberarPractica ()
 {
 	$claveCal 		= GetSQLValueString($_POST["clave"],"text");
-	$respuesta 		= false;
-	$conexion 		= conectaBDSICLAB();
-	$consulta  		= sprintf("",$claveCal);
-	$res 	 		=  mysql_query($consulta);
+	if(existeSol($claveCal))
+	{
+		$respuesta 		= false;
+		$conexion 		= conectaBDSICLAB();
+		$consulta  		= sprintf("update lbcalendarizaciones set estatus = 'R' where claveCalendarizacion =%s",$claveCal);
+		$res 	 		=  mysql_query($consulta);
+		if($res)
+		{	
+			$respuesta = true;
+		}
+		$arrayJSON = array('respuesta' => $respuesta);
+		print json_encode($arrayJSON);
+	}
 }
 function solicitudesPendientes ()
 {	

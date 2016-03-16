@@ -73,7 +73,7 @@ var inicio = function ()
 					sweetAlert("No hay solicitudes..!", "Debe crear una solicitud antes", "error");
 			},
 			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión");
+				alert("Error de conexión sol aceptadas");
 				console.log(xhr);	
 			}
 		});
@@ -100,13 +100,12 @@ var inicio = function ()
 				}
 				else
 				{
-					sweetAlert("Oops...", "Something went wrong!", "error");
+					sweetAlert("No existe esa solicitud..!", "", "error");
 				}
 			},
 			error: function(xhr, ajaxOptions,x)
 			{
-				alert("Error de conexión");
-				console.log(xhr);	
+				alert("Error de conexión realizadas");
 			}
 		});	
 	}

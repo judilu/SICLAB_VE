@@ -25,10 +25,10 @@ function nomMat ($claves)
 	$conexion	= conectaBDSIE();
 	$consulta	= sprintf("select MATCVE, MATNCO from DMATER where MATCVE IN (%s)",$claveMat);
 	$res 		= mysql_query($consulta);
-	while($row = mysql_fetch_array($res))
-	{
-		$materias[$row["MATCVE"]] =$row["MATNCO"];
-	}
+		while($row = mysql_fetch_array($res))
+		{
+			$materias[$row["MATCVE"]] =$row["MATNCO"];
+		}
 	return $materias;
 }
 function nomPractica ($clave)
@@ -55,6 +55,18 @@ function nomLab ($clave)
 		$respuesta = true;
 		return  $row["nombreLaboratorio"];
 	}
+}
+function existeSol ($clave)
+{
+	$claveSol	= $clave;
+	$conexion 	= conectaBDSICLAB();
+	$consulta 	= sprintf("select claveCalendarizacion from lbcalendarizaciones where claveCalendarizacion =%s",$claveSol);
+	$res 		= mysql_query($consulta); 
+	if($row = mysql_fetch_array($res))
+	{
+		return true;
+	}
+	return false;
 }
 $opc = $_POST["opc"];
 switch ($opc){
