@@ -12,6 +12,7 @@ function solicitudesAceptadas ()
 	session_start();
 	if(!empty($_SESSION['nombre']))
 	{ 
+		$periodo	= periodoActual();
 		$maestro	= $_SESSION['nombre'];
 		$mat 		= "";
 		$materias 	= "";
@@ -19,7 +20,7 @@ function solicitudesAceptadas ()
 		$rows		= array();
 		$renglones	= "";
 		$conexion 	= conectaBDSICLAB();
-		$consulta	= sprintf("select c.claveCalendarizacion, s.MATCVE, p.tituloPractica, l.nombreLaboratorio, c.fechaAsignada, c.horaAsignada from lbcalendarizaciones c INNER JOIN lbsolicitudlaboratorios s ON s.claveSolicitud = c.claveSolicitud INNER JOIN lblaboratorios l ON l.claveLaboratorio = s.claveLaboratorio INNER JOIN lbpracticas p on p.clavePractica = s.clavePractica WHERE c.PDOCVE = '2161' AND s.claveUsuario =%s AND c.estatus = 'NR'",$maestro);
+		$consulta	= sprintf("select c.claveCalendarizacion, s.MATCVE, p.tituloPractica, l.nombreLaboratorio, c.fechaAsignada, c.horaAsignada from lbcalendarizaciones c INNER JOIN lbsolicitudlaboratorios s ON s.claveSolicitud = c.claveSolicitud INNER JOIN lblaboratorios l ON l.claveLaboratorio = s.claveLaboratorio INNER JOIN lbpracticas p on p.clavePractica = s.clavePractica WHERE c.PDOCVE =%s AND s.claveUsuario =%s AND c.estatus = 'NR'",$periodo,$maestro);
 		$res 		= mysql_query($consulta);
 		$renglones	.= "<thead>";
 		$renglones	.= "<tr>";
@@ -82,43 +83,64 @@ function liberarPractica ()
 }
 function solicitudesPendientes ()
 {	
-	$maestro	= "'".(GetSQLValueString($_POST["maestro"],"text"))."'";
 	$respuesta 	= false;
-	$renglones	= "";
-	$conexion 	= conectaBDSIE();
-	$consulta	= sprintf("select * from DALUMN WHERE ALUNOM=%s LIMIT 5",$maestro);
-	$res 		= mysql_query($consulta);
-	$renglones	.= "<thead>";
-	$renglones	.= "<tr>";
-	$renglones	.= "<th data-field='materia'>Materia</th>";
-	$renglones	.= "<th data-field='nombrePractica'>Nombre de la práctica</th>";
-	$renglones	.= "<th data-field='laboratorio'>Laboratorio</th>";
-	$renglones	.= "<th data-field='fecha'>Fecha</th>";
-	$renglones	.= "<th data-field='hora'>Hora</th>";
-	$renglones	.= "<th data-field='acciones'>Acciones</th>";
-	$renglones	.= "</tr>";
-	$renglones	.= "</thead>";
-	$con=1;
-	while($row = mysql_fetch_array($res))
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{ 
+		$periodo	= periodoActual();
+		$maestro	= $_SESSION['nombre'];
+		$mat   		= "";
+		$materias 	= "";
+		$con 		= 0;
+		$rows 		= array();
+		$renglones	= "";
+		$conexion 	= conectaBDSICLAB();
+		$consulta	= sprintf("select s. claveSolicitud, MATCVE, p.tituloPractica, l.nombreLaboratorio, s.fechaSolicitud, s.horaSolicitud from lbsolicitudlaboratorios s inner join lbpracticas p on s.clavePractica = p.clavePractica inner join lblaboratorios l on s.claveLaboratorio = l.claveLaboratorio left join lbcalendarizaciones c ON c.claveSolicitud = s.claveSolicitud where s.PDOCVE ='%s' and s.claveUsuario =%s and c.claveSolicitud is NULL",$periodo,$maestro);
+		$res 		= mysql_query($consulta);
+		$renglones	.= "<thead>";
+		$renglones	.= "<tr>";
+		$renglones	.= "<th data-field='materia'>Materia</th>";
+		$renglones	.= "<th data-field='nombrePractica'>Nombre de la práctica</th>";
+		$renglones	.= "<th data-field='laboratorio'>Laboratorio</th>";
+		$renglones	.= "<th data-field='fecha'>Fecha</th>";
+		$renglones	.= "<th data-field='hora'>Hora</th>";
+		$renglones	.= "<th data-field='acciones'>Acciones</th>";
+		$renglones	.= "</tr>";
+		$renglones	.= "</thead>";
+		while($row = mysql_fetch_array($res))
+		{
+			$mat 		.= "'".($row["MATCVE"])."',";
+			$rows[] 	= $row;
+			$respuesta 	= true;
+			$con++;
+		}
+		$mat = (rtrim($mat,","));
+		$materias = nomMat($mat);
+		for($c=0; $c< $con; $c++)
+		{
+			$renglones .= "<tbody>";
+			$renglones .= "<tr>";
+			$renglones .= "<td>".$materias[$rows[$c]["MATCVE"]]."</td>";
+			$renglones .= "<td>".$rows[$c]["tituloPractica"]."</td>";
+			$renglones .= "<td>".$rows[$c]["nombreLaboratorio"]."</td>";
+			$renglones .= "<td>".$rows[$c]["fechaSolicitud"]."</td>";
+			$renglones .= "<td>".$rows[$c]["horaSolicitud"]."</td>";
+			$renglones .= "<td><input type='hidden'/><a class='btnEditarSolicitudLab btn-floating btn-large 
+			waves-effect waves-light amber darken-2'>
+			<i class='material-icons'>mode_edit</i></a> <a class='btnEliminarSolicitudLab btn-floating btn-large 
+			waves-effect waves-light red darken-1'><i class='material-icons'>
+			delete</i></a></td>";
+			$renglones .= "</tr>";
+			$renglones .= "</tbody>";
+			$respuesta = true;
+		}
+	}
+	else
 	{
-		$cont = "'".$con."'";
-		$renglones .= "<tr>";
-		$renglones .= "<td>".$row["ALUCTR"]."</td>";
-		$renglones .= "<td>".$row["ALUAPP"]."</td>";
-		$renglones .= "<td>".$row["ALUAPM"]."</td>";
-		$renglones .= "<td>".$row["ALUNOM"]."</td>";
-		$renglones .= "<td>".$row["ALUSEX"]."</td>";
-		$renglones .= "<td><input type='hidden' value='876' /><a class='btn-floating btn-large 
-		waves-effect waves-light amber darken-2' id='btnEditarSolicitudLab'>
-		<i class='material-icons'>mode_edit</i></a> <a class='btn-floating btn-large 
-		waves-effect waves-light red darken-1' id='btnEliminarSolicitudLab'><i class='material-icons'>
-		delete</i></a></td>";
-		$renglones .= "</tr>";
-		$respuesta = true;
-		$con = $con+1;
+		salir();
 	}
 	$arrayJSON = array('respuesta' => $respuesta,
-		'renglones' => $renglones);
+			'renglones' => $renglones);
 	print json_encode($arrayJSON);
 }
 function solicitudesRealizadas ()

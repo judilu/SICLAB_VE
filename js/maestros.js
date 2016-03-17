@@ -115,9 +115,9 @@ var inicio = function ()
 		$("#sAceptadasMaestro").hide();
 		$("#editarSolicitudLab").hide();
 		$("#sRealizadas").hide();
+		//Contenido Dinamico
 		var parametros = "opc=solicitudesPendientes1"+
-		"&maestro="+"ALEJANDRA"+
-		"&id="+Math.random();
+							"&id="+Math.random();
 		$.ajax({
 			cache:false,
 			type: "POST",
@@ -148,8 +148,7 @@ var inicio = function ()
 		$("#sRealizadas").hide();
 		//contenido dinamico
 		var parametros = "opc=solicitudesRealizadas1"+
-		"&maestro="+"ALEJANDRA"+
-		"&id="+Math.random();
+							"&id="+Math.random();
 		$.ajax({
 			cache:false,
 			type: "POST",
