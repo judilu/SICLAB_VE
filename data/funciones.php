@@ -25,11 +25,18 @@ function nomMat ($claves)
 	$conexion	= conectaBDSIE();
 	$consulta	= sprintf("select MATCVE, MATNCO from DMATER where MATCVE IN (%s)",$claveMat);
 	$res 		= mysql_query($consulta);
+	if($res)
+	{
 		while($row = mysql_fetch_array($res))
 		{
 			$materias[$row["MATCVE"]] =$row["MATNCO"];
 		}
-	return $materias;
+		return $materias;
+	}
+	else
+	{
+		return "";
+	}
 }
 function nomPractica ($clave)
 {
