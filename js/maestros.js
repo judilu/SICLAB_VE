@@ -241,9 +241,34 @@ var inicio = function ()
 	    //$(this).closest("td").children("input").val();
 	    $("#solicitudesPendientesLab").hide();
 	    //Contenido Dinamico
+	    comboMateria();
 	   	$("#editarSolicitudLab").show("slow");
        }//Termina función editar solicitud
-
+    var comboMateria = function()
+    {
+    	var parametros 	= "opc=comboMat1"+
+       						"&id="+Math.random();
+       		$.ajax({
+       			cache:false,
+       			type: "POST",
+       			dataType: "json",
+       			url:'../data/maestros.php',
+       			data: parametros,
+       			success: function(response){
+       				if(response.respuesta == true)
+       				{
+       					//aqui va algo
+       				}
+       				else
+       				{
+       					//aqui va algo
+       				}
+       			},
+       			error: function(xhr, ajaxOptions,x){
+       				sweetAlert("Error", "Error de conexion cmb", "error");
+       			}
+       		});
+    }
 	//eventos menu Reportes
 	var listaAsistencia = function()
 	{

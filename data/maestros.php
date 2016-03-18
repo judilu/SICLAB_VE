@@ -143,6 +143,21 @@ function solicitudesPendientes ()
 			'renglones' => $renglones);
 	print json_encode($arrayJSON);
 }
+function comboMat ()
+{
+	$periodo	= periodoActual();
+	$maestro	= $_SESSION['nombre'];
+	$respuesta  = false;
+	$conexion 	= conectaBDSIE();
+	$consulta	= sprintf("SELECT g.MATCVE, m.MATNCO from DGRUPO g inner join DMATER m ON g.MATCVE = m.MATCVE where g.PDOCVE =%s and g.PERCVE =%d",$periodo,$maestro);
+	$res 		= mysql_query($consulta);
+	if($row = mysql_fetch_array($res))
+	{
+		$respuesta = true;
+		return  $row["nombreLaboratorio"];
+	}
+
+}
 function solicitudesRealizadas ()
 {
 	//MODIFICAR
@@ -216,5 +231,8 @@ switch ($opc){
 	break;
 	case 'solicitudesRealizadas1':
 	solicitudesRealizadas();
+	case 'comboMat1':
+		comboMat();
+		break;
 } 
 ?>
