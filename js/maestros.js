@@ -3,6 +3,7 @@ var inicio = function ()
 	$('ul.tabs').tabs();
 	$('select').material_select(); //agregado
 	//eventos menu Solicitudes
+	//Empieza función salir del sistema
 	var salir = function()
 	{
 		swal({   	
@@ -47,7 +48,8 @@ var inicio = function ()
 					"Aún sigues en el sistema", "error");
 				} 
 			});
-	}
+	}//Termina función salir del sistema
+	//Empieza función de solicitudes Aceptadas
 	var solAceptadas = function()
 	{
 		//ocultar los div
@@ -78,7 +80,8 @@ var inicio = function ()
 			}
 		});
 		$("#sAceptadasMaestro").show("slow");	
-	}
+	}//Termina función de solicitudes Aceptadas
+	//Empieza función para liberar una solicitud realizada a aceptadas
 	var practicaRealizada = function(evt)
 	{
 		//contenido dinamico
@@ -108,7 +111,8 @@ var inicio = function ()
 				alert("Error de conexión realizadas");
 			}
 		});	
-	}
+	}//Termina función para liberar una solicitud realizada a aceptadas
+	//Empieza función de solicitudes pendientes
 	var solPendientes = function()
 	{
 		$("#sNuevaMaestro").hide();
@@ -128,6 +132,7 @@ var inicio = function ()
 				if(response.respuesta == true)
 				{
 					$("#tabSolPendientes").html(response.renglones);
+					$("#tabSolPendientes").on("click", ".btnEditarSolicitudLab" , editarSolicitudLab);
 				}
 				else
 					sweetAlert("No hay solicitudes pendientes", "Han aceptado todas tus solicitudes o no ha enviado ninguna solicitud", "error");
@@ -138,7 +143,8 @@ var inicio = function ()
 		});
 		$("#sPendientesMaestro").show("slow");
 		$("#solicitudesPendientesLab").show("slow");	
-	}
+	}//Termina función de solicitudes pendientes
+	//Empieza función de solicitudes realizadas
 	var solRealizadas = function()
 	{
 		//ocultar los div
@@ -168,7 +174,8 @@ var inicio = function ()
 			}
 		});
 		$("#sRealizadas").show("slow");
-	}
+	}//Termina función de solicitudes realizadas
+	//Empieza función de crear nueva solicitud
 	var solNueva = function()
 	{
 		$("#sAceptadasMaestro").hide();
@@ -182,7 +189,7 @@ var inicio = function ()
 		{
 			//aqui empieza todo
        		//var cveUsuario = usuarioNombre();
-       		var imagen						= $("#txtImagenAlta").val();
+       		var imagen		= $("#txtImagenAlta").val();
        		var parametros 	= "opc=altaInventario1"+"&claveArticulo="+claveArticulo
        		+"&imagen="+imagen
        		+"&identificadorArticulo="+identificadorArticulo
@@ -220,19 +227,23 @@ var inicio = function ()
        		});
        		console.log(parametros);
        	}
-
-       }
+       }//Termina función de crear nueva solicitud
+       //Empieza función de elegir material
        var elegirMaterial = function()
        {
        	$("#nuevaMaestro").hide();
        	$("#eleccionMaterial").show("slow");
-       }
+       }//Termina función de elegir material
+       //Empieza función editar solicitud
        var editarSolicitudLab = function()
        {
-       	$(this).closest("td").children("input").val();
-       	$("#solicitudesPendientesLab").hide();
-       	$("#editarSolicitudLab").show("slow");
-       }
+	    //ocultar elementos
+	    //$(this).closest("td").children("input").val();
+	    $("#solicitudesPendientesLab").hide();
+	    //Contenido Dinamico
+	   	$("#editarSolicitudLab").show("slow");
+       }//Termina función editar solicitud
+
 	//eventos menu Reportes
 	var listaAsistencia = function()
 	{
@@ -277,7 +288,6 @@ var inicio = function ()
 	$("#btnNuevaSolicitud").on("click",solNueva);
 	$("#btnElegirMaterial").on("click",elegirMaterial);
 	$("#btnRegresar").on("click",solNueva);
-	$("#tabSolPendientes").on("click", "#btnEditarSolicitudLab" , editarSolicitudLab);
 	$("#btnAceptarEdit").on("click",probando)
 	//Configuramos los eventos Menu Reportes
 	$("#btnListaAsistencia").on("click",listaAsistencia);

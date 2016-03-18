@@ -5,7 +5,7 @@
 </head>
 <body>
 	<div id="solNuevaMaestro">
-		<?php include '../data/conexion.php';?>
+		<?php require_once('../data/conexion.php');?>
 		<div class="row" id="nuevaMaestro">
 			<h5>Nueva solicitud</h5>
 			<div class="col s12">
