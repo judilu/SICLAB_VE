@@ -15,8 +15,8 @@
 		</div>
 		<div class="row">
 			<div class="col s10 offset-s1">
-				<table class="bordered responsive-table centered">
-					<thead>
+				<table class="bordered responsive-table centered" id="tbInventario">
+				<!--	<thead>
 						<tr>
 							<th data-field="codigoArt">Código</th>
 							<th data-field="nombreArt">Nombre</th>
@@ -33,7 +33,7 @@
 								<a class="btn-floating btn-large waves-effect waves-light amber darken-2" id="btnEditarArt"><i class="material-icons">create</i></a>
 							</td>
 						</tr>
-					</tbody>
+					--></tbody>
 				</table>
 			</div>
 		</div>

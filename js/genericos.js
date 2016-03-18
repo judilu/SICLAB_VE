@@ -1,4 +1,4 @@
-//document.write("<script type='text/javascript' src='../js/usuarios.js'></script>");
+ //document.write("<script type='text/javascript' src='../js/usuarios.js'></script>");
 var inicio = function()
 {
 	$('ul.tabs').tabs();
@@ -77,6 +77,27 @@ var inicio = function()
 		$("#editar").hide("slow");
 		$("#peticionesPendientes").hide("slow");
 		$("#peticionesArticulos").hide("slow");
+		var parametros 	= "opc=listaArticulos1"+"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/genericos.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					$("#tbSolAceptadas").html(response.renglones);
+					$("#tbSolAceptadas a").on("click",practicaRealizada);
+				}
+				else
+					sweetAlert("No hay artículos..!", " ", "error");
+			},
+			error: function(xhr, ajaxOptions,x){
+				alert("Error de conexión lista de artículos");
+				console.log(xhr);	
+			}
+		});
 		$("#listaArt").show("slow");
 		$("#pantallaInventario").show("slow");
 	}

@@ -43,7 +43,7 @@ function conectaBDSICLAB()
 	$conexion = mysql_connect("localhost","siclabuser","Ef22Ap17Jg12*.*");
 	//Seleccionamos la BD
 mysql_select_db("siclabbd");
-mysql_query("SET NAMES 'utf8'");
+mysql_query("SET NAMES UTF8");
 	return $conexion;
 }
 ?>

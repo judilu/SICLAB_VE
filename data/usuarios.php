@@ -1,5 +1,5 @@
 <?php
-include '../data/conexion.php';
+require_once('../data/conexion.php');
 function validaUsuario()
 {
 	$respuesta		= false;

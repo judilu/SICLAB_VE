@@ -29,32 +29,69 @@ function altaInventario1 ()
 	
 $salidaJSON = array('respuesta' => $respuesta);
 print json_encode($salidaJSON);
-	//insert a tabla lbmovimientosarticulos
-	/*$consulta2		= sprintf("insert into lbmovimientosarticulos values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-                $claveArticulo,$descripcionUso,$descripcionArticulo,$numeroSerie,$marca,$modelo,$estatus,$unidadMedida,$fechaCaducidad,$tipoContenedor,$imagen,$identificadorArticulo,$ubicacionAsignada,$claveKit);
-*/
+	
 }
 
-//funcion para sacar el idArticulo
-/*function claveArt (nombreArt)
+function listaArticulos()
 {
-	$nombreArticulo = "'".$_POST["nombreArticulo"]."'";
-	$respuesta		= false;
-	$conexion 		= conectaBDSICLAB();
-	$consulta 		= sprintf("select * from lbarticuloscat where nombreArticulo=%s limit 1",$nombreArticulo);
-	$res			= mysql_query($consulta);
-	if($row = mysql_fetch_array($res))
-	{
-		$respuesta = true;
-		$claveArt = $row["claveArticulo"];
+	$respuesta 	= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{ 
+		$maestro	= $_SESSION['nombre'];
+		$conexion 	= conectaBDSICLAB();
+		$consulta	= sprintf("select A.claveArticulo,B.nombreArticulo, C.cantidad from lbarticulos as A inner join lbarticuloscat as B ON A.claveArticulo=B.claveArticulo
+			inner join lbinventario as C ON B.claveArticulo=C.claveArticulo");
+		$res 		= mysql_query($consulta);
+		$renglones	.= "<thead>";
+		$renglones	.= "<tr>";
+		$renglones	.= "<th data-field='codigo'>Código</th>";
+		$renglones	.= "<th data-field='nombreArticulo'>Nombre del artículo</th>";
+		$renglones	.= "<th data-field='cantidad'>Cantidad</th>";
+		$renglones	.= "<th data-field='fecha'>Fecha</th>";
+		$renglones	.= "</tr>";
+		$renglones	.= "</thead>";
+		while($row = mysql_fetch_array($res))
+		{
+			$mat 	.= "'".($row["MATCVE"])."',";
+			$rows[]=$row;
+			$respuesta = true;
+			$con++;
+		}
+		$mat = (rtrim($mat,","));
+		$materias = nomMat($mat);
+		for($c= 0; $c< $con; $c++)
+		{
+			$renglones .= "<tbody>";
+			$renglones .= "<tr>";
+			$renglones .= "<td>".$materias[$rows[$c]["MATCVE"]]."</td>";
+			$renglones .= "<td>".$rows[$c]["tituloPractica"]."</td>";
+			$renglones .= "<td>".$rows[$c]["nombreLaboratorio"]."</td>";
+			$renglones .= "<td>".$rows[$c]["fechaAsignada"]."</td>";
+			$renglones .= "<td>".$rows[$c]["horaAsignada"]."</td>";
+			$renglones .= "<td><a name = '".$rows[$c]["claveCalendarizacion"]."' class='btn-floating btn-large waves-effect waves-light green darken-2'><i class='material-icons'>thumb_up</i></a></td>";
+			$renglones .= "</tr>";
+			$renglones .= "</tbody>";
+			$respuesta = true;
+		}
 	}
-	return $claveArt;
-}	*/
+	else
+	{
+		salir();
+	}
+	$arrayJSON = array('respuesta' => $respuesta,
+		'renglones' => $renglones);
+	print json_encode($arrayJSON);
+}
+
 //Menú principal
 $opc = $_POST["opc"];
 switch ($opc){
 	case 'altaInventario1':
 	altaInventario1();
+	break;
+	case 'listaArticulos1':
+	listaArticulos();
 	break;
 } 
 ?>

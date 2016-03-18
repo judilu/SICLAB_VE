@@ -37,7 +37,7 @@
 					<select id="cmbNombreArt">
 						<option value="" disabled selected>Seleccione</option>
 						<?php						
-						include '../data/conexion.php';
+						require_once('../data/conexion.php');
 
 						$conexion		= conectaBDSICLAB();
 						$consulta 		= sprintf("select * from lbarticuloscat");
