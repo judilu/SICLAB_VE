@@ -50,9 +50,8 @@ var inicio = function ()
 				                    dataType: "json",
 				                    url:"../data/maestros.php",
 				                    data: parametros, 
-				                    success: function(data) {  
-				                            $(".acceso").hide("slow");
-				                            $(".accesoAlumno").show("slow");  
+				                    success: function(data) 
+				                    {   
 				                    }  
 				                }); 
 							//FIN MODIFICACIONES
