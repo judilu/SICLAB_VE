@@ -1,4 +1,6 @@
-<meta charset="UTF-8">
+<?php header("Content-Type: text/html;charset=utf-8");?>
+
+<meta  http-equiv="Content-type" content="text/html;charset='UTF-8'">
 <title>SICLAB</title>
 
 <link rel="stylesheet" href="..\css\materialize\css\materialize.css">
