@@ -1,5 +1,7 @@
 <?php
-include '../data/conexion.php';
+require_once('../data/conexion.php');
+/*require_once('../data/funciones.php');
+*/
 function altaInventario1 ()
 {
 	//$cveUsuario		= GetSQLValueString($_POST[""],"text");
@@ -22,54 +24,58 @@ function altaInventario1 ()
 	$respuesta 					= false;
 	//insert a tabla lbarticulos
 	$consulta= sprintf("insert into lbarticulos values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-                				$claveArticulo,$descripcionUso,$descripcionArticulo,$numeroSerie,$marca,$modelo,$estatus,$unidadMedida,$fechaCaducidad,$tipoContenedor,$imagen,$identificadorArticulo,$ubicacionAsignada,$claveKit);
-		$resconsulta = mysql_query($consulta);
-		if(mysql_affected_rows()>0)
-			$respuesta = true; 
+		$claveArticulo,$descripcionUso,$descripcionArticulo,$numeroSerie,$marca,$modelo,$estatus,$unidadMedida,$fechaCaducidad,$tipoContenedor,$imagen,$identificadorArticulo,$ubicacionAsignada,$claveKit);
+	$resconsulta = mysql_query($consulta);
+	if(mysql_affected_rows()>0)
+		$respuesta = true; 
 	
-$salidaJSON = array('respuesta' => $respuesta);
-print json_encode($salidaJSON);
+	$salidaJSON = array('respuesta' => $respuesta);
+	print json_encode($salidaJSON);
 	
 }
-
+function usuario ()
+{
+	session_start();
+	$_SESSION['nombre'] = GetSQLValueString($_POST['clave1'],"text");
+}
 function listaArticulos()
 {
 	$respuesta 	= false;
 	session_start();
 	if(!empty($_SESSION['nombre']))
 	{ 
-		$maestro	= $_SESSION['nombre'];
+		$responsable= $_SESSION['nombre'];
+		$art 		= "";
+		$articulos 	= "";
+		$con 		= 0;
+		$rows		= array();
+		$renglones	= "";
 		$conexion 	= conectaBDSICLAB();
 		$consulta	= sprintf("select A.claveArticulo,B.nombreArticulo, C.cantidad from lbarticulos as A inner join lbarticuloscat as B ON A.claveArticulo=B.claveArticulo
-			inner join lbinventario as C ON B.claveArticulo=C.claveArticulo");
+			inner join lbinventarios as C ON B.claveArticulo=C.claveArticulo where A.estatus='V'",$responsable);
 		$res 		= mysql_query($consulta);
 		$renglones	.= "<thead>";
 		$renglones	.= "<tr>";
 		$renglones	.= "<th data-field='codigo'>Código</th>";
 		$renglones	.= "<th data-field='nombreArticulo'>Nombre del artículo</th>";
 		$renglones	.= "<th data-field='cantidad'>Cantidad</th>";
-		$renglones	.= "<th data-field='fecha'>Fecha</th>";
 		$renglones	.= "</tr>";
 		$renglones	.= "</thead>";
 		while($row = mysql_fetch_array($res))
 		{
-			$mat 	.= "'".($row["MATCVE"])."',";
+			$art 	.= "'".($row["claveArticulo"])."',";
 			$rows[]=$row;
 			$respuesta = true;
 			$con++;
 		}
-		$mat = (rtrim($mat,","));
-		$materias = nomMat($mat);
+		$art = (rtrim($art,","));
 		for($c= 0; $c< $con; $c++)
 		{
 			$renglones .= "<tbody>";
 			$renglones .= "<tr>";
-			$renglones .= "<td>".$materias[$rows[$c]["MATCVE"]]."</td>";
-			$renglones .= "<td>".$rows[$c]["tituloPractica"]."</td>";
-			$renglones .= "<td>".$rows[$c]["nombreLaboratorio"]."</td>";
-			$renglones .= "<td>".$rows[$c]["fechaAsignada"]."</td>";
-			$renglones .= "<td>".$rows[$c]["horaAsignada"]."</td>";
-			$renglones .= "<td><a name = '".$rows[$c]["claveCalendarizacion"]."' class='btn-floating btn-large waves-effect waves-light green darken-2'><i class='material-icons'>thumb_up</i></a></td>";
+			$renglones .= "<td>".$rows[$c]["claveArticulo"]."</td>";
+			$renglones .= "<td>".$rows[$c]["nombreArticulo"]."</td>";
+			$renglones .= "<td>".$rows[$c]["cantidad"]."</td>";
 			$renglones .= "</tr>";
 			$renglones .= "</tbody>";
 			$respuesta = true;
@@ -77,13 +83,85 @@ function listaArticulos()
 	}
 	else
 	{
-		salir();
+		//salir();
 	}
 	$arrayJSON = array('respuesta' => $respuesta,
 		'renglones' => $renglones);
 	print json_encode($arrayJSON);
 }
+function buscaArticulo()
+{
+	$respuesta 	= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{ 
+		$responsable= $_SESSION['nombre'];
+		$identificadorArticulo= GetSQLValueString($_POST["identificadorArticulo"],"text");
+		$con 			= 0;
+		$rows			= array();
+		$modelo			= "";
+		$numeroSerie	= "";
+		$nombreArticulo	= "";
+		$marca			= "";
+		$fechaCaducidad	= "";
+		$descripcionArticulo	= "";
+		$descripcionUso	= "";
+		$unidadMedida	= "";
+		$tipoContenedor	= "";
+		$conexion 	= conectaBDSICLAB();
+		$consulta	= sprintf("select A.modelo,A.numeroSerie,B.nombreArticulo,A.marca,A.fechaCaducidad,
+			A.descripcionArticulo,A.descripcionUso,A.unidadMedida, A.tipoContenedor
+			from lbarticulos as A inner join lbarticuloscat as B on A.claveArticulo=B.claveArticulo
+			where A.identificadorArticulo=%s",$identificadorArticulo,$responsable);
+		$res 		= mysql_query($consulta);
+		
+		while($row = mysql_fetch_array($res))
+		{
+			$respuesta = true;
+			$modelo			= $row["modelo"];
+			$numeroSerie 	= $row["numeroSerie"];
+			$nombreArticulo	= $row["nombreArticulo"];
+			$marca		 	= $row["marca"];
+			$fechaCaducidad	= $row["fechaCaducidad"];
+			$descripcionArticulo	= $row["descripcionArticulo"];
+			$descripcionUso	= $row["descripcionUso"];
+			$unidadMedida	= $row["unidadMedida"];
+			$tipoContenedor	= $row["tipoContenedor"];
+		}
+	}
+	$salidaJSON = array('respuesta' => $respuesta,
+		'modelo' => $modelo, 'numeroSerie' => $numeroSerie, 'nombreArticulo' => $nombreArticulo,
+		'marca' => $marca, 'fechaCaducidad' => $fechaCaducidad, 'descripcionArticulo' => $descripcionArticulo,
+		'descripcionUso' => $descripcionUso, 'unidadMedida' => $unidadMedida, 'tipoContenedor' => $tipoContenedor);
+	print json_encode($salidaJSON);
+}
+function bajaArticulos()
+{
+	$respuesta 	= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{ 
+		$responsable= $_SESSION['nombre'];
+		$identificadorArticulo= GetSQLValueString($_POST["identificadorArticulo"],"text");
+		$art 		= "";
+		$articulos 	= "";
+		$con 		= 0;
+		$rows		= array();
+		$renglones	= "";
+		$conexion 	= conectaBDSICLAB();
+		$consulta	= sprintf("update lbarticulos set estatus='B' where identificadorArticulo=%s",$identificadorArticulo,$responsable);
+		$res 		= mysql_query($consulta);
+		
+		if(mysql_affected_rows()>0)
+			$respuesta = true; 
+	}
+	$salidaJSON = array('respuesta' => $respuesta);
+	print json_encode($salidaJSON);
+}
+function mantenimientoArticulos()
+{
 
+}
 //Menú principal
 $opc = $_POST["opc"];
 switch ($opc){
@@ -92,6 +170,18 @@ switch ($opc){
 	break;
 	case 'listaArticulos1':
 	listaArticulos();
+	break;
+	case 'usuario1':
+	usuario();
+	break;
+	case 'bajaArticulos1':
+	bajaArticulos();
+	break;
+	case 'buscaArticulos1':
+	buscaArticulo();
+	break;
+	case 'manteniminetoArticulos1':
+	mantenimientoArticulos();
 	break;
 } 
 ?>

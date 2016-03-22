@@ -16,24 +16,8 @@
 		<div class="row">
 			<div class="col s10 offset-s1">
 				<table class="bordered responsive-table centered" id="tbInventario">
-				<!--	<thead>
-						<tr>
-							<th data-field="codigoArt">Código</th>
-							<th data-field="nombreArt">Nombre</th>
-							<th data-field="CantidadArt">Cantidad</th>
-							<th data-field="accionesArt">Acciones</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>12548523652</td>
-							<td>Cautín</td>
-							<td>10</td>
-							<td>
-								<a class="btn-floating btn-large waves-effect waves-light amber darken-2" id="btnEditarArt"><i class="material-icons">create</i></a>
-							</td>
-						</tr>
-					--></tbody>
+				
+				</tbody>
 				</table>
 			</div>
 		</div>
