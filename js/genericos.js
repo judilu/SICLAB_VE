@@ -5,7 +5,7 @@
 	$('select').material_select(); //agregado
 	$('.collapsible').collapsible({
       accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-  	});
+  });
     //Salir del sistema
     var salir = function()
     {
@@ -51,8 +51,8 @@
     					"Aún sigues en el sistema", "error");
     			} 
     		});
-	}
-	//Prestamos
+}
+	//Prestamos de matertial a alumnos y externos
 	var prestamosPendientes = function()
 	{
 		$("#atenderSolicitud").hide("slow");
@@ -90,10 +90,32 @@
 		$("#devolucionMaterial2").show("slow");
 	}
 	//Laboratorios
+	//solicitudes pendientes de laboratorio...
+	//falta lo de los botones flotantes
 	var sLaboratorioPendientes = function()
 	{
 		$("#sAceptadasLab").hide("slow");
 		$("#verMasSolicitud").hide("slow");
+		var parametros 	= "opc=pendientesLab1"+"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/genericos.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					$("#tbPendientesLab").html(response.renglones);
+					$("#tbPendientesLab a").on("click",verMas);
+				}
+				else
+					sweetAlert("No hay solicitudes de laboratorio pendientes!", " ", "error");
+			},
+			error: function(xhr, ajaxOptions,x){
+				alert("Error de conexión solicitudes pendientes de laboratorio");
+			}
+		});
 		$("#sPendientesLab").show("slow");
 		$("#solicitudesPendientesLab2").show("slow");
 	}
@@ -101,17 +123,97 @@
 	{
 		$("#sPendientesLab").hide("slow");
 		$("#verMasSolicitud2").hide("slow");
+		var parametros 	= "opc=aceptadasLab1"+"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/genericos.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					$("#tbAceptadasLab").html(response.renglones);
+					$("#tbAceptadasLab a").on("click",verMas2);
+				}
+				else
+					sweetAlert("No hay solicitudes de laboratorio aceptadas!", " ", "error");
+			},
+			error: function(xhr, ajaxOptions,x){
+				alert("Error de conexión solicitudes aceptadas de laboratorio");
+			}
+		});
 		$("#sAceptadasLab").show("slow");
 		$("#solicitudesAceptadasLab2").show("slow");
 	}
 	var verMas = function()
 	{		
 		$("#solicitudesPendientesLab2").hide("slow");
+		//contenido dinamico
+		var realid = $(this).attr("name");
+		var parametros = "opc=verMasLab1"+
+		"&clave="+realid+
+		"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/maestros.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					$("#txtFecha1").val(response.fecha);
+					$("#txtHora1").val(response.fecha);
+					$("#txtMaestro1").val(response.fecha);
+					$("#txtPractica1").val(response.fecha);
+					$("#tbMaterialesPendientesLab").html(response.renglones);
+				}
+				else
+				{
+					sweetAlert("No existe esa solicitud..!", "", "error");
+				}
+			},
+			error: function(xhr, ajaxOptions,x)
+			{
+				alert("Error de conexión realizadas");
+			}
+		});	
 		$("#verMasSolicitud").show("slow");
 	}
 	var verMas2 = function()
 	{		
 		$("#solicitudesAceptadasLab2").hide("slow");
+		//contenido dinamico
+		var realid = $(this).attr("name");
+		var parametros = "opc=verMasLab2"+
+		"&clave="+realid+
+		"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/maestros.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					$("#txtFecha").val(response.fecha);
+					$("#txtHora").val(response.fecha);
+					$("#txtMaestro").val(response.fecha);
+					$("#txtPractica").val(response.fecha);
+					$("#tbMaterialesAceptadasLab").html(response.renglones);
+				}
+				else
+				{
+					sweetAlert("No existe esa solicitud..!", "", "error");
+				}
+			},
+			error: function(xhr, ajaxOptions,x)
+			{
+				alert("Error de conexión realizadas");
+			}
+		});	
 		$("#verMasSolicitud2").show("slow");
 	}
 	//Inventario
@@ -201,6 +303,8 @@
 					if(response.respuesta == true)
 					{
 						swal("El articulo fue dado de alta con éxito!", "Da clic en el botón OK!", "success");
+						$("input").val("");
+						$("textarea").val("");
 					}
 					else
 					{
@@ -208,12 +312,13 @@
 					}
 				},
 				error: function(xhr, ajaxOptions,x){
-					sweetAlert("Error", "Error de conexión", "error");
+					sweetAlert("Error", "Error de conexión alta inventario", "error");
 				}
 			});
 			console.log(parametros);
 		}
 	}
+	//muestra la pantalla de baja articulos
 	var bajaArticulos = function()
 	{
 		$("#altaArticulos").hide("slow");
@@ -223,15 +328,19 @@
 		$("#peticionesArticulos").hide("slow");
 		$("#bajaArticulos").show("slow");
 	}
+	//da de baja un articulo al presionar el boton dar de baja
 	var bajaInventario = function()
 	{
-		if(($("#txtCodigoBarras").val())!=' ')
+		if(($("#txtCodigoBarrasBaja").val())!=' ' && ($("#cmbTipoBaja").val())!=' ' 
+			&& ($("#txtMotivoBaja").val())!=' ')
 		{
-			//aqui empieza todo
-       		//var cveUsuario = usuarioNombre();
-			var identificadorArticulo		= $("#txtCodigoBarrasBaja").val();//obtener el articulo a dar de baja
+			var identificadorArticulo	= $("#txtCodigoBarrasBaja").val();//obtener el articulo a dar de baja
+			var estatus 				= $("#cmbTipoBaja").val();
+			var observaciones 				= $("#txtMotivoBaja").val()
 			var parametros 	= "opc=bajaArticulos1"
 			+"&identificadorArticulo="+identificadorArticulo
+			+"&estatus="+estatus
+			+"&observaciones="+observaciones
 			+"&id="+Math.random();
 			$.ajax({
 				cache:false,
@@ -243,6 +352,8 @@
 					if(response.respuesta == true)
 					{
 						swal("El articulo fue dado de baja con éxito!", "Da clic en el botón OK!", "success");
+						$("input").val("");
+						$("textarea").val("");
 					}
 					else
 					{
@@ -250,11 +361,13 @@
 					}
 				},
 				error: function(xhr, ajaxOptions,x){
-					sweetAlert("Error", "Error de conexión", "error");
+					sweetAlert("Error", "Error de conexión baja de artículos", "error");
 				}
 			});
 		}
 	}
+	//buscar el articulo a dar de baja y regresa todos sus datos y los muestra 
+	//en la pantalla de dar de baja, rellenando los campos
 	var buscarArticulo = function() 
 	{
 		if(($("#txtCodigoBarrasBaja").val())!=' ')
@@ -287,11 +400,12 @@
 					}
 				},
 				error: function(xhr, ajaxOptions,x){
-					sweetAlert("Error", "Error de conexión", "error");
+					sweetAlert("Error", "Error de conexión al buscar el articulo para darlo de baja", "error");
 				}
 			});
 		}
 	}
+	//Muestra la pantalla de enviar articulos a mantenimiento
 	var mantenimientoArticulos = function()
 	{
 		$("#altaArticulos").hide("slow");
@@ -301,6 +415,100 @@
 		$("#peticionesArticulos").hide("slow");
 		$("#mantenimientoArticulos").show("slow");
 	}
+	//Busca el articulo que queremos enviar a mantenimiento
+	var buscarArticuloMtto = function() 
+	{
+		if(($("#txtCodigoBarrasMtto").val())!=' ')
+		{
+			var identificadorArticulo= $("#txtCodigoBarrasMtto").val();
+			var parametros= "opc=buscaArticulos2"+"&identificadorArticulo="+identificadorArticulo
+			+"&id="+Math.random();
+			$.ajax({
+				cache:false,
+				type: "POST",
+				dataType: "json",
+				url:'../data/genericos.php',
+				data: parametros,
+				success: function(response){
+					if(response.respuesta == true)
+					{
+						$("#txtModeloArtMtto").val(response.modelo);
+						$("#txtNumSerieMtto").val(response.numeroSerie);
+						$("#txtNombreArtMtto").val(response.nombreArticulo);
+						$("#txtMarcaArtMtto").val(response.marca);
+						$("#txtFechaCaducidadMtto").val(response.fechaCaducidad);
+					}
+					else
+					{
+						sweetAlert("Error", "El artículo no existe", "error");
+					}
+				},
+				error: function(xhr, ajaxOptions,x){
+					sweetAlert("Error", "Error de conexión al buscar el artículo para registrar el mantenimiento", "error");
+				}
+			});
+		}
+	}
+	//Cambia el estatus del articulo a M que es mantenimiento
+	var guardaMtto = function()
+	{
+		if(($("#txtCodigoBarrasMtto").val())!=' ' && ($("#txtLugarReparacionMtto").val())!=' '
+			&& ($("#txtMotivoMtto").val())!=' ')
+		{
+			var horaActual 				= new Date();
+			var fechaActual				= new Date();
+			var hora 					=horaActual.getHours();
+			var minutos 				=horaActual.getMinutes();
+			var dia 					=fechaActual.getDate();
+			var mes 					=fechaActual.getMonth()+1;
+			var anno 					=fechaActual.getFullYear();
+
+			var identificadorArticulo	= $("#txtCodigoBarrasMtto").val();//obtener el articulo a dar de baja
+			var observaciones 			= $("#txtMotivoMtto").val()
+			var periodo					= "67236";
+			var estatus					= "M";
+			var claveMovimiento			= " ";
+			var claveLab				= "1";
+			var horaMovimiento			= hora + ":" + minutos;
+			var fechaMovimiento 		= dia + "/" + mes + "/" + anno;
+			var respons 				= "1"
+			var parametros 	= "opc=mantenimientoArticulos1"
+			+"&identificadorArticulo="+identificadorArticulo
+			+"&observaciones="+observaciones
+			+"&horaMovimiento="+horaMovimiento
+			+"&fechaMovimiento="+fechaMovimiento
+			+"&periodo="+periodo
+			+"&estatus="+estatus
+			+"&claveMovimiento="+claveMovimiento
+			+"&claveLab="+claveLab
+			+"&respons="+respons
+			+"&id="+Math.random();
+			$.ajax({
+				cache:false,
+				type: "POST",
+				dataType: "json",
+				url:'../data/genericos.php',
+				data: parametros,
+				success: function(response){
+					if(response.respuesta == true)
+					{
+						swal("El envío a mantenimiento quedó registrado!", "Da clic en el botón OK!", "success");
+						$("input").val("");
+						$("textarea").val("");
+					}
+					else
+					{
+						sweetAlert("Error", "No se pudo registrar el envío a mentenimiento!", "error");
+					}
+				},
+				error: function(xhr, ajaxOptions,x){
+					sweetAlert("Error", "Error de conexión al registrar el mantenimiento del artículo", "error");
+				}
+			});
+		}
+	}
+	//Inventario
+	//Peticiones de articulos
 	var peticionesPendientesArt = function()
 	{
 		$("#altaArticulos").hide("slow");
@@ -324,12 +532,12 @@
 		$("#solicitudesPendientes2").hide("slow");
 		$("#atenderSolicitud").show("slow");
 	}
-	var editarArticulo = function()
+	//fin de las peticiones de los articulos
+	/*var editarArticulo = function()
 	{		
 		$("#listaArt").hide("slow");
 		$("#editar").show("slow");
-	}
-
+	}*/
 	//Reportes
 	var resumenReportes=function()
 	{
@@ -377,27 +585,27 @@
 	$("#btnRegresarVerMas2").on("click",sLaboratorioAceptadas);
 	$("#btnVerMas").on("click",verMas);
 	$("#btnVerMas2").on("click",verMas2);
-	//Inventario
+	//Inventario **solo faltan las peticiones
 	$("#btnArticulos").on("click",listaArticulos);
-	//$("#btnEditarArt").on("click",editarArticulo);
-	//$("#btnRegresarEditarArt").on("click",listaArticulos);
 	$("#btnAlta").on("click",altaArticulos);
 	$("#btnAltaArt").on("click",altaInventario);
 	$("#btnBaja").on("click",bajaArticulos);
 	$("#btnBajaArt").on("click",bajaInventario);
 	$("#btnBuscarArt").on("click",buscarArticulo);
-
-
 	$("#btnMantenimiento").on("click",mantenimientoArticulos);
+	$("#btnBuscarArtMtto").on("click",buscarArticuloMtto);
+	$("#btnGuardaMantenimiento").on("click",guardaMtto);
 	$("#btnPeticionesPendientes").on("click",peticionesPendientesArt);
 	$("#btnPeticionArticulo").on("click",peticionesArticulos);
 	$("#btnAtender").on("click",atenderSolicitud);	
+	//$("#btnEditarArt").on("click",editarArticulo);
+	//$("#btnRegresarEditarArt").on("click",listaArticulos);
+	
 	//Reportes
 	$("#btnResumenReportes").on("click",resumenReportes);
 	$("#btnExistenciaInventario").on("click",existenciaInventario);
 	$("#btnBajoInventario").on("click",bajoInventario);
 	$("#btnPedidoMaterial").on("click",pedidoMaterial);
-
 	$('.dropdown-button').dropdown({
 		inDuration: 300,
 		outDuration: 225,
@@ -406,6 +614,6 @@
       gutter: 0, // Spacing from edge
       belowOrigin: false, // Displays dropdown below the button
       alignment: 'left' // Displays dropdown with edge aligned to the left of button
-  	});
+  });
 }
 $(document).on("ready",inicio);

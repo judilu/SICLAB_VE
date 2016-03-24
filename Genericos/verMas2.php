@@ -27,8 +27,8 @@
 		<div class="row">
 			<div class="col s10 offset-s1">
 				<h5>Materiales necesarios para la práctica</h5>
-				<table>
-					<thead>
+				<table id="tbMaterialesAceptadasLab">
+					<!--<thead>
 						<tr>
 							<th data-field="Cantidad">Maestro</th>
 							<th data-field="Descripción">Materia</th>
@@ -39,7 +39,7 @@
 							<td>1</td>
 							<td>Cautín</td>
 						</tr>
-					</tbody>
+					</tbody>-->
 				</table>
 			</div>
 		</div>

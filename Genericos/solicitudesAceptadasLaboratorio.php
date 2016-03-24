@@ -1,8 +1,8 @@
 <div class="row" id="solicitudesAceptadasLab2">
 	<h5>Solicitudes aceptadas de laboratorio</h5>
 	<div class="col s10 offset-s1">
-		<table>
-			<thead>
+		<table id="tbAceptadasLab">
+			<!--<thead>
 				<tr>
 					<th data-field="materia">Maestro</th>
 					<th data-field="materia">Materia</th>
@@ -23,7 +23,7 @@
 						<a class="btn-floating btn-large waves-effect amber darken-2" id="btnVerMas2"><i class="material-icons">add</i></a>
 					</td>
 				</tr>
-			</tbody>
+			</tbody>-->
 		</table>
 	</div>
 </div>

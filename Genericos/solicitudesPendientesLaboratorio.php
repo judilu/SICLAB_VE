@@ -1,8 +1,8 @@
 <div class="row" id="solicitudesPendientesLab2">
 	<h5>Solicitudes pendientes de laboratorio</h5>
 	<div class="col s10 offset-s1">
-		<table>
-			<thead>
+		<table id="tbPendientesLab">
+			<!--<thead>
 				<tr>
 					<th data-field="materia">Maestro</th>
 					<th data-field="materia">Materia</th>
@@ -25,7 +25,7 @@
 						<a class="btn-floating btn-large waves-effect red darken-1" id="btnEliminar"><i class="material-icons">delete</i></a>
 					</td>
 				</tr>
-			</tbody>
+			</tbody>-->
 		</table>
 	</div>
 </div>
