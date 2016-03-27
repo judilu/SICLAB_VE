@@ -19,6 +19,19 @@ function existeSol ($clave)
 		}
 		return false;
 	}
+function existeSolLab ($clave)
+	{
+		$claveSol	= $clave;
+		$conexion 	= conectaBDSICLAB();
+		$consulta 	= sprintf("select claveSolicitud from lbsolicitudlaboratorios 
+			where claveSolicitud =%s",$claveSol);
+		$res 		= mysql_query($consulta); 
+		if($row = mysql_fetch_array($res))
+		{
+			return true;
+		}
+		return false;
+	}
 //pendiente de terminar
 function pendientesLaboratorio()
 {
@@ -62,7 +75,7 @@ function pendientesLaboratorio()
 			$renglones .= "<td>".$rows[$c]["tituloPractica"]."</td>";
 			$renglones .= "<td>".$rows[$c]["fechaSolicitud"]."</td>";
 			$renglones .= "<td>".$rows[$c]["horaSolicitud"]."</td>";
-			$renglones .= "<td><a name = '".$rows[$c]["claveSolicitud"]."' class='btn-floating btn-large waves-effect  green darken-2' id='btnCalendarizado'><i class='material-icons'>done</i></a></td>";
+			$renglones .= "<td><a name = '".$rows[$c]["claveSolicitud"]."' class='btn-floating btn-large waves-effect  green darken-2' type='button' id='btnCalendarizado'><i class='material-icons'>done</i></a></td>";
 			$renglones .= "<td><a name = '".$rows[$c]["claveSolicitud"]."' class='btn-floating btn-large waves-effect amber darken-2' id='btnVerMas'><i class='material-icons'>add</i></a></td>";
 			$renglones .= "<td><a name = '".$rows[$c]["claveSolicitud"]."' class='btn-floating btn-large waves-effect red darken-1' id='btnEliminarSolLab'><i class='material-icons'>delete</i></a></td>";
 			$renglones .= "</tr>";
@@ -81,8 +94,65 @@ function pendientesLaboratorio()
 //ver mas y ver mas dos falta regresar los datos de las consultas a las pantallas
 function verMas()
 {
+	$clave 		= GetSQLValueString($_POST["clave"],"text");
+	$respuesta 		= false;
+	$renglones		="";
+	$fechaSolicitud	="";
+	$horaSolicitud	="";
+	$con 			="";
+	$grupo			="";
+	$nombrePractica ="";
+	$nombreArticulo ="";
+	$cantidad 		="";
+	$rows		= array();
+	$conexion 		= conectaBDSICLAB();
+
+	if(existeSolLab($clave))
+	{
+		$consulta  		= sprintf("select a.fechaSolicitud,a.horaSolicitud,a.GPOCVE,c.tituloPractica, b.nombreArticulo, d.cantidad 
+			from lbarticuloscat as b INNER JOIN lbasignaarticulospracticas as d ON b.claveArticulo=d.claveArticulo
+		 INNER JOIN lbsolicitudlaboratorios as a ON d.claveSolicitud=a.claveSolicitud 
+		 INNER JOIN lbpracticas as c ON a.clavePractica=c.clavePractica
+			where a.claveSolicitud =%s",$clave);
+		$renglones	.= "<thead>";
+		$renglones	.= "<tr>";
+		$renglones	.= "<th data-field='nombreArt'>Nombre del artículo</th>";
+		$renglones	.= "<th data-field='cantidad'>Cantidad</th>";
+		$renglones	.= "</tr>";
+		$renglones	.= "</thead>";
+		$res 	 	=  mysql_query($consulta);
+
+		while($row = mysql_fetch_array($res))
+		{	
+			$respuesta = true;
+			$fechaSolicitud = $row["fechaSolicitud"];
+			$horaSolicitud = $row["horaSolicitud"];
+			$grupo = $row["GPOCVE"];
+			$nombrePractica = $row["tituloPractica"];
+			$rows[]=$row;
+			$con++;
+			
+		}
+		for($c= 0; $c< $con; $c++)
+		{
+			$renglones .= "<tbody>";
+			$renglones .= "<tr>";
+			$renglones .= "<td>".$rows[$c]["nombreArticulo"]."</td>";
+			$renglones .= "<td>".$rows[$c]["cantidad"]."</td>";
+			$renglones .= "</tr>";
+			$renglones .= "</tbody>";
+			$respuesta = true;
+		}
+		
+	}
+	$arrayJSON = array('respuesta' => $respuesta, 'fecha' =>$fechaSolicitud, 'hora' => $horaSolicitud,'maestro' => $grupo, 'practica' => $nombrePractica, 'renglones' => $renglones);
+		print json_encode($arrayJSON);
+
+}
+function verMas2()
+{
 	$claveCal 		= GetSQLValueString($_POST["clave"],"text");
-	if(existeSol($clave))
+	if(existeSol($claveCal))
 	{
 		$respuesta 		= false;
 		$conexion 		= conectaBDSICLAB();
@@ -92,27 +162,6 @@ function verMas()
 		 INNER JOIN lbsolicitudlaboratorios as a ON c.claveSolicitud=a.claveSolicitud 
 		 INNER JOIN lbcalendarizadas as e ON a.claveSolicitud=e.claveSolicitud
 			where e.claveCalendarizacion =%s",$claveCal);
-		$res 	 		=  mysql_query($consulta);
-		if($res)
-		{	
-			$respuesta = true;
-		}
-		$arrayJSON = array('respuesta' => $respuesta);
-		print json_encode($arrayJSON);
-	}
-}
-function verMas2()
-{
-	$clave 		= GetSQLValueString($_POST["clave"],"text");
-	if(existeSol($clave))
-	{
-		$respuesta 		= false;
-		$conexion 		= conectaBDSICLAB();
-		$consulta  		= sprintf("select a.fechaSolicitud,a.horaSolicitud,a.GPOCVE,c.tituloPractica, b.nombreArticulo, d.cantidad 
-			from lbarticuloscat as b INNER JOIN lbasignaarticulospracticas as d ON bclaveArticulo=d.claveArticulo
-		 INNER JOIN lbsolicitudlaboratorios as a ON d.claveSolicitud=a.claveSolicitud 
-		 INNER JOIN lbpracticas as c ON a.clavePractica=c.clavePractica
-			where claveSolicitud =%s",$clave);
 		$res 	 		=  mysql_query($consulta);
 		if($res)
 		{	

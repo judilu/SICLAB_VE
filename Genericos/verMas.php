@@ -6,21 +6,21 @@
 			</div>
 			
 			<div class="input-field col s3 offset-s3">
-				<input id="txtFecha" type="text" class="validate">
+				<input placeholder=" " id="txtFecha1" type="text" class="validate">
 				<label for="txtFecha">Fecha</label>
 			</div>
 			<div class="input-field col s3">
-				<input id="txtHora" type="text" class="validate">
+				<input placeholder=" " id="txtHora1" type="text" class="validate">
 				<label for="txtHora">Hora</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="input-field col s6">
-				<input id="txtMaestro" type="text" class="validate">
+				<input placeholder=" " id="txtMaestro1" type="text" class="validate">
 				<label for="txtMaestro" class="active">Maestro</label>
 			</div>
 			<div class="input-field col s5 offset-s1">
-				<input id="txtPractica" type="text" class="validate">
+				<input placeholder=" " id="txtPractica1" type="text" class="validate">
 				<label for="txtPractica">Nombre de la práctica</label>
 			</div>
 		</div>
@@ -28,18 +28,7 @@
 			<div class="col s10 offset-s1">
 				<h5>Materiales necesarios para la práctica</h5>
 				<table id="tbMaterialesPendientesLab">
-					<!--<thead>
-						<tr>
-							<th data-field="Cantidad">Maestro</th>
-							<th data-field="Descripción">Materia</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>Cautín</td>
-						</tr>
-					</tbody>-->
+					<!--se llena dinamicamente con php-->
 				</table>
 			</div>
 		</div>

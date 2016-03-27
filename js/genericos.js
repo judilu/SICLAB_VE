@@ -92,6 +92,13 @@
 	//Laboratorios
 	//solicitudes pendientes de laboratorio...
 	//falta lo de los botones flotantes
+	var sGuardaCanderalizada = function(){
+		$(this).closest('tr').remove();
+	}
+	var eliminarSolLab = function(){
+		$(this).closest('tr').remove();
+	}
+
 	var sLaboratorioPendientes = function()
 	{
 		$("#sAceptadasLab").hide("slow");
@@ -107,7 +114,9 @@
 				if(response.respuesta == true)
 				{
 					$("#tbPendientesLab").html(response.renglones);
-					$("#tbPendientesLab a").on("click",verMas);
+					$("#tbPendientesLab #btnCalendarizado").on("click",sGuardaCanderalizada);
+					$("#tbPendientesLab #btnVerMas").on("click",verMas);
+					$("#tbPendientesLab #btnEliminarSolLab").on("click",eliminarSolLab);
 				}
 				else
 					sweetAlert("No hay solicitudes de laboratorio pendientes!", " ", "error");
@@ -158,15 +167,15 @@
 			cache:false,
 			type: "POST",
 			dataType: "json",
-			url:"../data/maestros.php",
+			url:"../data/genericos.php",
 			data: parametros,
 			success: function(response){
 				if(response.respuesta == true)
 				{
 					$("#txtFecha1").val(response.fecha);
-					$("#txtHora1").val(response.fecha);
-					$("#txtMaestro1").val(response.fecha);
-					$("#txtPractica1").val(response.fecha);
+					$("#txtHora1").val(response.hora);
+					$("#txtMaestro1").val(response.maestro);
+					$("#txtPractica1").val(response.practica);
 					$("#tbMaterialesPendientesLab").html(response.renglones);
 				}
 				else
