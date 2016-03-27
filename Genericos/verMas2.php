@@ -4,24 +4,23 @@
 			<div class="col">
 				<h5>Información general</h5>
 			</div>
-			
 			<div class="input-field col s3 offset-s3">
-				<input id="txtFecha" type="text" class="validate">
-				<label for="txtFecha">Fecha</label>
+				<input placeholder=" " id="txtFecha2" type="text" class="validate">
+				<label for="txtFecha1">Fecha</label>
 			</div>
 			<div class="input-field col s3">
-				<input id="txtHora" type="text" class="validate">
-				<label for="txtHora">Hora</label>
+				<input placeholder=" " id="txtHora2" type="text" class="validate">
+				<label for="txtHora1">Hora</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="input-field col s6">
-				<input id="txtMaestro" type="text" class="validate">
-				<label for="txtMaestro" class="active">Maestro</label>
+				<input placeholder=" " id="txtMaestro2" type="text" class="validate">
+				<label for="txtMaestro1" class="active">Maestro</label>
 			</div>
 			<div class="input-field col s5 offset-s1">
-				<input id="txtPractica" type="text" class="validate">
-				<label for="txtPractica">Nombre de la práctica</label>
+				<input placeholder=" " id="txtPractica2" type="text" class="validate">
+				<label for="txtPractica1">Nombre de la práctica</label>
 			</div>
 		</div>
 		<div class="row">

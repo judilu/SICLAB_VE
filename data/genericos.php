@@ -7,7 +7,7 @@ function usuario ()
 	$_SESSION['nombre'] = GetSQLValueString($_POST['clave1'],"text");
 }
 function existeSol ($clave)
-	{
+{
 		$claveSol	= $clave;
 		$conexion 	= conectaBDSICLAB();
 		$consulta 	= sprintf("select claveCalendarizacion from lbcalendarizaciones 
@@ -18,9 +18,9 @@ function existeSol ($clave)
 			return true;
 		}
 		return false;
-	}
+}
 function existeSolLab ($clave)
-	{
+{
 		$claveSol	= $clave;
 		$conexion 	= conectaBDSICLAB();
 		$consulta 	= sprintf("select claveSolicitud from lbsolicitudlaboratorios 
@@ -31,7 +31,7 @@ function existeSolLab ($clave)
 			return true;
 		}
 		return false;
-	}
+}
 //pendiente de terminar
 function pendientesLaboratorio()
 {
@@ -94,97 +94,174 @@ function pendientesLaboratorio()
 //ver mas y ver mas dos falta regresar los datos de las consultas a las pantallas
 function verMas()
 {
-	$clave 		= GetSQLValueString($_POST["clave"],"text");
 	$respuesta 		= false;
-	$renglones		="";
-	$fechaSolicitud	="";
-	$horaSolicitud	="";
-	$con 			="";
-	$grupo			="";
-	$nombrePractica ="";
-	$nombreArticulo ="";
-	$cantidad 		="";
-	$rows		= array();
-	$conexion 		= conectaBDSICLAB();
-
-	if(existeSolLab($clave))
+	session_start();
+	if(!empty($_SESSION['nombre']))
 	{
-		$consulta  		= sprintf("select a.fechaSolicitud,a.horaSolicitud,a.GPOCVE,c.tituloPractica, b.nombreArticulo, d.cantidad 
-			from lbarticuloscat as b INNER JOIN lbasignaarticulospracticas as d ON b.claveArticulo=d.claveArticulo
-		 INNER JOIN lbsolicitudlaboratorios as a ON d.claveSolicitud=a.claveSolicitud 
-		 INNER JOIN lbpracticas as c ON a.clavePractica=c.clavePractica
-			where a.claveSolicitud =%s",$clave);
-		$renglones	.= "<thead>";
-		$renglones	.= "<tr>";
-		$renglones	.= "<th data-field='nombreArt'>Nombre del artículo</th>";
-		$renglones	.= "<th data-field='cantidad'>Cantidad</th>";
-		$renglones	.= "</tr>";
-		$renglones	.= "</thead>";
-		$res 	 	=  mysql_query($consulta);
-
-		while($row = mysql_fetch_array($res))
-		{	
-			$respuesta = true;
-			$fechaSolicitud = $row["fechaSolicitud"];
-			$horaSolicitud = $row["horaSolicitud"];
-			$grupo = $row["GPOCVE"];
-			$nombrePractica = $row["tituloPractica"];
-			$rows[]=$row;
-			$con++;
-			
-		}
-		for($c= 0; $c< $con; $c++)
+		$clave 		= GetSQLValueString($_POST["clave"],"text");
+		$renglones		="";
+		$fechaSolicitud	="";
+		$horaSolicitud	="";
+		$con 			="";
+		$grupo			="";
+		$nombrePractica ="";
+		$nombreArticulo ="";
+		$cantidad 		="";
+		$rows		= array();
+		$conexion 		= conectaBDSICLAB();
+//se necesita agregar un estatus en lbsolicitudlaboratorios ya que 
+//no se sabe si no fue aceptada, si esta calendarizada o aun esta pendiente
+		if(existeSolLab($clave))
 		{
-			$renglones .= "<tbody>";
-			$renglones .= "<tr>";
-			$renglones .= "<td>".$rows[$c]["nombreArticulo"]."</td>";
-			$renglones .= "<td>".$rows[$c]["cantidad"]."</td>";
-			$renglones .= "</tr>";
-			$renglones .= "</tbody>";
-			$respuesta = true;
+			$consulta  		= sprintf("select a.fechaSolicitud,a.horaSolicitud,a.GPOCVE,c.tituloPractica, b.nombreArticulo, d.cantidad 
+				from lbarticuloscat as b INNER JOIN lbasignaarticulospracticas as d ON b.claveArticulo=d.claveArticulo
+			 INNER JOIN lbsolicitudlaboratorios as a ON d.claveSolicitud=a.claveSolicitud 
+			 INNER JOIN lbpracticas as c ON a.clavePractica=c.clavePractica
+				where a.claveSolicitud =%s",$clave);
+			$renglones	.= "<thead>";
+			$renglones	.= "<tr>";
+			$renglones	.= "<th data-field='nombreArt'>Nombre del artículo</th>";
+			$renglones	.= "<th data-field='cantidad'>Cantidad</th>";
+			$renglones	.= "</tr>";
+			$renglones	.= "</thead>";
+			$res 	 	=  mysql_query($consulta);
+
+			while($row = mysql_fetch_array($res))
+			{	
+				$respuesta = true;
+				$fechaSolicitud = $row["fechaSolicitud"];
+				$horaSolicitud = $row["horaSolicitud"];
+				$grupo = $row["GPOCVE"];
+				$nombrePractica = $row["tituloPractica"];
+				$rows[]=$row;
+				$con++;
+				
+			}
+			for($c= 0; $c< $con; $c++)
+			{
+				$renglones .= "<tbody>";
+				$renglones .= "<tr>";
+				$renglones .= "<td>".$rows[$c]["nombreArticulo"]."</td>";
+				$renglones .= "<td>".$rows[$c]["cantidad"]."</td>";
+				$renglones .= "</tr>";
+				$renglones .= "</tbody>";
+				$respuesta = true;
+			}
 		}
-		
+	}
+	else
+	{
+		//salir();
 	}
 	$arrayJSON = array('respuesta' => $respuesta, 'fecha' =>$fechaSolicitud, 'hora' => $horaSolicitud,'maestro' => $grupo, 'practica' => $nombrePractica, 'renglones' => $renglones);
 		print json_encode($arrayJSON);
-
 }
-function verMas2()
+//obtiene los datos de la solicitud para mostrar en la pantalla guardaSolLab
+function obtenerDatosSolLab()
 {
-	$claveCal 		= GetSQLValueString($_POST["clave"],"text");
-	if(existeSol($claveCal))
+	$respuesta 		= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
 	{
-		$respuesta 		= false;
+		$clave 		= GetSQLValueString($_POST["clave"],"text");
+		$fecha 			= "";
+		$hora 			= "";
 		$conexion 		= conectaBDSICLAB();
-		$consulta  		= sprintf("select a.fechaSolicitud,a.horaSolicitud,a.GPOCVE,c.tituloPractica, b.nombreArticulo, d.cantidad 
-			from lbarticuloscat as b INNER JOIN lbasignaarticulospracticas as d ON bclaveArticulo=d.claveArticulo
-		 INNER JOIN lbpracticas as c ON d.clavePractica=c.clavePractica
-		 INNER JOIN lbsolicitudlaboratorios as a ON c.claveSolicitud=a.claveSolicitud 
-		 INNER JOIN lbcalendarizadas as e ON a.claveSolicitud=e.claveSolicitud
-			where e.claveCalendarizacion =%s",$claveCal);
-		$res 	 		=  mysql_query($consulta);
-		if($res)
-		{	
-			$respuesta = true;
+		if(existeSolLab($clave))
+		{
+			$consulta  	= sprintf("select fechaSolicitud,horaSolicitud from lbsolicitudlaboratorios where claveSolicitud=%s",$clave);
+			$res 	 	=  mysql_query($consulta);
+			while($row = mysql_fetch_array($res))
+			{
+				$respuesta = true;
+				$fecha	= $row["fechaSolicitud"];
+				$hora	= $row["horaSolicitud"];
+			}
 		}
-		$arrayJSON = array('respuesta' => $respuesta);
-		print json_encode($arrayJSON);
 	}
+	else
+	{
+		//salir();
+	}
+	$arrayJSON = array('respuesta' => $respuesta, 'fecha' => $fecha, 'hora' => $hora);
+		print json_encode($arrayJSON);
 }
-//adecuar query para la tabla lbcalendarizaciones
+//Se inserta la solicitud en la tabla lbcalendarizaciones
+function guardaSolicitudLab()
+{
+	//falta obtener el periodo
+	$respuesta 		= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{
+		$clave 			= GetSQLValueString($_POST["clave"],"text");
+		$claveCal		= GetSQLValueString($_POST["claveCal"],"text");
+		$estatus 		= GetSQLValueString($_POST["estatus"],"text");
+		$fecha 			= GetSQLValueString($_POST["fecha"],"text");
+		$hora 			= GetSQLValueString($_POST["hora"],"text");
+		$firmaJefe 		= GetSQLValueString($_POST["firmaJefe"],"int");
+		$comentarios	= GetSQLValueString($_POST["comentarios"],"text");
+		$conexion 		= conectaBDSICLAB();
+		if(existeSolLab($clave))
+		{
+			$consulta  		= sprintf("insert into lbcalendarizaciones values(%s,%s,%s,%s,%d,%s,%s,%s)",$periodo,$claveCal,$fecha,$hora,$firmaJefe,$estatus,$comentarios,$clave);
+			$res 	 	=  mysql_query($consulta);
+			if(mysql_affected_rows()>0)
+			$respuesta = true; 
+		}
+	}
+	else
+	{
+		//salir();
+	}
+	$arrayJSON = array('respuesta' => $respuesta);
+		print json_encode($arrayJSON);
+}
+//eliminar una solicitud de laboratorio, pendiente por las relaciones
+//no se realiza aun
+function eliminaSolicitudLab()
+{
+	$respuesta 		= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{
+		$clave 		= GetSQLValueString($_POST["clave"],"text");
+		$conexion 		= conectaBDSICLAB();
+		if(existeSolLab($clave))
+		{
+			$consulta  	= sprintf("delete from lbasignaarticulospracticas,lbsolicitudlaboratorios where claveSolicitud=%s",$clave);
+			$res 	 	=  mysql_query($consulta);
+			/*$consulta2 = sprintf("delete from lbsolicitudlaboratorios where claveSolicitud=%s",$clave)
+			$res2 	 	=  mysql_query($consulta2);*/
+			if($res)
+			{
+				$respuesta = true;
+
+			}
+		}
+	}
+	else
+	{
+		//salir();
+	}
+	$arrayJSON = array('respuesta' => $respuesta);
+		print json_encode($arrayJSON);
+}
+//funcion para sacar la lista de las solicitudes calendarizadas
 function aceptadasLaboratorio()
 {
-		$respuesta 	= true;
+	$respuesta 	= true;
 	session_start();
 	if(!empty($_SESSION['nombre']))
 	{ 
-		$maestro	= $_SESSION['nombre'];
 		$con 		= 0;
 		$rows		= array();
 		$renglones	= "";
-		$solPendientesLab ="";
+		$solAceptadasLab ="";
 		$conexion 	= conectaBDSICLAB();
-		$consulta	= sprintf("select s.claveSolicitud,s.GPOCVE,p.tituloPractica,s.fechaSolicitud,s.horaSolicitud from lbusuarios as u INNER JOIN lbsolicitudlaboratorios as s ON u.claveUsuario =s.claveUsuario INNER JOIN lbpracticas as p ON p.clavePractica = s.clavePractica");
+		$consulta	= sprintf("select s.claveSolicitud,s.GPOCVE,p.tituloPractica,s.fechaSolicitud,s.horaSolicitud 
+			from lbpracticas as p INNER JOIN lbsolicitudlaboratorios as s ON p.clavePractica=s.clavePractica 
+			INNER JOIN lbcalendarizaciones as c ON s.claveSolicitud=c.claveSolicitud");
 		$res 		= mysql_query($consulta);
 		$renglones	.= "<thead>";
 		$renglones	.= "<tr>";
@@ -199,12 +276,12 @@ function aceptadasLaboratorio()
 		
 		while($row = mysql_fetch_array($res))
 		{
-			$solPendientesLab .="'".($row["claveSolicitud"])."',";
+			$solAceptadasLab .="'".($row["claveSolicitud"])."',";
 			$rows[]=$row;
 			$respuesta = true;
 			$con++;
 		}
-		$solPendientesLab = (rtrim($solPendientesLab,","));
+		$solAceptadasLab = (rtrim($solAceptadasLab,","));
 		for($c= 0; $c< $con; $c++)
 		{
 			$renglones .= "<tbody>";
@@ -228,7 +305,70 @@ function aceptadasLaboratorio()
 		'renglones' => $renglones);
 	print json_encode($arrayJSON);
 }
+function verMas2()
+{
+	$respuesta 		= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{
+		$claveCal 		= GetSQLValueString($_POST["clave"],"text");
+		$renglones		="";
+		$fechaAsignada	="";
+		$horaAsignada	="";
+		$con 			="";
+		$grupo			="";
+		$practica 		="";
+		$nombreArticulo ="";
+		$cantidad 		="";
+		$rows		= array();
+		$conexion 		= conectaBDSICLAB();
 
+		if(existeSolLab($claveCal))
+		{
+			$consulta  		= sprintf("select a.claveCalendarizacion, a.fechaAsignada, a.horaAsignada, s.GPOCVE, b.nombreArticulo, d.cantidad 
+			from lbarticuloscat as b INNER JOIN lbasignaarticulospracticas as d ON b.claveArticulo=d.claveArticulo
+			INNER JOIN lbsolicitudlaboratorios as s ON d.claveSolicitud=s.claveSolicitud 
+			INNER JOIN lbcalendarizaciones as a ON s.claveSolicitud=a.claveSolicitud 
+			where s.claveSolicitud=%s",$claveCal);
+			$renglones	.= "<thead>";
+			$renglones	.= "<tr>";
+			$renglones	.= "<th data-field='nombreArt'>Nombre del artículo</th>";
+			$renglones	.= "<th data-field='cantidad'>Cantidad</th>";
+			$renglones	.= "</tr>";
+			$renglones	.= "</thead>";
+			$res 	 	=  mysql_query($consulta);
+
+			while($row = mysql_fetch_array($res))
+			{	
+				$respuesta = true;
+				$fechaAsignada = $row["fechaAsignada"];
+				$horaAsignada = $row["horaAsignada"];
+				$grupo = $row["GPOCVE"];
+				$practica= $row["claveCalendarizacion"];
+				$rows[]=$row;
+				$con++;
+				
+			}
+			for($c= 0; $c< $con; $c++)
+			{
+				$renglones .= "<tbody>";
+				$renglones .= "<tr>";
+				$renglones .= "<td>".$rows[$c]["nombreArticulo"]."</td>";
+				$renglones .= "<td>".$rows[$c]["cantidad"]."</td>";
+				$renglones .= "</tr>";
+				$renglones .= "</tbody>";
+				$respuesta = true;
+			}
+		}
+	}
+	else
+	{
+		//salir();
+	}
+	$arrayJSON = array('respuesta' => $respuesta, 'fechaAsignada' =>$fechaAsignada, 'horaAsignada' => $horaAsignada,
+		'maestro' => $grupo, 'practica' => $practica, 'renglones' => $renglones);
+		print json_encode($arrayJSON);
+}
 function listaArticulos()
 {
 	$respuesta 	= false;
@@ -283,37 +423,44 @@ function listaArticulos()
 function altaInventario1 ()
 {
 	//$cveUsuario		= GetSQLValueString($_POST[""],"text");
-	$conexion					= conectaBDSICLAB();
-	$imagen						= GetSQLValueString($_POST["imagen"],"text");
-	$identificadorArticulo 		= GetSQLValueString($_POST["identificadorArticulo"],"text");
-	$modelo						= GetSQLValueString($_POST["modelo"],"text");
-	$numeroSerie				= GetSQLValueString($_POST["numeroSerie"],"text");
-	$marca						= GetSQLValueString($_POST["marca"],"text");
-	$tipoContenedor				= GetSQLValueString($_POST["tipoContenedor"],"text");
-	$descripcionArticulo		= GetSQLValueString($_POST["descripcionArticulo"],"text");
-	$descripcionUso				= GetSQLValueString($_POST["descripcionUso"],"text");
-	$unidadMedida				= GetSQLValueString($_POST["unidadMedida"],"text");
-	$fechaCaducidad				= GetSQLValueString($_POST["fechaCaducidad"],"text");
-	$claveKit					= GetSQLValueString($_POST["claveKit"],"text");
-	$ubicacionAsignada			= GetSQLValueString($_POST["ubicacionAsignada"],"text");
-	$claveArticulo 				= GetSQLValueString($_POST["claveArticulo"],"text");	
-	//$claveArticulo = claveArt(nombreArt);
-	$estatus 					= GetSQLValueString($_POST["estatus"],"text");
-	$respuesta 					= false;
-	//insert a tabla lbarticulos
-	$consulta= sprintf("insert into lbarticulos values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-		$claveArticulo,$descripcionUso,$descripcionArticulo,$numeroSerie,$marca,$modelo,$estatus,$unidadMedida,$fechaCaducidad,$tipoContenedor,$imagen,$identificadorArticulo,$ubicacionAsignada,$claveKit);
-	$resconsulta = mysql_query($consulta);
-	if(mysql_affected_rows()>0)
-		$respuesta = true; 
-	
+	$respuesta 	= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{
+		$conexion					= conectaBDSICLAB();
+		$imagen						= GetSQLValueString($_POST["imagen"],"text");
+		$identificadorArticulo 		= GetSQLValueString($_POST["identificadorArticulo"],"text");
+		$modelo						= GetSQLValueString($_POST["modelo"],"text");
+		$numeroSerie				= GetSQLValueString($_POST["numeroSerie"],"text");
+		$marca						= GetSQLValueString($_POST["marca"],"text");
+		$tipoContenedor				= GetSQLValueString($_POST["tipoContenedor"],"text");
+		$descripcionArticulo		= GetSQLValueString($_POST["descripcionArticulo"],"text");
+		$descripcionUso				= GetSQLValueString($_POST["descripcionUso"],"text");
+		$unidadMedida				= GetSQLValueString($_POST["unidadMedida"],"text");
+		$fechaCaducidad				= GetSQLValueString($_POST["fechaCaducidad"],"text");
+		$claveKit					= GetSQLValueString($_POST["claveKit"],"text");
+		$ubicacionAsignada			= GetSQLValueString($_POST["ubicacionAsignada"],"text");
+		$claveArticulo 				= GetSQLValueString($_POST["claveArticulo"],"text");	
+		//$claveArticulo = claveArt(nombreArt);
+		$estatus 					= GetSQLValueString($_POST["estatus"],"text");
+		//insert a tabla lbarticulos
+		$consulta= sprintf("insert into lbarticulos values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+			$claveArticulo,$descripcionUso,$descripcionArticulo,$numeroSerie,$marca,$modelo,$estatus,$unidadMedida,$fechaCaducidad,$tipoContenedor,$imagen,$identificadorArticulo,$ubicacionAsignada,$claveKit);
+		$resconsulta = mysql_query($consulta);
+		if(mysql_affected_rows()>0)
+			$respuesta = true; 
+	}
+	else
+	{
+		//salir();
+	}
 	$salidaJSON = array('respuesta' => $respuesta);
 	print json_encode($salidaJSON);
 	
 }
 function buscaArticulo()
 {
-	$respuesta 	= "";
+	$respuesta 	= false;
 	session_start();
 	if(!empty($_SESSION['nombre']))
 	{ 
@@ -358,7 +505,7 @@ function buscaArticulo()
 }
 function bajaArticulos()
 {
-	$respuesta = "";
+	$respuesta = false;
 	session_start();
 	if(!empty($_SESSION['nombre']))
 	{ 
@@ -414,7 +561,7 @@ function mantenimientoArticulos()
 }
 function buscaArticuloMtto()
 {
-	$respuesta 	= "";
+	$respuesta 	= false;
 	session_start();
 	if(!empty($_SESSION['nombre']))
 	{ 
@@ -481,6 +628,15 @@ switch ($opc){
 	break;
 	case 'verMasLab2':
 	verMas2();
+	break;
+	case 'obtenerDatosSolLab1':
+	obtenerDatosSolLab();
+	break;
+	case 'guardaSolicitudLab1':
+	guardaSolicitudLab();
+	break;
+	case 'eliminaSolicitudLab1':
+	eliminaSolicitudLab();
 	break;
 } 
 ?>

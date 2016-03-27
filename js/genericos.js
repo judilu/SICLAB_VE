@@ -91,18 +91,100 @@
 	}
 	//Laboratorios
 	//solicitudes pendientes de laboratorio...
-	//falta lo de los botones flotantes
-	var sGuardaCanderalizada = function(){
-		$(this).closest('tr').remove();
-	}
-	var eliminarSolLab = function(){
-		$(this).closest('tr').remove();
-	}
+	//funcion para aceptar una solicitud, introduciendo datos fltantes para agendarla
+	var aceptarSolicitudLab = function()
+	{
+		$("#verPrincipal").hide("slow");
+		$("#solicitudesPendientesLab2").hide("slow");
+		var claveSol= $(this).attr('name');
+		var parametros 	= "opc=obtenerDatosSolLab1"+"&clave="+claveSol+"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/genericos.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					$("#txtFechaAsignada").val(response.fecha);
+					$("#txtHoraAsignada").val(response.hora);
+					$("#txtClaveSol").val(claveSol);
+				}
+			},
+			error: function(xhr, ajaxOptions,x){
+				alert("Error de conexión");
+			}
+		});
+ 		$("#aceptarSolLab").show("slow");
+		$("#guardarSolicitud").show("slow");
+		$("#verMasSolicitud").show("slow");
 
+	}
+	//funcion para guardar una solicitud de laboratorio
+	var sGuardaCanderalizada = function(){
+		var claveSol	 = $("#txtClaveSol").val();
+		var fechaAsignada= $("#txtFechaAsignada").val();
+		var horaAsignada = $("#txtHoraAsignada").val();
+		var firmaJefe 	 = $("#txtFirmaJefe").val();
+		var comentarios  = $("#txtComentariosSol").val();
+		var estatus= "NR";
+		var claveCal= "";
+		if (($("#txtFirmaJefe").val())!=' ' && ($("#txtClaveSol").val())!=' ' && ($("#txtComentariosSol").val())!=' ') 
+		{
+			var parametros 	= "opc=guardaSolicitudLab1"+"&clave="+claveSol
+			+"&estatus="+estatus+"&claveCal="+claveCal
+			+"&fecha="+fechaAsignada+"&hora="+horaAsignada+"&firmaJefe="+firmaJefe
+			+"&comentarios="+comentarios+"&id="+Math.random();
+			$.ajax({
+				cache:false,
+				type: "POST",
+				dataType: "json",
+				url:"../data/genericos.php",
+				data: parametros,
+				success: function(response){
+					if(response.respuesta == true)
+					{
+						sweetAlert("La solicitud fue calendarizada con éxito!", "Da click en el botón OK", "success");
+					}
+					else
+						sweetAlert("La solicitud no se calendarizó!", " ", "error");
+				},
+				error: function(xhr, ajaxOptions,x){
+					alert("Error de conexión");
+				}
+			});
+		}
+	}
+	//funcion para eliminar una solicitud de laboratorio
+	var eliminarSolLab = function(){
+		var claveSol= $(this).attr('name');
+		var parametros 	= "opc=eliminaSolicitudLab1"+"&clave="+claveSol+"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/genericos.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					sweetAlert("La solicitud fue eliminada con éxito!", "Da click en el botón OK", "success");
+				}
+				else
+					sweetAlert("No se pudo eliminar la solicitud!", " ", "error");
+			},
+			error: function(xhr, ajaxOptions,x){
+				alert("Error de conexión");
+			}
+		});
+	}
 	var sLaboratorioPendientes = function()
 	{
 		$("#sAceptadasLab").hide("slow");
 		$("#verMasSolicitud").hide("slow");
+		$("#aceptarSolLab").hide("slow");
+		$("#guardarSolicitud").hide("slow");
 		var parametros 	= "opc=pendientesLab1"+"&id="+Math.random();
 		$.ajax({
 			cache:false,
@@ -114,7 +196,7 @@
 				if(response.respuesta == true)
 				{
 					$("#tbPendientesLab").html(response.renglones);
-					$("#tbPendientesLab #btnCalendarizado").on("click",sGuardaCanderalizada);
+					$("#tbPendientesLab #btnCalendarizado").on("click",aceptarSolicitudLab);
 					$("#tbPendientesLab #btnVerMas").on("click",verMas);
 					$("#tbPendientesLab #btnEliminarSolLab").on("click",eliminarSolLab);
 				}
@@ -132,6 +214,7 @@
 	{
 		$("#sPendientesLab").hide("slow");
 		$("#verMasSolicitud2").hide("slow");
+		var claveCal = $(this).attr('name');
 		var parametros 	= "opc=aceptadasLab1"+"&id="+Math.random();
 		$.ajax({
 			cache:false,
@@ -194,23 +277,23 @@
 	{		
 		$("#solicitudesAceptadasLab2").hide("slow");
 		//contenido dinamico
-		var realid = $(this).attr("name");
+		var claveCal = $(this).attr("name");
 		var parametros = "opc=verMasLab2"+
-		"&clave="+realid+
+		"&clave="+claveCal+
 		"&id="+Math.random();
 		$.ajax({
 			cache:false,
 			type: "POST",
 			dataType: "json",
-			url:"../data/maestros.php",
+			url:"../data/genericos.php",
 			data: parametros,
 			success: function(response){
 				if(response.respuesta == true)
 				{
-					$("#txtFecha").val(response.fecha);
-					$("#txtHora").val(response.fecha);
-					$("#txtMaestro").val(response.fecha);
-					$("#txtPractica").val(response.fecha);
+					$("#txtFecha2").val(response.fechaAsignada);
+					$("#txtHora2").val(response.horaAsignada);
+					$("#txtMaestro2").val(response.maestro);
+					$("#txtPractica2").val(response.practica);
 					$("#tbMaterialesAceptadasLab").html(response.renglones);
 				}
 				else
@@ -594,6 +677,8 @@
 	$("#btnRegresarVerMas2").on("click",sLaboratorioAceptadas);
 	$("#btnVerMas").on("click",verMas);
 	$("#btnVerMas2").on("click",verMas2);
+	$("#btnAceptaSolLab").on("click",sGuardaCanderalizada);
+	$("#btnCancelarSolLab").on("click",sLaboratorioPendientes);
 	//Inventario **solo faltan las peticiones
 	$("#btnArticulos").on("click",listaArticulos);
 	$("#btnAlta").on("click",altaArticulos);

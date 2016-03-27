@@ -37,3 +37,6 @@
 		</div>
 	</div>
 </div>
+<div id="aceptarSolLab">
+	<?php include 'guardaSolLab.php';?>
+</div>
