@@ -29,6 +29,3 @@
 		</table>
 	</div>
 </div>
-<div id="verMasSolicitud">
-	<?php include 'verMas.php';?>
-</div>

@@ -313,7 +313,7 @@
 	{
 		$("#altaArticulos").hide("slow");
 		$("#bajaArticulos").hide("slow");
-		$("#mantenimientoArticulos").hide("slow");
+		$("#menuMtto").hide("slow");
 		$("#editar").hide("slow");
 		$("#peticionesPendientes").hide("slow");
 		$("#peticionesArticulos").hide("slow");
@@ -345,7 +345,7 @@
 	{
 		$("#pantallaInventario").hide("slow");
 		$("#bajaArticulos").hide("slow");
-		$("#mantenimientoArticulos").hide("slow");
+		$("#menuMtto").hide("slow");
 		$("#peticionesPendientes").hide("slow");
 		$("#peticionesArticulos").hide("slow");
 		$("#altaArticulos").show("slow");
@@ -414,7 +414,7 @@
 	var bajaArticulos = function()
 	{
 		$("#altaArticulos").hide("slow");
-		$("#mantenimientoArticulos").hide("slow");
+		$("#menuMtto").hide("slow");
 		$("#pantallaInventario").hide("slow");
 		$("#peticionesPendientes").hide("slow");
 		$("#peticionesArticulos").hide("slow");
@@ -505,7 +505,24 @@
 		$("#pantallaInventario").hide("slow");
 		$("#peticionesPendientes").hide("slow");
 		$("#peticionesArticulos").hide("slow");
-		$("#mantenimientoArticulos").show("slow");
+		$("#listaArtMtto").hide("slow");
+		$("#listaMtto").hide("slow");
+		$("#menuMtto").show("slow");
+		$("#sEnvioMtto").show("slow");
+	}
+	var enviaArtMtto = function()
+	{
+		$("#listaArtMtto").hide("slow");
+		$("#listaMtto").hide("slow");
+		$("#menuMtto").show("slow");
+		$("#sEnvioMtto").show("slow");
+	}
+	var listaArtMtto = function()
+	{
+		$("#listaArtMtto").show("slow");
+		$("#listaMtto").show("slow");
+		$("#menuMtto").show("slow");
+		$("#sEnvioMtto").hide("slow");
 	}
 	//Busca el articulo que queremos enviar a mantenimiento
 	var buscarArticuloMtto = function() 
@@ -605,7 +622,7 @@
 	{
 		$("#altaArticulos").hide("slow");
 		$("#bajaArticulos").hide("slow");
-		$("#mantenimientoArticulos").hide("slow");
+		$("#menuMtto").hide("slow");
 		$("#pantallaInventario").hide("slow");
 		$("#peticionesArticulos").hide("slow");
 		$("#peticionesPendientes").show("slow");
@@ -614,7 +631,7 @@
 	{
 		$("#altaArticulos").hide("slow");
 		$("#bajaArticulos").hide("slow");
-		$("#mantenimientoArticulos").hide("slow");
+		$("#menuMtto").hide("slow");
 		$("#pantallaInventario").hide("slow");
 		$("#peticionesPendientes").hide("slow");
 		$("#peticionesArticulos").show("slow");
@@ -687,6 +704,8 @@
 	$("#btnBajaArt").on("click",bajaInventario);
 	$("#btnBuscarArt").on("click",buscarArticulo);
 	$("#btnMantenimiento").on("click",mantenimientoArticulos);
+	$("#btnEnviaMtto").on("click",enviaArtMtto);
+	$("#btnListaMtto").on("click",listaArtMtto);
 	$("#btnBuscarArtMtto").on("click",buscarArticuloMtto);
 	$("#btnGuardaMantenimiento").on("click",guardaMtto);
 	$("#btnPeticionesPendientes").on("click",peticionesPendientesArt);

@@ -1,6 +1,7 @@
 <div id="mantenimientoArt">
 	<div class="row">
 		<div class="col s12">
+			<h5>Envío de articulos a mantenimiento</h5>
 			<div class="row">
 				<div class="input-field col s5">
 					<input id="txtCodigoBarrasMtto" type="text" class="validate">

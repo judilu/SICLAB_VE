@@ -74,11 +74,9 @@
 				<?php include 'bajaArticulos.php';?>
 			</div>
 			<div id="mantenimientoArticulos">
-				<h5>Envío de articulos a mantenimiento</h5>
-				<?php include 'mantenimiento.php';?>
+				<?php include 'menuMantenimiento.php';?>
 			</div>
 			<div id="peticionesPendientes">
-				<h5>Peticiones pendientes</h5>
 				<?php include 'peticionesPendientes.php';?>
 			</div>
 			<div id="peticionesArticulos">
