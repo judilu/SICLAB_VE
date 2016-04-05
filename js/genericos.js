@@ -58,6 +58,23 @@
 		$("#atenderSolicitud").hide("slow");
 		$("#alumnosSancionados").hide("slow");
 		$("#solicitudesEnProceso").hide("slow");
+		var parametros 	= "opc=prestamosPendientes1"+"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/genericos.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					$("#tabSolPendientesAlumnos").html(response.renglones);
+				}
+			},
+			error: function(xhr, ajaxOptions,x){
+				alert("Error de conexión");
+			}
+		});
 		$("#solicitudesPendientes").show("slow");
 		$("#solicitudesPendientes2").show("slow");
 	}
@@ -328,7 +345,6 @@
 				if(response.respuesta == true)
 				{
 					$("#tbInventario").html(response.renglones);
-					//$("#tbSolAceptadas a").on("click",practicaRealizada);
 				}
 				else
 					sweetAlert("No hay artículos..!", " ", "error");
@@ -702,7 +718,7 @@
 	$("#btnAltaArt").on("click",altaInventario);
 	$("#btnBaja").on("click",bajaArticulos);
 	$("#btnBajaArt").on("click",bajaInventario);
-	$("#btnBuscarArt").on("click",buscarArticulo);
+	$("#btnBuscarArtBaja").on("click",buscarArticulo);
 	$("#btnMantenimiento").on("click",mantenimientoArticulos);
 	$("#btnEnviaMtto").on("click",enviaArtMtto);
 	$("#btnListaMtto").on("click",listaArtMtto);
