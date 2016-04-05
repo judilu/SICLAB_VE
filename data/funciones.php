@@ -18,6 +18,7 @@ function periodoActual ()
 		return $row["PARFOL1"];
 	}
 }
+//trae el nombre corto de las materias segun una clave
 function nomMat ($claves)
 {
 	$claveMat 	= $claves;
@@ -36,6 +37,25 @@ function nomMat ($claves)
 	else
 	{
 		return "";
+	}
+}
+//trae todas las materias de ese maestro
+function materias ($maestro)
+{
+	$maestro 		= $maestro;
+	$periodo 		= periodoActual();
+	$num 			= 0;
+	$conexion		= conectaBDSICLAB();
+	$consulta		= sprintf("select m.MATCVE,m.MATNCO from DMATER m inner join DGRUPO g on m.MATCVE = g.MATCVE where g.PERCVE =%d and g.PDOCVE =%s and g.GRUBAS = " " and g.INSNUM != 0",$maestro,$periodo);
+	$res 			= mysql_query($consulta);
+	if($row = mysql_fetch_array($res))
+	{
+		return  $row;
+
+	}
+	else
+	{
+		return " ";
 	}
 }
 function nomPractica ($clave)
