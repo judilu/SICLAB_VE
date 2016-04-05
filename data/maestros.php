@@ -143,7 +143,7 @@ function solicitudesPendientes ()
 			'renglones' => $renglones);
 	print json_encode($arrayJSON);
 }
-function comboMat ()
+/*function comboMat ()
 {
 	$periodo	= periodoActual();
 	$maestro	= $_SESSION['nombre'];
@@ -157,7 +157,7 @@ function comboMat ()
 		return  $row["nombreLaboratorio"];
 	}
 
-}
+}*/
 function solicitudesRealizadas ()
 {
 	//MODIFICAR
@@ -230,9 +230,10 @@ switch ($opc){
 	solicitudesPendientes();
 	break;
 	case 'solicitudesRealizadas1':
-	solicitudesRealizadas();
-	case 'comboMat1':
-		comboMat();
+		solicitudesRealizadas();
 		break;
+/*		case 'comboMat1':
+		comboMat();
+		break;*/
 } 
 ?>
