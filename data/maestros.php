@@ -125,9 +125,9 @@ function solicitudesPendientes ()
 			$renglones .= "<td>".$rows[$c]["nombreLaboratorio"]."</td>";
 			$renglones .= "<td>".$rows[$c]["fechaSolicitud"]."</td>";
 			$renglones .= "<td>".$rows[$c]["horaSolicitud"]."</td>";
-			$renglones .= "<td><input type='hidden'/><a class='btnEditarSolicitudLab btn-floating btn-large 
+			$renglones .= "<td><input type='hidden'/><a name = '".$rows[$c]["claveSolicitud"]."' class='btnEditarSolicitudLab btn-floating btn-large 
 			waves-effect waves-light amber darken-2'>
-			<i class='material-icons'>mode_edit</i></a> <a class='btnEliminarSolicitudLab btn-floating btn-large 
+			<i class='material-icons'>mode_edit</i></a> <a name = '".$rows[$c]["claveSolicitud"]."' class='btnEliminarSolicitudLab btn-floating btn-large 
 			waves-effect waves-light red darken-1'><i class='material-icons'>
 			delete</i></a></td>";
 			$renglones .= "</tr>";
@@ -143,21 +143,6 @@ function solicitudesPendientes ()
 			'renglones' => $renglones);
 	print json_encode($arrayJSON);
 }
-/*function comboMat ()
-{
-	$periodo	= periodoActual();
-	$maestro	= $_SESSION['nombre'];
-	$respuesta  = false;
-	$conexion 	= conectaBDSIE();
-	$consulta	= sprintf("SELECT g.MATCVE, m.MATNCO from DGRUPO g inner join DMATER m ON g.MATCVE = m.MATCVE where g.PDOCVE =%s and g.PERCVE =%d",$periodo,$maestro);
-	$res 		= mysql_query($consulta);
-	if($row = mysql_fetch_array($res))
-	{
-		$respuesta = true;
-		return  $row["nombreLaboratorio"];
-	}
-
-}*/
 function solicitudesRealizadas ()
 {
 	//MODIFICAR
@@ -214,6 +199,35 @@ function solicitudesRealizadas ()
 		'renglones' => $renglones);
 	print json_encode($arrayJSON);
 }
+function editarSolicitud()
+{
+	$solId 		= GetSQLValueString($_POST['solId'],"text");
+	$periodo 	= periodoActual();
+	$respuesta 	= false;
+	$rows 		= array();
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{ 
+		$maestro	= $_SESSION['nombre'];
+		$conexion 	= conectaBDSICLAB();
+		$consulta	= sprintf("select s.claveSolicitud, s.MATCVE, s.GPOCVE, s.fechaSolicitud, p.tituloPractica, s.horaSolicitud, s.cantidadAlumnos, l.nombreLaboratorio from lbsolicitudlaboratorios s inner join lbpracticas p on s.clavePractica = p.clavePractica inner join lblaboratorios l on s.claveLaboratorio = l.claveLaboratorio left join lbcalendarizaciones c ON c.claveSolicitud = s.claveSolicitud where s.PDOCVE =%s and s.claveUsuario =%s and s.claveSolicitud =%d and c.claveSolicitud is NULL",$periodo,$maestro,$solId);
+		echo "hola";
+		$res 		= mysql_query($consulta);
+		if($row = mysql_fetch_array($res))
+		{	
+			$respuesta 	= true;
+			$rows   	= $row;
+
+		}
+		$arrayJSON = array('respuesta' => $respuesta);
+		print json_encode($arrayJSON);
+
+	}
+	else
+	{
+		salir();
+	}
+}
 //Menú principal
 $opc = $_POST["opc"];
 switch ($opc){
@@ -227,13 +241,13 @@ switch ($opc){
 		liberarPractica();
 		break;
 	case 'solicitudesPendientes1':
-	solicitudesPendientes();
-	break;
+		solicitudesPendientes();
+		break;
 	case 'solicitudesRealizadas1':
 		solicitudesRealizadas();
 		break;
-/*		case 'comboMat1':
-		comboMat();
-		break;*/
+	case 'editarSolicitud1':
+		editarSolicitud();
+			break;
 } 
 ?>

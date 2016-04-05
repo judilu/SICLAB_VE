@@ -45,7 +45,7 @@ var inicio = function ()
 				else 
 				{
 					swal("OK..!",
-					"Aún sigues en el sistema", "error");
+						"Aún sigues en el sistema", "error");
 				} 
 			});
 	}//Termina función salir del sistema
@@ -87,8 +87,8 @@ var inicio = function ()
 		//contenido dinamico
 		var realid = $(this).attr("name");
 		var parametros = "opc=liberarPractica1"+
-							"&clave="+realid+
-							"&id="+Math.random();
+		"&clave="+realid+
+		"&id="+Math.random();
 		$.ajax({
 			cache:false,
 			type: "POST",
@@ -121,7 +121,7 @@ var inicio = function ()
 		$("#sRealizadas").hide();
 		//Contenido Dinamico
 		var parametros = "opc=solicitudesPendientes1"+
-							"&id="+Math.random();
+		"&id="+Math.random();
 		$.ajax({
 			cache:false,
 			type: "POST",
@@ -154,7 +154,7 @@ var inicio = function ()
 		$("#sRealizadas").hide();
 		//contenido dinamico
 		var parametros = "opc=solicitudesRealizadas1"+
-							"&id="+Math.random();
+		"&id="+Math.random();
 		$.ajax({
 			cache:false,
 			type: "POST",
@@ -227,48 +227,46 @@ var inicio = function ()
        		});
        		console.log(parametros);
        	}
-       }//Termina función de crear nueva solicitud
-       //Empieza función de elegir material
-       var elegirMaterial = function()
-       {
-       	$("#nuevaMaestro").hide();
-       	$("#eleccionMaterial").show("slow");
-       }//Termina función de elegir material
+    }//Termina función de crear nueva solicitud
+    //Empieza función de elegir material
+    var elegirMaterial = function()
+    {
+       $("#nuevaMaestro").hide();
+       $("#eleccionMaterial").show("slow");
+    }//Termina función de elegir material
        //Empieza función editar solicitud
-       var editarSolicitudLab = function()
-       {
+    var editarSolicitudLab = function()
+    {
 	    //ocultar elementos
 	    //$(this).closest("td").children("input").val();
 	    $("#solicitudesPendientesLab").hide();
 	    //Contenido Dinamico
-	    comboMateria();
-	   	$("#editarSolicitudLab").show("slow");
-       }//Termina función editar solicitud
-    var comboMateria = function()
-    {
-    	var parametros 	= "opc=comboMat1"+
-       						"&id="+Math.random();
-       		$.ajax({
-       			cache:false,
-       			type: "POST",
-       			dataType: "json",
-       			url:'../data/maestros.php',
-       			data: parametros,
-       			success: function(response){
-       				if(response.respuesta == true)
-       				{
-       					//aqui va algo
-       				}
-       				else
-       				{
-       					//aqui va algo
-       				}
+	    $("#editarSolicitudLab").show("slow");
+	   	 var solId = $(this).attr("name");
+	   	 var parametros = "opc=editarSolicitud1"+
+	   	 "&solId"+solId+
+	   	 "&id="+Math.random();
+	   	 $.ajax({
+	   	 	cache:false,
+	   	 	type: "POST",
+	   	 	dataType: "json",
+	   	 	url:'../data/maestros.php',
+	   	 	data: parametros,
+	   	 	success: function(response){
+	   	 		if(response.respuesta == true)
+	   	 		{
+       				console.log(response.rows);
+       			}
+       			else
+       			{
+       				//aqui va algo
+       			}
        			},
        			error: function(xhr, ajaxOptions,x){
-       				sweetAlert("Error", "Error de conexion cmb", "error");
+       				sweetAlert("Error", "Error de conexion editar", "error");
        			}
        		});
-    }
+    }//Termina función editar solicitud
 	//eventos menu Reportes
 	var listaAsistencia = function()
 	{
