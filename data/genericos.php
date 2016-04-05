@@ -593,6 +593,56 @@ function buscaArticuloMtto()
 		);
 	print json_encode($salidaJSON);
 }
+function prestamosPendientes()
+{
+	$respuesta 	= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{ 
+		$responsable= $_SESSION['nombre'];
+		$prestamo	= "";
+		$con 		= 0;
+		$rows		= array();
+		$renglones	= "";
+		$conexion 	= conectaBDSICLAB();
+		$consulta	= sprintf("select ea.ALUCTR,ea.fechaEntrada,ea.horaEntrada, p.clavePrestamo from lbentradasalumnos ea inner join lbprestamos p ON ea.ALUCTR = p.ALUCTR");
+		$res 		= mysql_query($consulta);
+
+		$renglones	.= "<thead>";
+		$renglones	.= "<tr>";
+		$renglones	.= "<th data-field='numeroControl'>No. de control</th>";
+		$renglones	.= "<th data-field='nombre'>Nombre</th>";
+		$renglones	.= "<th data-field='fecha'>Fecha</th>";
+		$renglones	.= "<th data-field='hora'>Hora</th>";
+		$renglones	.= "<th data-field='accion'>Acción</th>";
+		$renglones	.= "</tr>";
+		$renglones	.= "</thead>";
+		while($row = mysql_fetch_array($res))
+		{
+			$prestamo 	.= "'".($row["clavePrestamo"])."',";
+			$rows[]=$row;
+			$respuesta = true;
+			$con++;
+		}
+		$prestamo = (rtrim($prestamo,","));
+		for($c= 0; $c< $con; $c++)
+		{
+			$renglones .= "<tbody>";
+			$renglones .= "<tr>";
+			$renglones .= "<td>".$rows[$c]["ALUCTR"]."</td>";
+			$renglones .= "<td>".$rows[$c]["ALUCTR"]."</td>";
+			$renglones .= "<td>".$rows[$c]["fechaEntrada"]."</td>";
+			$renglones .= "<td>".$rows[$c]["horaEntrada"]."</td>";
+			$renglones .= "<td><a name = '".$rows[$c]["clavePrestamo"]."' class='btn waves-effect waves-light  green darken-2' id='btnAtender'>Atender</a></td>";
+			$renglones .= "<td><a name = '".$rows[$c]["clavePrestamo"]."' class='btn waves-effect waves-light red darken-1' id='btnEliminar' type='submit'>Eliminar</a></td>";
+			$renglones .= "</tr>";
+			$renglones .= "</tbody>";
+			$respuesta = true;
+		}
+	}
+	$salidaJSON = array('respuesta' => $respuesta, 'renglones' => $renglones);
+	print json_encode($salidaJSON);
+}
 //Menú principal
 $opc = $_POST["opc"];
 switch ($opc){
@@ -637,6 +687,9 @@ switch ($opc){
 	break;
 	case 'eliminaSolicitudLab1':
 	eliminaSolicitudLab();
+	break;
+	case 'prestamosPendientes1':
+	prestamosPendientes();
 	break;
 } 
 ?>
