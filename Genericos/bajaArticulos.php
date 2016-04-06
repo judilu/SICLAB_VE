@@ -7,7 +7,7 @@
 					<label class="active" for="txtCodigoBarrasBaja">Código de barras</label>
 				</div>
 				<div class="col s3">
-					<a class="waves-effect waves-light btn blue darken-1" id="btnBuscarArt">Buscar</a>
+					<a class="waves-effect waves-light btn blue darken-1" id="btnBuscarArtBaja">Buscar</a>
 				</div>
 			</div>
 		</div>
