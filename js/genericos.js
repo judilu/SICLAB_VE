@@ -69,6 +69,8 @@
 				if(response.respuesta == true)
 				{
 					$("#tabSolPendientesAlumnos").html(response.renglones);
+					$("#tabSolPendientesAlumnos #btnAtenderPrestamo").on("click",atenderPrestamoMaterial);
+					//$("#tabSolPendientesAlumnos #btnEliminarprestamo").on("click",verMas);
 				}
 			},
 			error: function(xhr, ajaxOptions,x){
@@ -78,11 +80,55 @@
 		$("#solicitudesPendientes").show("slow");
 		$("#solicitudesPendientes2").show("slow");
 	}
+	var atenderPrestamoMaterial = function()
+	{
+		$("#solicitudesPendientes2").hide("slow");
+		var clavePrestamo= $(this).attr('name');
+		var parametros 	= "opc=atenderPrestamo1"+"&clavePrestamo="+clavePrestamo+"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/genericos.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					alert("muy bien :)");
+				}
+			},
+			error: function(xhr, ajaxOptions,x){
+				alert("Error de conexión");
+			}
+		});
+		$("#atenderSolicitud").show("slow");
+		$("#atenderSolicitud2").show("slow");
+
+	}
 	var prestamosProceso = function()
 	{
 		$("#solicitudesPendientes").hide("slow");
 		$("#devolucionMaterial").hide("slow");
 		$("#alumnosSancionados").hide("slow");
+		var parametros 	= "opc=prestamosProceso1"+"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/genericos.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					$("#tabSolProcesoAlumnos").html(response.renglones);
+					$("#tabSolProcesoAlumnos #btnDevolucionMaterial").on("click",devolucionMaterial);
+					//$("#tabSolPendientesAlumnos #btnEliminarprestamo").on("click",verMas);
+				}
+			},
+			error: function(xhr, ajaxOptions,x){
+				alert("Error de conexión");
+			}
+		});
 		$("#solicitudesEnProceso").show("slow");
 		$("#solicitudesEnProceso2").show("slow");
 	}
@@ -91,18 +137,109 @@
 		$("#solicitudesPendientes").hide("slow");
 		$("#devolucionMaterial").hide("slow");
 		$("#solicitudesEnProceso").hide("slow");
+		var parametros 	= "opc=listaSanciones1"+"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/genericos.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					alert("muy bien :)");
+				}
+			},
+			error: function(xhr, ajaxOptions,x){
+				alert("Error de conexión");
+			}
+		});
 		$("#alumnosSancionados").show("slow");
 		$("#listaSanciones2").show("slow");
+	}
+	var quitaSancion = function ()
+	{
+		var parametros 	= "opc=quitaSanciones1"+"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/genericos.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					alert("muy bien :)");
+				}
+			},
+			error: function(xhr, ajaxOptions,x){
+				alert("Error de conexión");
+			}
+		});
 	}
 	var aplicaSancion = function()
 	{		
 		$("#devolucionMaterial2").hide("slow");
+		var parametros 	= "opc=aplicaSancion1"+"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/genericos.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					alert("muy bien :)");
+				}
+			},
+			error: function(xhr, ajaxOptions,x){
+				alert("Error de conexión");
+			}
+		});
 		$("#aplicaSanciones").show("slow");
+	}
+	var guardaSancionAlumno = function()
+	{
+		var parametros 	= "opc=guardaSancion1"+"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/genericos.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					alert("muy bien :)");
+				}
+			},
+			error: function(xhr, ajaxOptions,x){
+				alert("Error de conexión");
+			}
+		});
 	}
 	var devolucionMaterial = function()
 	{		
 		$("#solicitudesEnProceso2").hide("slow");
 		$("#aplicaSanciones").hide("slow");
+		var parametros 	= "opc=devolucionMaterial1"+"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/genericos.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					alert("muy bien :)");
+				}
+			},
+			error: function(xhr, ajaxOptions,x){
+				alert("Error de conexión");
+			}
+		});
 		$("#devolucionMaterial").show("slow");
 		$("#devolucionMaterial2").show("slow");
 	}
@@ -513,7 +650,7 @@
 			});
 		}
 	}
-	//Muestra la pantalla de enviar articulos a mantenimiento
+	//Muestra la pantalla de enviar articulos a mantenimiento con sus dos botones
 	var mantenimientoArticulos = function()
 	{
 		$("#altaArticulos").hide("slow");
@@ -526,6 +663,7 @@
 		$("#menuMtto").show("slow");
 		$("#sEnvioMtto").show("slow");
 	}
+	//Pantalla para enviar articulos a mantenimiento(solicitud)
 	var enviaArtMtto = function()
 	{
 		$("#listaArtMtto").hide("slow");
@@ -533,12 +671,30 @@
 		$("#menuMtto").show("slow");
 		$("#sEnvioMtto").show("slow");
 	}
+	//Pantalla para visualizar que articulos fueron enviados a mantenimiento
 	var listaArtMtto = function()
 	{
+		$("#sEnvioMtto").hide("slow");
+		var parametros 	= "opc=listaMantenimiento1"+"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/genericos.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					alert("muy bien :)");
+				}
+			},
+			error: function(xhr, ajaxOptions,x){
+				alert("Error de conexión");
+			}
+		});
 		$("#listaArtMtto").show("slow");
 		$("#listaMtto").show("slow");
 		$("#menuMtto").show("slow");
-		$("#sEnvioMtto").hide("slow");
 	}
 	//Busca el articulo que queremos enviar a mantenimiento
 	var buscarArticuloMtto = function() 
@@ -641,6 +797,23 @@
 		$("#menuMtto").hide("slow");
 		$("#pantallaInventario").hide("slow");
 		$("#peticionesArticulos").hide("slow");
+		var parametros 	= "opc=peticionesPendientesArt1"+"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/genericos.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					alert("muy bien :)");
+				}
+			},
+			error: function(xhr, ajaxOptions,x){
+				alert("Error de conexión");
+			}
+		});
 		$("#peticionesPendientes").show("slow");
 	}
 	var peticionesArticulos = function()

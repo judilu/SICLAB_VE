@@ -530,6 +530,10 @@ function bajaArticulos()
 	$salidaJSON = array('respuesta' => $respuesta);
 	print json_encode($salidaJSON);
 }
+function listaMantenimiento()
+{
+
+}
 function mantenimientoArticulos()
 {
 	$respuesta = false;
@@ -593,6 +597,10 @@ function buscaArticuloMtto()
 		);
 	print json_encode($salidaJSON);
 }
+function peticionesPendientesArt()
+{
+
+}
 function prestamosPendientes()
 {
 	$respuesta 	= false;
@@ -643,6 +651,128 @@ function prestamosPendientes()
 	$salidaJSON = array('respuesta' => $respuesta, 'renglones' => $renglones);
 	print json_encode($salidaJSON);
 }
+function atenderPrestamo()
+{
+	/*$respuesta 	= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{ 
+		$responsable= $_SESSION['nombre'];
+		$prestamo	= "";
+		$clavePrestamo = GetSQLValueString($_POST["clavePrestamo"],"text");
+		$con 		= 0;
+		$rows		= array();
+		$renglones	= "";
+		$conexion 	= conectaBDSICLAB();
+		$consulta	= sprintf("");
+		$res 		= mysql_query($consulta);
+
+		$renglones	.= "<thead>";
+		$renglones	.= "<tr>";
+		$renglones	.= "<th data-field='numeroControl'>No. de control</th>";
+		$renglones	.= "<th data-field='nombre'>Nombre</th>";
+		$renglones	.= "<th data-field='fecha'>Fecha</th>";
+		$renglones	.= "<th data-field='hora'>Hora</th>";
+		$renglones	.= "<th data-field='accion'>Acción</th>";
+		$renglones	.= "</tr>";
+		$renglones	.= "</thead>";
+		while($row = mysql_fetch_array($res))
+		{
+			$prestamo 	.= "'".($row["clavePrestamo"])."',";
+			$rows[]=$row;
+			$respuesta = true;
+			$con++;
+		}
+		$prestamo = (rtrim($prestamo,","));
+		for($c= 0; $c< $con; $c++)
+		{
+			$renglones .= "<tbody>";
+			$renglones .= "<tr>";
+			$renglones .= "<td>".$rows[$c]["ALUCTR"]."</td>";
+			$renglones .= "<td>".$rows[$c]["ALUCTR"]."</td>";
+			$renglones .= "<td>".$rows[$c]["fechaEntrada"]."</td>";
+			$renglones .= "<td>".$rows[$c]["horaEntrada"]."</td>";
+			$renglones .= "<td><a name = '".$rows[$c]["clavePrestamo"]."' class='btn waves-effect waves-light  green darken-2' id='btnAtenderPrestamo'>Atender</a></td>";
+			$renglones .= "<td><a name = '".$rows[$c]["clavePrestamo"]."' class='btn waves-effect waves-light red darken-1' id='btnEliminarprestamo' type='submit'>Eliminar</a></td>";
+			$renglones .= "</tr>";
+			$renglones .= "</tbody>";
+			$respuesta = true;
+		}
+	}
+	$salidaJSON = array('respuesta' => $respuesta, 'renglones' => $renglones);
+	print json_encode($salidaJSON);*/
+}
+function prestamosProceso()
+{
+	$respuesta 	= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{ 
+		$responsable= $_SESSION['nombre'];
+		$prestamo	= "";
+		$con 		= 0;
+		$rows		= array();
+		$renglones	= "";
+		$conexion 	= conectaBDSICLAB();
+		$consulta	= sprintf("select ea.ALUCTR,p.fechaPrestamo,p.horaPrestamo, p.clavePrestamo from lbentradasalumnos ea 
+			inner join lbprestamos p ON ea.ALUCTR = p.ALUCTR inner join lbprestamosarticulos pa ON pa.clavePrestamo=p.clavePrestamo");
+		$res 		= mysql_query($consulta);
+
+		$renglones	.= "<thead>";
+		$renglones	.= "<tr>";
+		$renglones	.= "<th data-field='numeroControl'>No. de control</th>";
+		$renglones	.= "<th data-field='nombre'>Nombre</th>";
+		$renglones	.= "<th data-field='fecha'>Fecha</th>";
+		$renglones	.= "<th data-field='hora'>Hora</th>";
+		$renglones	.= "<th data-field='accion'>Acción</th>";
+		$renglones	.= "</tr>";
+		$renglones	.= "</thead>";
+		while($row = mysql_fetch_array($res))
+		{
+			$prestamo 	.= "'".($row["clavePrestamo"])."',";
+			$rows[]=$row;
+			$respuesta = true;
+			$con++;
+		}
+		$prestamo = (rtrim($prestamo,","));
+		for($c= 0; $c< $con; $c++)
+		{
+			$renglones .= "<tbody>";
+			$renglones .= "<tr>";
+			$renglones .= "<td>".$rows[$c]["ALUCTR"]."</td>";
+			$renglones .= "<td>".$rows[$c]["ALUCTR"]."</td>";
+			$renglones .= "<td>".$rows[$c]["fechaPrestamo"]."</td>";
+			$renglones .= "<td>".$rows[$c]["horaPrestamo"]."</td>";
+			$renglones .= "<td><a name = '".$rows[$c]["clavePrestamo"]."' class='waves-effect waves-light btn amber darken-2' id='btnDevolucionMaterial'>Devolución</a></td>";
+>>>>>>> baseDatos
+			$renglones .= "</tr>";
+			$renglones .= "</tbody>";
+			$respuesta = true;
+		}
+	}
+	$salidaJSON = array('respuesta' => $respuesta, 'renglones' => $renglones);
+	print json_encode($salidaJSON);
+}
+function aplicaSancion()
+{
+
+}
+function guardaSancion()
+{
+
+}
+function listaSanciones()
+{
+
+}
+function quitaSanciones()
+{
+
+}
+function devolucionMaterial()
+{
+
+}
 //Menú principal
 $opc = $_POST["opc"];
 switch ($opc){
@@ -661,11 +791,17 @@ switch ($opc){
 	case 'buscaArticulos1':
 	buscaArticulo();
 	break;
+	case 'listaMantenimiento1':
+	listaMantenimiento();
+	break;
 	case 'mantenimientoArticulos1':
 	mantenimientoArticulos();
 	break;
 	case 'buscaArticulos2':
 	buscaArticuloMtto();
+	break;
+	case 'peticionesPendientesArt1':
+	peticionesPendientesArt();
 	break;
 	case 'pendientesLab1':
 	pendientesLaboratorio();
@@ -690,6 +826,27 @@ switch ($opc){
 	break;
 	case 'prestamosPendientes1':
 	prestamosPendientes();
+	break;
+	case 'atenderPrestamo1':
+	atenderPrestamo();
+	break;
+	case 'prestamosProceso1':
+	prestamosProceso();
+	break;
+	case 'aplicaSancion1':
+	aplicaSancion();
+	break;
+	case 'guardaSancion1':
+	guardaSancion();
+	break;
+	case 'listaSanciones1':
+	listaSanciones();
+	break;
+	case 'quitaSanciones1':
+	quitaSanciones();
+	break;
+	case 'devolucionMaterial1':
+	devolucionMaterial();
 	break;
 } 
 ?>
