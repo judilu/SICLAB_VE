@@ -133,6 +133,7 @@ var inicio = function ()
 				{
 					$("#tabSolPendientes").html(response.renglones);
 					$("#tabSolPendientes").on("click", ".btnEditarSolicitudLab" , editarSolicitudLab);
+					$("#tabSolPendientes").on("click", ".btnEliminarSolicitudLab" , eliminarSolicitud);
 				}
 				else
 					sweetAlert("No hay solicitudes pendientes", "Han aceptado todas tus solicitudes o no ha enviado ninguna solicitud", "error");
@@ -240,12 +241,13 @@ var inicio = function ()
 	    //ocultar elementos
 	    //$(this).closest("td").children("input").val();
 	    $("#solicitudesPendientesLab").hide();
+	    $("#eleccionMaterialE").hide();
 	    //Contenido Dinamico
 	    $("#editarSolicitudLab").show("slow");
-	   	 var solId = $(this).attr("name");
+	   	 var solId = parseInt($(this).attr("name"));
 	   	 var parametros = "opc=editarSolicitud1"+
-	   	 "&solId"+solId+
-	   	 "&id="+Math.random();
+	   	 					"&solId="+solId+
+	   	 					"&id="+Math.random();
 	   	 $.ajax({
 	   	 	cache:false,
 	   	 	type: "POST",
@@ -255,18 +257,83 @@ var inicio = function ()
 	   	 	success: function(response){
 	   	 		if(response.respuesta == true)
 	   	 		{
-       				console.log(response.rows);
+       				//llenado datos 
+       				//$("#cmbMateriaE").text("hola");
+       				$("#cmbHoraMatE").val("hola");
+       				$("#txtFechaE").val("2016-03-25");
+       				$("#cmbPracticaE").val("hola");
+       				$("#cmbHoraPractE").val("hola");
+       				$("#txtCantAlumnosE").val("20");
+       				$("#cmbLaboratorioE").val("hola");
+       				$("#textarea1E").val("nose");
        			}
        			else
        			{
-       				//aqui va algo
+       				sweetAlert("Error", "No existe esa solicitud..!", "error");
        			}
-       			},
-       			error: function(xhr, ajaxOptions,x){
-       				sweetAlert("Error", "Error de conexion editar", "error");
-       			}
-       		});
+       		},
+       		error: function(xhr, ajaxOptions,x){
+       			sweetAlert("Error", "Error de conexion editar", "error");
+       		}
+       	});
     }//Termina función editar solicitud
+    var elegirMaterialE = function()
+    {
+    	//ocultar elementos
+    	$("#editarSol").hide();
+    	$("#eleccionMaterialE").show("slow");
+    }//Termina función elegirMaterial de editar
+    var regresarEditar = function(){
+    	//ocultar elementos
+    	$("#eleccionMaterialE").hide();
+    	$("#editarSol").show("slow");
+    }
+    //empieza función de eliminar solicitud
+    var eliminarSolicitud = function()
+    {
+    	swal({   	
+			title: "¿Esta seguro que desea eliminar la solicitud?",   
+			text: "",   
+			type: "error",   
+			showCancelButton: true,   
+			confirmButtonColor: "#DD6B55",   
+			confirmButtonText: "Si",   
+			cancelButtonText: "No",   
+			closeOnConfirm: false,   closeOnCancel: false }, function(isConfirm)
+			{   
+				if (isConfirm) 
+				{ 
+					var parametros = "opc=eliminarSolicitud1"+
+					"&id="+Math.random();
+					$.ajax({
+						cache:false,
+						type: "POST",
+						dataType: "json",
+						url:"../data/funciones.php",
+						data: parametros,
+						success: function(response){
+							if(response.respuesta)
+							{
+								document.location.href= "acceso.php";
+							}
+							else
+							{
+								console.log(response.respuesta);
+							}
+						},
+						error: function(xhr, ajaxOptions,x)
+						{
+							alert("Error de conexión salir");
+						}
+					});
+				} 
+				else 
+				{
+					swal("OK..!",
+						"La solicitud no fue eliminada..!", "error");
+				} 
+			});
+    }//fin función eliminar solicitud
 	//eventos menu Reportes
 	var listaAsistencia = function()
 	{
@@ -277,25 +344,6 @@ var inicio = function ()
 	{
 		$("#lista").hide();
 		$("#selecionarLista").show("slow");
-	}
-	var probando = function()
-	{
-		swal({
-			title: "Estas seguro que deseas editar la solicitud?",
-			text: "Una vez editado, puedes volver a editar..!",   
-			type: "warning",   
-			showCancelButton: true,   
-			confirmButtonColor: "#DD6B55",   
-			confirmButtonText: "SI",   
-			cancelButtonText: "NO",   
-			closeOnConfirm: false,   
-			closeOnCancel: false }, function(isConfirm){   
-				if (isConfirm) {swal("Deleted!", 
-					"Tu solicitud ha sido editada con éxito", 
-					"success");   } 
-					else {swal("Cancelled", "Tu solicitud no ha sido modificada", 
-						"error");} 
-				});
 	}
 	//Configuramos el evento del Tab
 	$("#salirTab").on("click",salir);
@@ -311,7 +359,8 @@ var inicio = function ()
 	$("#btnNuevaSolicitud").on("click",solNueva);
 	$("#btnElegirMaterial").on("click",elegirMaterial);
 	$("#btnRegresar").on("click",solNueva);
-	$("#btnAceptarEdit").on("click",probando)
+	$("#btnElegirMaterialE").on("click",elegirMaterialE);
+	$("#btnRegresarE").on("click",regresarEditar);
 	//Configuramos los eventos Menu Reportes
 	$("#btnListaAsistencia").on("click",listaAsistencia);
 	$("#btnRegresarla").on("click",regresar);

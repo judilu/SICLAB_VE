@@ -40,13 +40,14 @@ function nomMat ($claves)
 	}
 }
 //trae todas las materias de ese maestro
-function materias ($maestro)
-{
-	$maestro 		= $maestro;
-	$periodo 		= periodoActual();
+function materias ($clave)
+{	
+	$maestro		= $clave;
+	$claveMaestro	= 920;
+	$periodo 		= '2161';
 	$num 			= 0;
-	$conexion		= conectaBDSICLAB();
-	$consulta		= sprintf("select m.MATCVE,m.MATNCO from DMATER m inner join DGRUPO g on m.MATCVE = g.MATCVE where g.PERCVE =%d and g.PDOCVE =%s and g.GRUBAS = " " and g.INSNUM != 0",$maestro,$periodo);
+	$conexion		= conectaBDSIE();
+	$consulta		= sprintf("select m.MATCVE, m.MATNCO from DMATER m inner join DGRUPO g on m.MATCVE = g.MATCVE where g.PERCVE =%d and g.PDOCVE =%s and g.GRUBAS = ' ' and g.INSNUM = 0",$claveMaestro,$periodo);
 	$res 			= mysql_query($consulta);
 	if($row = mysql_fetch_array($res))
 	{
@@ -95,8 +96,25 @@ function existeSol ($clave)
 	}
 	return false;
 }
+function claveMaestro($clave)
+{
+	$claveUsuario 	= $clave;
+	$conexion 		= conectaBDSICLAB();
+	$consulta 		= sprintf("select PERCVE from lbusuarios where claveUsuario =%s",$claveUsuario);
+	$res			= mysql_query($consulta);
+	if($row = mysql_fetch_array($res))
+	{
+		return $row["claveUsuario"];
+	}
+	else
+	{
+		return " ";
+	}
+
+}
 $opc = $_POST["opc"];
-switch ($opc){
+switch ($opc)
+{
 	case 'salir1':
 	salir();
 	break;

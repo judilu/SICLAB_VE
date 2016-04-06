@@ -201,7 +201,7 @@ function solicitudesRealizadas ()
 }
 function editarSolicitud()
 {
-	$solId 		= GetSQLValueString($_POST['solId'],"text");
+	$solId 		= GetSQLValueString($_POST['solId'],"int");
 	$periodo 	= periodoActual();
 	$respuesta 	= false;
 	$rows 		= array();
@@ -211,22 +211,24 @@ function editarSolicitud()
 		$maestro	= $_SESSION['nombre'];
 		$conexion 	= conectaBDSICLAB();
 		$consulta	= sprintf("select s.claveSolicitud, s.MATCVE, s.GPOCVE, s.fechaSolicitud, p.tituloPractica, s.horaSolicitud, s.cantidadAlumnos, l.nombreLaboratorio from lbsolicitudlaboratorios s inner join lbpracticas p on s.clavePractica = p.clavePractica inner join lblaboratorios l on s.claveLaboratorio = l.claveLaboratorio left join lbcalendarizaciones c ON c.claveSolicitud = s.claveSolicitud where s.PDOCVE =%s and s.claveUsuario =%s and s.claveSolicitud =%d and c.claveSolicitud is NULL",$periodo,$maestro,$solId);
-		echo "hola";
 		$res 		= mysql_query($consulta);
 		if($row = mysql_fetch_array($res))
 		{	
 			$respuesta 	= true;
-			$rows   	= $row;
-
+			$rows		= $row;
 		}
-		$arrayJSON = array('respuesta' => $respuesta);
+		$arrayJSON = array('respuesta' => $respuesta,
+							'rows' => $rows);
 		print json_encode($arrayJSON);
-
 	}
 	else
 	{
 		salir();
 	}
+}
+function eliminarSolicitud ()
+{
+	
 }
 //Menú principal
 $opc = $_POST["opc"];
@@ -249,5 +251,8 @@ switch ($opc){
 	case 'editarSolicitud1':
 		editarSolicitud();
 			break;
+	case 'eliminarSolicitud1':
+		eliminarSolicitud();
+		break;
 } 
 ?>
