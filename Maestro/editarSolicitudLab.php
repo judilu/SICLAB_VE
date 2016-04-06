@@ -13,7 +13,7 @@
 					<div class="input-field col s8">
 						<select id="cmbMateriaE">
 							<option value="" disabled selected>Seleccione la materia</option>
-							<option value="Ingenieria Web">Ingenieria Web</option>
+							<!-- <option value="Ingenieria Web">Ingenieria Web</option> -->
 						</select>
 						<label>Materia</label>
 					</div>
