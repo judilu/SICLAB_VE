@@ -641,7 +641,7 @@ function prestamosPendientes()
 			$renglones .= "<td>".$rows[$c]["ALUCTR"]."</td>";
 			$renglones .= "<td>".$rows[$c]["fechaEntrada"]."</td>";
 			$renglones .= "<td>".$rows[$c]["horaEntrada"]."</td>";
-			$renglones .= "<td><a name = '".$rows[$c]["clavePrestamo"]."' class='btn waves-effect waves-light  green darken-2' id='btnAtender'>Atender</a></td>";
+			$renglones .= "<td><a name = '".$rows[$c]["clavePrestamo"]."' class='btn waves-effect waves-light  green darken-2' id='btnAtenderPrestamo'>Atender</a></td>";
 			$renglones .= "<td><a name = '".$rows[$c]["clavePrestamo"]."' class='btn waves-effect waves-light red darken-1' id='btnEliminar' type='submit'>Eliminar</a></td>";
 			$renglones .= "</tr>";
 			$renglones .= "</tbody>";
@@ -744,7 +744,6 @@ function prestamosProceso()
 			$renglones .= "<td>".$rows[$c]["fechaPrestamo"]."</td>";
 			$renglones .= "<td>".$rows[$c]["horaPrestamo"]."</td>";
 			$renglones .= "<td><a name = '".$rows[$c]["clavePrestamo"]."' class='waves-effect waves-light btn amber darken-2' id='btnDevolucionMaterial'>Devolución</a></td>";
->>>>>>> baseDatos
 			$renglones .= "</tr>";
 			$renglones .= "</tbody>";
 			$respuesta = true;
@@ -755,23 +754,91 @@ function prestamosProceso()
 }
 function aplicaSancion()
 {
-
+	$respuesta 	= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{ 
+		$respuesta = true;
+	}
+	$salidaJSON = array('respuesta' => $respuesta);
+	print json_encode($salidaJSON);
 }
 function guardaSancion()
 {
 
 }
-function listaSanciones()
+function listaAlumnosSancionados()
 {
+	$respuesta 	= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{ 
+		$responsable= $_SESSION['nombre'];
+		$prestamo	= "";
+		$con 		= 0;
+		$rows		= array();
+		$renglones	= "";
+		$conexion 	= conectaBDSICLAB();
+		$consulta	= sprintf("select sa.ALUCTR,sa.inicioSancion,sa.finSancion,sa.comentarios,s.claveSancion,ac.nombreArticulo from lbsanciones s inner join lbasignasanciones sa ON sa.claveSancion=s.claveSancion INNER JOIN lbarticulos art ON art.identificadorArticulo=sa.identificadorArticulo INNER JOIN lbarticuloscat ac ON ac.claveArticulo=art.claveArticulo");
+		$res 		= mysql_query($consulta);
 
+		$renglones	.= "<thead>";
+		$renglones	.= "<tr>";
+		$renglones	.= "<th data-field='numeroControl'>No. de control</th>";
+		$renglones	.= "<th data-field='articulo'>Artículo</th>";
+		$renglones	.= "<th data-field='fecha'>Inicio sanción</th>";
+		$renglones	.= "<th data-field='hora'>Fin sanción</th>";
+		$renglones	.= "<th data-field='comentarios'>Comentarios</th>";
+		$renglones	.= "<th data-field='accion'>Acción</th>";
+		$renglones	.= "</tr>";
+		$renglones	.= "</thead>";
+		while($row = mysql_fetch_array($res))
+		{
+			$prestamo 	.= "'".($row["claveSancion"])."',";
+			$rows[]=$row;
+			$respuesta = true;
+			$con++;
+		}
+		$prestamo = (rtrim($prestamo,","));
+		for($c= 0; $c< $con; $c++)
+		{
+			$renglones .= "<tbody>";
+			$renglones .= "<tr>";
+			$renglones .= "<td>".$rows[$c]["ALUCTR"]."</td>";
+			$renglones .= "<td>".$rows[$c]["nombreArticulo"]."</td>";
+			$renglones .= "<td>".$rows[$c]["inicioSancion"]."</td>";
+			$renglones .= "<td>".$rows[$c]["finSancion"]."</td>";
+			$renglones .= "<td>".$rows[$c]["comentarios"]."</td>";
+			$renglones .= "<td><a name = '".$rows[$c]["claveSancion"]."' class='btn waves-effect waves-light green darken-2' id='btnQuitaSancion'>Quitar</a></td>";
+			$renglones .= "</tr>";
+			$renglones .= "</tbody>";
+			$respuesta = true;
+		}
+	}
+	$salidaJSON = array('respuesta' => $respuesta, 'renglones' => $renglones);
+	print json_encode($salidaJSON);
 }
 function quitaSanciones()
 {
-
+	$respuesta 	= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{ 
+		$respuesta = true;
+	}
+	$salidaJSON = array('respuesta' => $respuesta);
+	print json_encode($salidaJSON);
 }
 function devolucionMaterial()
 {
-
+	$respuesta 	= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{ 
+		$respuesta = true;
+	}
+	$salidaJSON = array('respuesta' => $respuesta);
+	print json_encode($salidaJSON);
 }
 //Menú principal
 $opc = $_POST["opc"];
@@ -840,7 +907,7 @@ switch ($opc){
 	guardaSancion();
 	break;
 	case 'listaSanciones1':
-	listaSanciones();
+	listaAlumnosSancionados();
 	break;
 	case 'quitaSanciones1':
 	quitaSanciones();

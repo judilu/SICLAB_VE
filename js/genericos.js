@@ -72,9 +72,13 @@
 					$("#tabSolPendientesAlumnos #btnAtenderPrestamo").on("click",atenderPrestamoMaterial);
 					//$("#tabSolPendientesAlumnos #btnEliminarprestamo").on("click",verMas);
 				}
+				else
+				{
+					sweetAlert("No hay prestamos pendientes!", " ", "error");
+				}
 			},
 			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión");
+				alert("Error de conexión prestamos pendientes");
 			}
 		});
 		$("#solicitudesPendientes").show("slow");
@@ -83,7 +87,7 @@
 	var atenderPrestamoMaterial = function()
 	{
 		$("#solicitudesPendientes2").hide("slow");
-		var clavePrestamo= $(this).attr('name');
+		/*var clavePrestamo= $(this).attr('name');
 		var parametros 	= "opc=atenderPrestamo1"+"&clavePrestamo="+clavePrestamo+"&id="+Math.random();
 		$.ajax({
 			cache:false,
@@ -96,11 +100,15 @@
 				{
 					alert("muy bien :)");
 				}
+				else
+				{
+					sweetAlert("No se pudo atender la solicitud!", " ", "error");
+				}
 			},
 			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión");
+				alert("Error de conexión atender prestamo material");
 			}
-		});
+		});*/
 		$("#atenderSolicitud").show("slow");
 		$("#atenderSolicitud2").show("slow");
 
@@ -124,9 +132,13 @@
 					$("#tabSolProcesoAlumnos #btnDevolucionMaterial").on("click",devolucionMaterial);
 					//$("#tabSolPendientesAlumnos #btnEliminarprestamo").on("click",verMas);
 				}
+				else
+				{
+					sweetAlert("No hay prestamos en proceso!", " ", "error");
+				}
 			},
 			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión");
+				alert("Error de conexión prestamos en proceso");
 			}
 		});
 		$("#solicitudesEnProceso").show("slow");
@@ -147,11 +159,16 @@
 			success: function(response){
 				if(response.respuesta == true)
 				{
-					alert("muy bien :)");
+					$("#tabListaSanciones").html(response.renglones);
+					$("#tabListaSanciones #btnQuitaSancion").on("click",quitaSancion);
+				}
+				else
+				{
+					sweetAlert("No hay personas sancionadas!", " ", "error");
 				}
 			},
 			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión");
+				alert("Error de conexión lista de sanciones");
 			}
 		});
 		$("#alumnosSancionados").show("slow");
@@ -171,9 +188,13 @@
 				{
 					alert("muy bien :)");
 				}
+				else
+				{
+					sweetAlert("la sanción no se pudo eliminar!", " ", "error");
+				}
 			},
 			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión");
+				alert("Error de conexión quitar sanción");
 			}
 		});
 	}
@@ -192,9 +213,13 @@
 				{
 					alert("muy bien :)");
 				}
+				else
+				{
+					sweetAlert("No se pudo aplicar la sanción!", " ", "error");
+				}
 			},
 			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión");
+				alert("Error de conexión aplica sanción");
 			}
 		});
 		$("#aplicaSanciones").show("slow");
@@ -213,9 +238,13 @@
 				{
 					alert("muy bien :)");
 				}
+				else
+				{
+					sweetAlert("No se pudo aplicar la sanción!", " ", "error");
+				}
 			},
 			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión");
+				alert("Error de conexión al guardar la sanción");
 			}
 		});
 	}
@@ -235,9 +264,13 @@
 				{
 					alert("muy bien :)");
 				}
+				else
+				{
+					sweetAlert("No existe el prestamo!", " ", "error");
+				}
 			},
 			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión");
+				alert("Error de conexión devolución de material");
 			}
 		});
 		$("#devolucionMaterial").show("slow");
@@ -265,9 +298,13 @@
 					$("#txtHoraAsignada").val(response.hora);
 					$("#txtClaveSol").val(claveSol);
 				}
+				else
+				{
+					sweetAlert("Lasolicitud no existe!", " ", "error");
+				}
 			},
 			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión");
+				alert("Error de conexión aceptar solicitud de laboratorio");
 			}
 		});
  		$("#aceptarSolLab").show("slow");
@@ -305,7 +342,7 @@
 						sweetAlert("La solicitud no se calendarizó!", " ", "error");
 				},
 				error: function(xhr, ajaxOptions,x){
-					alert("Error de conexión");
+					alert("Error de conexión guarda solicitud laboratorio");
 				}
 			});
 		}
@@ -329,7 +366,7 @@
 					sweetAlert("No se pudo eliminar la solicitud!", " ", "error");
 			},
 			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión");
+				alert("Error de conexión elimina solicitud de laboratorio");
 			}
 		});
 	}
@@ -687,9 +724,13 @@
 				{
 					alert("muy bien :)");
 				}
+				else
+				{
+					sweetAlert("No hay prestamos pendientes!", " ", "error");
+				}
 			},
 			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión");
+				alert("Error de conexión lista de articulos en mantenimiento");
 			}
 		});
 		$("#listaArtMtto").show("slow");
@@ -899,7 +940,7 @@
 	$("#btnGuardaMantenimiento").on("click",guardaMtto);
 	$("#btnPeticionesPendientes").on("click",peticionesPendientesArt);
 	$("#btnPeticionArticulo").on("click",peticionesArticulos);
-	$("#btnAtender").on("click",atenderSolicitud);	
+	//$("#btnAtender").on("click",atenderSolicitud);	
 	//$("#btnEditarArt").on("click",editarArticulo);
 	//$("#btnRegresarEditarArt").on("click",listaArticulos);
 	
