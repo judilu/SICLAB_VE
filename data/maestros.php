@@ -4,7 +4,7 @@ require_once('../data/funciones.php');
 function usuario ()
 {
 	session_start();
-	$_SESSION['nombre'] = GetSQLValueString($_POST['clave1'],"text");
+	$_SESSION['nombre']  = GetSQLValueString($_POST['clave1'],"int");
 }
 function solicitudesAceptadas ()
 {
@@ -20,7 +20,7 @@ function solicitudesAceptadas ()
 		$rows		= array();
 		$renglones	= "";
 		$conexion 	= conectaBDSICLAB();
-		$consulta	= sprintf("select c.claveCalendarizacion, s.MATCVE, p.tituloPractica, l.nombreLaboratorio, c.fechaAsignada, c.horaAsignada from lbcalendarizaciones c INNER JOIN lbsolicitudlaboratorios s ON s.claveSolicitud = c.claveSolicitud INNER JOIN lblaboratorios l ON l.claveLaboratorio = s.claveLaboratorio INNER JOIN lbpracticas p on p.clavePractica = s.clavePractica WHERE c.PDOCVE =%s AND s.claveUsuario =%s AND c.estatus = 'NR'",$periodo,$maestro);
+		$consulta	= sprintf("select c.claveCalendarizacion, s.MATCVE, p.tituloPractica, l.nombreLaboratorio, c.fechaAsignada, c.horaAsignada from lbcalendarizaciones c INNER JOIN lbsolicitudlaboratorios s ON s.claveSolicitud = c.claveSolicitud INNER JOIN lblaboratorios l ON l.claveLaboratorio = s.claveLaboratorio INNER JOIN lbpracticas p on p.clavePractica = s.clavePractica WHERE c.PDOCVE =%s AND s.claveUsuario =%d AND c.estatus = 'NR'",$periodo,$maestro);
 		$res 		= mysql_query($consulta);
 		$renglones	.= "<thead>";
 		$renglones	.= "<tr>";
@@ -95,7 +95,7 @@ function solicitudesPendientes ()
 		$rows 		= array();
 		$renglones	= "";
 		$conexion 	= conectaBDSICLAB();
-		$consulta	= sprintf("select s. claveSolicitud, MATCVE, p.tituloPractica, l.nombreLaboratorio, s.fechaSolicitud, s.horaSolicitud from lbsolicitudlaboratorios s inner join lbpracticas p on s.clavePractica = p.clavePractica inner join lblaboratorios l on s.claveLaboratorio = l.claveLaboratorio left join lbcalendarizaciones c ON c.claveSolicitud = s.claveSolicitud where s.PDOCVE ='%s' and s.claveUsuario =%s and c.claveSolicitud is NULL",$periodo,$maestro);
+		$consulta	= sprintf("select s. claveSolicitud, MATCVE, p.tituloPractica, l.nombreLaboratorio, s.fechaSolicitud, s.horaSolicitud from lbsolicitudlaboratorios s inner join lbpracticas p on s.clavePractica = p.clavePractica inner join lblaboratorios l on s.claveLaboratorio = l.claveLaboratorio left join lbcalendarizaciones c ON c.claveSolicitud = s.claveSolicitud where s.PDOCVE ='%s' and s.claveUsuario =%d and c.claveSolicitud is NULL",$periodo,$maestro);
 		$res 		= mysql_query($consulta);
 		$renglones	.= "<thead>";
 		$renglones	.= "<tr>";
@@ -140,7 +140,7 @@ function solicitudesPendientes ()
 		salir();
 	}
 	$arrayJSON = array('respuesta' => $respuesta,
-			'renglones' => $renglones);
+		'renglones' => $renglones);
 	print json_encode($arrayJSON);
 }
 function solicitudesRealizadas ()
@@ -157,7 +157,7 @@ function solicitudesRealizadas ()
 		$rows		= array();
 		$renglones	= "";
 		$conexion 	= conectaBDSICLAB();
-		$consulta	= sprintf("select c.claveCalendarizacion, s.MATCVE, p.tituloPractica, l.nombreLaboratorio, c.fechaAsignada, c.horaAsignada from lbcalendarizaciones c INNER JOIN lbsolicitudlaboratorios s ON s.claveSolicitud = c.claveSolicitud INNER JOIN lblaboratorios l ON l.claveLaboratorio = s.claveLaboratorio INNER JOIN lbpracticas p on p.clavePractica = s.clavePractica WHERE c.PDOCVE = '2161' AND s.claveUsuario =%s AND c.estatus = 'R'",$maestro);
+		$consulta	= sprintf("select c.claveCalendarizacion, s.MATCVE, p.tituloPractica, l.nombreLaboratorio, c.fechaAsignada, c.horaAsignada from lbcalendarizaciones c INNER JOIN lbsolicitudlaboratorios s ON s.claveSolicitud = c.claveSolicitud INNER JOIN lblaboratorios l ON l.claveLaboratorio = s.claveLaboratorio INNER JOIN lbpracticas p on p.clavePractica = s.clavePractica WHERE c.PDOCVE = '2161' AND s.claveUsuario =%d AND c.estatus = 'R'",$maestro);
 		$res 		= mysql_query($consulta);
 		$renglones	.= "<thead>";
 		$renglones	.= "<tr>";
@@ -199,32 +199,46 @@ function solicitudesRealizadas ()
 		'renglones' => $renglones);
 	print json_encode($arrayJSON);
 }
-function editarSolicitud()
+function mostrarSolicitud($clave,$solicitud)
 {
-	$solId 		= GetSQLValueString($_POST['solId'],"int");
 	$periodo 	= periodoActual();
 	$respuesta 	= false;
 	$rows 		= array();
-	session_start();
-	if(!empty($_SESSION['nombre']))
-	{ 
-		$maestro	= $_SESSION['nombre'];
-		$conexion 	= conectaBDSICLAB();
-		$consulta	= sprintf("select s.claveSolicitud, s.MATCVE, s.GPOCVE, s.fechaSolicitud, p.tituloPractica, s.horaSolicitud, s.cantidadAlumnos, l.nombreLaboratorio from lbsolicitudlaboratorios s inner join lbpracticas p on s.clavePractica = p.clavePractica inner join lblaboratorios l on s.claveLaboratorio = l.claveLaboratorio left join lbcalendarizaciones c ON c.claveSolicitud = s.claveSolicitud where s.PDOCVE =%s and s.claveUsuario =%s and s.claveSolicitud =%d and c.claveSolicitud is NULL",$periodo,$maestro,$solId);
-		$res 		= mysql_query($consulta);
-		if($row = mysql_fetch_array($res))
-		{	
-			$respuesta 	= true;
-			$rows		= $row;
-		}
-		$arrayJSON = array('respuesta' => $respuesta,
-							'rows' => $rows);
-		print json_encode($arrayJSON);
+	$maestro	= $clave;
+	$solId      = $solicitud;
+	$conexion 	= conectaBDSICLAB();
+	$consulta	= sprintf("select s.claveSolicitud, s.MATCVE, s.GPOCVE, s.fechaSolicitud, p.tituloPractica, s.horaSolicitud, s.cantidadAlumnos, l.nombreLaboratorio from lbsolicitudlaboratorios s inner join lbpracticas p on s.clavePractica = p.clavePractica inner join lblaboratorios l on s.claveLaboratorio = l.claveLaboratorio left join lbcalendarizaciones c ON c.claveSolicitud = s.claveSolicitud where s.PDOCVE =%s and s.claveUsuario =%d and s.claveSolicitud =%d and c.claveSolicitud is NULL",$periodo,$maestro,$solId);
+	$res 		= mysql_query($consulta);
+	if($row = mysql_fetch_array($res))
+	{	
+		//$respuesta 	= true;
+		//$rows		= $row;
+		return $row;
 	}
 	else
 	{
-		salir();
+		return " ";
 	}
+	/*$arrayJSON = array('respuesta' => $respuesta,
+		'rows' => $rows);
+	print json_encode($arrayJSON);*/
+}
+function editarSolicitud ()
+{
+	session_start();
+	$combo   		= "";
+	$clave  		= $_SESSION['nombre'];
+	$solId 			= GetSQLValueString($_POST['solId'],"int");
+	$solicitud  	= mostrarSolicitud($clave,$solId);
+	$materias 		= materias(claveMaestro($clave));
+	$respuesta 		= false;
+	if($solicitud!= " ")
+		$respuesta = true;
+		$combo .= "<option value='Ingenieria Web'>'Ingenieria Web'</option>";
+	$arrayJSON = array('respuesta' => $respuesta,
+						'combo' => $combo);
+	print json_encode($arrayJSON);
+
 }
 function eliminarSolicitud ()
 {
@@ -240,19 +254,19 @@ switch ($opc){
 	solicitudesAceptadas();
 	break;
 	case 'liberarPractica1':
-		liberarPractica();
-		break;
+	liberarPractica();
+	break;
 	case 'solicitudesPendientes1':
-		solicitudesPendientes();
-		break;
+	solicitudesPendientes();
+	break;
 	case 'solicitudesRealizadas1':
-		solicitudesRealizadas();
-		break;
+	solicitudesRealizadas();
+	break;
 	case 'editarSolicitud1':
-		editarSolicitud();
-			break;
+	editarSolicitud();
+	break;
 	case 'eliminarSolicitud1':
-		eliminarSolicitud();
-		break;
+	eliminarSolicitud();
+	break;
 } 
 ?>

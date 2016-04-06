@@ -257,7 +257,7 @@ var inicio = function ()
 	   	 	success: function(response){
 	   	 		if(response.respuesta == true)
 	   	 		{
-       				//llenado datos 
+       				/*//llenado datos 
        				//$("#cmbMateriaE").text("hola");
        				$("#cmbHoraMatE").val("hola");
        				$("#txtFechaE").val("2016-03-25");
@@ -265,7 +265,10 @@ var inicio = function ()
        				$("#cmbHoraPractE").val("hola");
        				$("#txtCantAlumnosE").val("20");
        				$("#cmbLaboratorioE").val("hola");
-       				$("#textarea1E").val("nose");
+       				$("#textarea1E").val("nose");*/
+       				$("#cmbMateriaE").html(" ");
+       				$("#cmbMateriaE").html(response.combo);
+
        			}
        			else
        			{
