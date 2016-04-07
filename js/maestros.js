@@ -44,8 +44,7 @@ var inicio = function ()
 				} 
 				else 
 				{
-					swal("OK..!",
-						"Aún sigues en el sistema", "error");
+					swal("OK..!","Aún sigues en el sistema", "error");
 				} 
 			});
 	}//Termina función salir del sistema
@@ -268,7 +267,6 @@ var inicio = function ()
        				$("#textarea1E").val("nose");*/
        				$("#cmbMateriaE").html(" ");
        				$("#cmbMateriaE").html(response.combo);
-
        			}
        			else
        			{
@@ -294,39 +292,45 @@ var inicio = function ()
     //empieza función de eliminar solicitud
     var eliminarSolicitud = function()
     {
+		var solId = parseInt($(this).attr("name"));
     	swal({   	
 			title: "¿Esta seguro que desea eliminar la solicitud?",   
-			text: "",   
+			text: "Una vez eliminada la solicitud, esta ya no existira..!",   
 			type: "error",   
 			showCancelButton: true,   
 			confirmButtonColor: "#DD6B55",   
 			confirmButtonText: "Si",   
 			cancelButtonText: "No",   
-			closeOnConfirm: false,   closeOnCancel: false }, function(isConfirm)
+			closeOnConfirm: false,   
+			closeOnCancel: false 
+		},  function(isConfirm)
 			{   
 				if (isConfirm) 
 				{ 
 					var parametros = "opc=eliminarSolicitud1"+
-					"&id="+Math.random();
+										"solId="+solId+
+										"&id="+Math.random();
 					$.ajax({
 						cache:false,
 						type: "POST",
 						dataType: "json",
-						url:"../data/funciones.php",
+						url:"../data/maestros.php",
 						data: parametros,
 						success: function(response){
 							if(response.respuesta)
 							{
-								document.location.href= "acceso.php";
+								swal("La solicitud fue eliminada con éxito!", "Da click en el botón", "success");
+								solPendientes();
 							}
 							else
 							{
-								console.log(response.respuesta);
+								sweetAlert("La solicitud no fue eliminada", "", "error");
 							}
 						},
 						error: function(xhr, ajaxOptions,x)
 						{
-							alert("Error de conexión salir");
+							console.log("Error de conexión eliminar s");
+							console.log(ajaxOptions);
 						}
 					});
 				} 

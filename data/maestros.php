@@ -4,7 +4,7 @@ require_once('../data/funciones.php');
 function usuario ()
 {
 	session_start();
-	$_SESSION['nombre']  = GetSQLValueString($_POST['clave1'],"int");
+	$_SESSION['nombre'] = GetSQLValueString($_POST['clave1'],"int");
 }
 function solicitudesAceptadas ()
 {
@@ -66,12 +66,12 @@ function solicitudesAceptadas ()
 }
 function liberarPractica ()
 {
-	$claveCal 		= GetSQLValueString($_POST["clave"],"text");
-	if(existeSol($claveCal))
+	$claveCal 		= GetSQLValueString($_POST["clave"],"int");
+	if(existeCal($claveCal))
 	{
 		$respuesta 		= false;
 		$conexion 		= conectaBDSICLAB();
-		$consulta  		= sprintf("update lbcalendarizaciones set estatus = 'R' where claveCalendarizacion =%s",$claveCal);
+		$consulta  		= sprintf("update lbcalendarizaciones set estatus = 'R' where claveCalendarizacion =%d",$claveCal);
 		$res 	 		=  mysql_query($consulta);
 		if($res)
 		{	
@@ -238,11 +238,23 @@ function editarSolicitud ()
 	$arrayJSON = array('respuesta' => $respuesta,
 						'combo' => $combo);
 	print json_encode($arrayJSON);
-
 }
 function eliminarSolicitud ()
 {
-	
+	$claveSol 			= GetSQLValueString($_POST["solId"],"int");
+	if(existeSol($claveSol))
+	{
+		$respuesta 		= false;
+		$conexion 		= conectaBDSICLAB();
+		$consulta  		= sprintf("update lbsolicitudlaboratorios set estatus = 'B' where claveSolicitud =%d",$claveSol);
+		$res 	 		=  mysql_query($consulta);
+		if($res)
+		{	
+			$respuesta = true;
+		}
+		$arrayJSON = array('respuesta' => $respuesta);
+		print json_encode($arrayJSON);
+	}
 }
 //Menú principal
 $opc = $_POST["opc"];

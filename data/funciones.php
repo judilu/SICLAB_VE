@@ -86,11 +86,23 @@ function nomLab ($clave)
 		return  $row["nombreLaboratorio"];
 	}
 }
+function existeCal ($clave)
+{
+	$claveCal	= $clave;
+	$conexion 	= conectaBDSICLAB();
+	$consulta 	= sprintf("select claveCalendarizacion from lbcalendarizaciones where claveCalendarizacion =%d",$claveCal);
+	$res 		= mysql_query($consulta); 
+	if($row = mysql_fetch_array($res))
+	{
+		return true;
+	}
+	return false;
+}
 function existeSol ($clave)
 {
 	$claveSol	= $clave;
 	$conexion 	= conectaBDSICLAB();
-	$consulta 	= sprintf("select claveCalendarizacion from lbcalendarizaciones where claveCalendarizacion =%s",$claveSol);
+	$consulta 	= sprintf("select claveSolicitud from lbsolicitudlaboratorios where claveSolicitud =%d",$claveSol);
 	$res 		= mysql_query($consulta); 
 	if($row = mysql_fetch_array($res))
 	{
@@ -112,8 +124,8 @@ function claveMaestro($clave)
 	{
 		return 0;
 	}
-
 }
+//Menú principal
 $opc = $_POST["opc"];
 switch ($opc)
 {
