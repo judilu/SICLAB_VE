@@ -102,6 +102,7 @@
 					<div class="row">
 						<div class="input-field col s4 offset-s1">
 							<select id="cmbMaterialCat">
+								<option value="" disabled selected>Seleccione el material</option>
 								<option value="110">ALUMINIO</option>
 								<option value="115">AMONIACO</option>
 								<option value="120">AMPERIMETRO</option>
@@ -114,18 +115,18 @@
 					</div>
 					<div class="row">
 						<div class="col s10 offset-s1">
-							<table class="bordered">
+							<table id="tbMaterialSol" class="bordered">
 								<thead>
 									<tr>
 										<th data-field="txtCantidad" class="col s2">Cantidad</th>
 										<th data-field="txtDescripcion" class="col s6">Descripción</th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr>
+								<tbody id="bodyArt">
+									<!-- <tr>
 										<td class="col s2"><input type="number" min="1" max="20" value="1"></td>
 										<td class="col s8">Osciloscopio</td>
-									</tr>
+									</tr> -->
 								</tbody>
 							</table>
 						</div>

@@ -79,7 +79,8 @@ var inicio = function ()
 					sweetAlert("No hay solicitudes..!", "Debe crear una solicitud antes", "error");
 			},
 			error: function(xhr, ajaxOptions,x){
-				console.log("Error de conexión sol aceptadas");	
+				console.log("Error de conexión sol aceptadas");
+				console.log(xhr);	
 			}
 		});
 		$("#sAceptadasMaestro").show("slow");	
@@ -239,8 +240,41 @@ var inicio = function ()
     {
        $("#nuevaMaestro").hide();
        $("#eleccionMaterial").show("slow");
+       //limpiar tabla de agregarMaterial
+       $("#bodyArt").html(" ");
     }//Termina función de elegir material
-       //Empieza función editar solicitud
+    //Empieza función agregar articulo
+    var agregarArt = function()
+    {
+    	//aquiEmpieza todo
+    	//event.preventDefault();
+    	var artCve = $("#cmbMaterialCat" ).val();
+    	var artNom = $("#cmbMaterialCat option:selected").text();
+    	var parametros = "opc=agregarArt1"+
+    						"&artCve="+artCve+
+    						"&artNom="+artNom+
+							"&id="+Math.random();
+		$.ajax({
+			cache:false,
+			type: "POST",
+			dataType: "json",
+			url:"../data/maestros.php",
+			data: parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					console.log(response.renglones);
+					$("#bodyArt").append(response.renglones);
+				}
+				else
+					console.log("no hizo nada");
+			},
+			error: function(xhr, ajaxOptions,x){
+				console.log("Error de conexión articuloAgregado");	
+			}
+		});
+    }//Termina función agregar articulo
+    //Empieza función editar solicitud
     var editarSolicitudLab = function()
     {
 	    //ocultar elementos
@@ -364,17 +398,18 @@ var inicio = function ()
 	$("#solicitudestab").on("click",solAceptadas);
 	//Configuramos los eventos Menu Solicitudes
 	$("#btnSolicitudesAceptadas").on("click",solAceptadas);
+	$("#btnSolicitudesPendientes").on("click",solPendientes);
+	$("#btnElegirMaterialE").on("click",elegirMaterialE);
+	$("#btnRegresarE").on("click",regresarEditar);
 	//para botones que son creados dinamicamente primero se coloca:
 	//el nombre de el id de la tabla que lo contiene despues el on y despues el evento
 	//y de ahi el nombre del boton que desencadenara el evento
 	$("#tbSolRealizadas").on("click","#btnPracticaRealizada",practicaRealizada);
-	$("#btnSolicitudesPendientes").on("click",solPendientes);
-	$("#btnSolicitudesRealizadas").on("click",solRealizadas)
+	$("#btnSolicitudesRealizadas").on("click",solRealizadas);
 	$("#btnNuevaSolicitud").on("click",solNueva);
 	$("#btnElegirMaterial").on("click",elegirMaterial);
 	$("#btnRegresar").on("click",solNueva);
-	$("#btnElegirMaterialE").on("click",elegirMaterialE);
-	$("#btnRegresarE").on("click",regresarEditar);
+	$("#btnAgregarArt").on("click",agregarArt);
 	//Configuramos los eventos Menu Reportes
 	$("#btnListaAsistencia").on("click",listaAsistencia);
 	$("#btnRegresarla").on("click",regresar);

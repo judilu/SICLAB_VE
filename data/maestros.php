@@ -256,6 +256,20 @@ function eliminarSolicitud ()
 		print json_encode($arrayJSON);
 	}
 }
+function agregarArt ()
+{
+	$cveArt 	= GetSQLValueString($_POST['artCve'],"text");
+	$nomArt 	= $_POST['artNom'];
+	$respuesta	= true;
+	$renglones	= "";
+	$renglones .= "<tr>";
+	$renglones .= "<td class='col s2'><input type='number' min='1' max='20' value='1'></td>";
+	$renglones .= "<td class='col s8' id='".$cveArt."'>".$nomArt."</td>";
+	$renglones .= "</tr>";
+	$arrayJSON = array('respuesta' => $respuesta,
+						'renglones' => $renglones);
+	print json_encode($arrayJSON);
+}
 //Menú principal
 $opc = $_POST["opc"];
 switch ($opc){
@@ -280,5 +294,8 @@ switch ($opc){
 	case 'eliminarSolicitud1':
 	eliminarSolicitud();
 	break;
+	case 'agregarArt1':
+		agregarArt();
+		break;
 } 
 ?>
