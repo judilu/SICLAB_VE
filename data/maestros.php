@@ -95,7 +95,7 @@ function solicitudesPendientes ()
 		$rows 		= array();
 		$renglones	= "";
 		$conexion 	= conectaBDSICLAB();
-		$consulta	= sprintf("select s. claveSolicitud, MATCVE, p.tituloPractica, l.nombreLaboratorio, s.fechaSolicitud, s.horaSolicitud from lbsolicitudlaboratorios s inner join lbpracticas p on s.clavePractica = p.clavePractica inner join lblaboratorios l on s.claveLaboratorio = l.claveLaboratorio left join lbcalendarizaciones c ON c.claveSolicitud = s.claveSolicitud where s.PDOCVE ='%s' and s.claveUsuario =%d and c.claveSolicitud is NULL",$periodo,$maestro);
+		$consulta	= sprintf("select s. claveSolicitud, MATCVE, p.tituloPractica, l.nombreLaboratorio, s.fechaSolicitud, s.horaSolicitud from lbsolicitudlaboratorios s inner join lbpracticas p on s.clavePractica = p.clavePractica inner join lblaboratorios l on s.claveLaboratorio = l.claveLaboratorio left join lbcalendarizaciones c ON c.claveSolicitud = s.claveSolicitud where s.PDOCVE =%s and s.claveUsuario =%s and s.estatus = 'V' and c.claveSolicitud is NULL",$periodo,$maestro);
 		$res 		= mysql_query($consulta);
 		$renglones	.= "<thead>";
 		$renglones	.= "<tr>";
@@ -242,9 +242,9 @@ function editarSolicitud ()
 function eliminarSolicitud ()
 {
 	$claveSol 			= GetSQLValueString($_POST["solId"],"int");
+	$respuesta 			= false;
 	if(existeSol($claveSol))
 	{
-		$respuesta 		= false;
 		$conexion 		= conectaBDSICLAB();
 		$consulta  		= sprintf("update lbsolicitudlaboratorios set estatus = 'B' where claveSolicitud =%d",$claveSol);
 		$res 	 		=  mysql_query($consulta);

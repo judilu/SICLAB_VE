@@ -34,8 +34,8 @@
 						<label>Hora de la materia</label>
 					</div>
 					<div class="input-field col s2">
-						<input type="date" class="datepicker">
-						<label for="txtFecha"></label>
+						<input placeholder= " " type="date" class="datepicker">
+						<label class="active" for="txtFecha">Fecha práctica</label>
 					</div>
 				</div>
 				<div class="row">

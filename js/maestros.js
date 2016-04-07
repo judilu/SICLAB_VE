@@ -14,7 +14,9 @@ var inicio = function ()
 			confirmButtonColor: "#DD6B55",   
 			confirmButtonText: "Si",   
 			cancelButtonText: "No",   
-			closeOnConfirm: false,   closeOnCancel: false }, function(isConfirm)
+			closeOnConfirm: false,   closeOnCancel: false 
+			}, 
+			function(isConfirm)
 			{   
 				if (isConfirm) 
 				{ 
@@ -38,15 +40,17 @@ var inicio = function ()
 						},
 						error: function(xhr, ajaxOptions,x)
 						{
-							alert("Error de conexión salir");
+							console.log("Error de conexión salir");
 						}
 					});
 				} 
 				else 
 				{
+					solAceptadas();
 					swal("OK..!","Aún sigues en el sistema", "error");
 				} 
-			});
+			}
+		);
 	}//Termina función salir del sistema
 	//Empieza función de solicitudes Aceptadas
 	var solAceptadas = function()
@@ -67,15 +71,15 @@ var inicio = function ()
 			success: function(response){
 				if(response.respuesta == true)
 				{
-					$("#tbSolAceptadas").html(response.renglones);
+					$("#tbSolAceptadas").html(" ");
+					$("#tbSolAceptadas").append(response.renglones);
 					$("#tbSolAceptadas a").on("click",practicaRealizada);
 				}
 				else
 					sweetAlert("No hay solicitudes..!", "Debe crear una solicitud antes", "error");
 			},
 			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión sol aceptadas");
-				console.log(xhr);	
+				console.log("Error de conexión sol aceptadas");	
 			}
 		});
 		$("#sAceptadasMaestro").show("slow");	
@@ -107,7 +111,7 @@ var inicio = function ()
 			},
 			error: function(xhr, ajaxOptions,x)
 			{
-				alert("Error de conexión realizadas");
+				console.log("Error de conexión realizadas");
 			}
 		});	
 	}//Termina función para liberar una solicitud realizada a aceptadas
@@ -130,7 +134,8 @@ var inicio = function ()
 			success: function(response){
 				if(response.respuesta == true)
 				{
-					$("#tabSolPendientes").html(response.renglones);
+					$("#tabSolPendientes").html(" ");
+					$("#tabSolPendientes").append(response.renglones);
 					$("#tabSolPendientes").on("click", ".btnEditarSolicitudLab" , editarSolicitudLab);
 					$("#tabSolPendientes").on("click", ".btnEliminarSolicitudLab" , eliminarSolicitud);
 				}
@@ -138,7 +143,7 @@ var inicio = function ()
 					sweetAlert("No hay solicitudes pendientes", "Han aceptado todas tus solicitudes o no ha enviado ninguna solicitud", "error");
 			},
 			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión sp");	
+				console.log("Error de conexión pendientes");	
 			}
 		});
 		$("#sPendientesMaestro").show("slow");
@@ -164,13 +169,14 @@ var inicio = function ()
 			success: function(response){
 				if(response.respuesta == true)
 				{
-					$("#tbSolRealizadas").html(response.renglones);
+					$("#tbSolRealizadas").html(" ");
+					$("#tbSolRealizadas").append(response.renglones);
 				}
 				else
 					sweetAlert("No hay solicitudes realizadas", "Debes liberar la práctica realizada", "error");
 			},
 			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión srealizadas");	
+				console.log("Error de conexión srealizadas");	
 			}
 		});
 		$("#sRealizadas").show("slow");
@@ -222,7 +228,7 @@ var inicio = function ()
        				}
        			},
        			error: function(xhr, ajaxOptions,x){
-       				sweetAlert("Error", "Error de conexión articulo", "error");
+       				console.log("Error de conexión articulo");
        			}
        		});
        		console.log(parametros);
@@ -266,7 +272,7 @@ var inicio = function ()
        				$("#cmbLaboratorioE").val("hola");
        				$("#textarea1E").val("nose");*/
        				$("#cmbMateriaE").html(" ");
-       				$("#cmbMateriaE").html(response.combo);
+       				$("#cmbMateriaE").append(response.combo);
        			}
        			else
        			{
@@ -274,7 +280,7 @@ var inicio = function ()
        			}
        		},
        		error: function(xhr, ajaxOptions,x){
-       			sweetAlert("Error", "Error de conexion editar", "error");
+       			console.log("Error de conexion editar");
        		}
        	});
     }//Termina función editar solicitud
@@ -284,7 +290,8 @@ var inicio = function ()
     	$("#editarSol").hide();
     	$("#eleccionMaterialE").show("slow");
     }//Termina función elegirMaterial de editar
-    var regresarEditar = function(){
+    var regresarEditar = function()
+    {
     	//ocultar elementos
     	$("#eleccionMaterialE").hide();
     	$("#editarSol").show("slow");
@@ -308,31 +315,31 @@ var inicio = function ()
 				if (isConfirm) 
 				{ 
 					var parametros = "opc=eliminarSolicitud1"+
-										"solId="+solId+
+										"&solId="+solId+
 										"&id="+Math.random();
-					$.ajax({
-						cache:false,
-						type: "POST",
-						dataType: "json",
-						url:"../data/maestros.php",
-						data: parametros,
-						success: function(response){
-							if(response.respuesta)
-							{
-								swal("La solicitud fue eliminada con éxito!", "Da click en el botón", "success");
-								solPendientes();
-							}
-							else
-							{
-								sweetAlert("La solicitud no fue eliminada", "", "error");
-							}
-						},
-						error: function(xhr, ajaxOptions,x)
-						{
-							console.log("Error de conexión eliminar s");
-							console.log(ajaxOptions);
-						}
-					});
+		$.ajax({
+				cache:false,
+				type: "POST",
+				dataType: "json",
+				url:"../data/maestros.php",
+				data: parametros,
+				success: function(response)
+				{
+					if(response.respuesta)
+					{
+						swal("La solicitud fue eliminada con éxito!", "Da click en el botón", "success");
+						solPendientes();
+					}
+					else
+					{
+						sweetAlert("La solicitud no fue eliminada", "", "error");
+					}
+				},
+				error: function(xhr, ajaxOptions,x)
+				{
+					console.log("Error de conexión eliminar s");
+				}
+		});
 				} 
 				else 
 				{

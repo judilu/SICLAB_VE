@@ -26,8 +26,8 @@
 						<label>Hora de la materia</label>
 					</div>
 					<div class="input-field col s2">
-						<input id="txtFechaE" type="date" class="datepicker">
-						<label for="txtFechaE"></label>
+						<input placeholder= " " id="txtFechaE" type="date" class="datepicker">
+						<label class="active" for="txtFechaE">Fecha práctica</label>
 					</div>
 				</div>
 				<div class="row">
@@ -48,7 +48,7 @@
 						<label>Hora de la práctica</label>
 					</div>
 					<div class="input-field col s2">
-						<input id="txtCantAlumnosE" type="number" class="validate">
+						<input placeholder= " " id="txtCantAlumnosE" type="number" class="validate">
 						<label class="active" for="txtCantAlumnosE">Cant. de alumnos</label>
 					</div>
 				</div>
