@@ -15,11 +15,12 @@
 							<option value="" disabled selected>Seleccione la materia</option>
 							<?php						
 							$conexion		= conectaBDSIE();
-							$consulta 		= sprintf("select MATCVE, MATNOM from DMATER where MATNOM !=' ' ORDER BY MATNOM ASC");
+							$consulta 		= sprintf("select m.MATCVE, m.MATNCO from DMATER m inner join DGRUPO g on m.MATCVE = g.MATCVE where g.PERCVE = 920 and g.PDOCVE ='2161' and g.GRUBAS = ' ' and g.INSNUM > 0");
 							$res 			= mysql_query($consulta);
 							while($row = mysql_fetch_array($res))
 							{
-								echo '<option value="'.$row["MATCVE"].'">'.$row["MATNOM"].'</option>';
+								var_dump($row);
+								echo '<option value="'.$row["MATCVE"].'">'.$row["MATNCO"].'</option>';
 							}?>
 						</select>
 						<label>Materia</label>
@@ -100,11 +101,15 @@
 				<div class="col s12">
 					<div class="row">
 						<div class="input-field col s4 offset-s1">
-							<input id="txtNombreArticulo" type="text" class="validate">
-							<label for="txtNombreArticulo">Nombre del artículo</label>
+							<select id="cmbMaterialCat">
+								<option value="110">ALUMINIO</option>
+								<option value="115">AMONIACO</option>
+								<option value="120">AMPERIMETRO</option>
+							</select>
+							<label>Materiales</label>
 						</div>
 						<div class="col s3">
-							<a class="waves-effect waves-light btn blue darken-1"><i class="material-icons left">search</i>Buscar</a>
+							<a id="btnAgregarArt" class="waves-effect waves-light btn amber darken-2"><i class="material-icons left">add</i>Agregar</a>
 						</div>
 					</div>
 					<div class="row">
@@ -114,19 +119,12 @@
 									<tr>
 										<th data-field="txtCantidad" class="col s2">Cantidad</th>
 										<th data-field="txtDescripcion" class="col s6">Descripción</th>
-										<th data-field="txtDescripcion" class="col s2">Seleccionar</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<td class="col s2">1</td>
-										<td class="col s6">Osciloscopio</td>
-										<td class="col s2">
-											<p>
-												<input type="checkbox" class="filled-in" id="chbSeleccionar1" />
-												<label for="chbSeleccionar1"></label>
-											</p>
-										</td>
+										<td class="col s2"><input type="number" min="1" max="20" value="1"></td>
+										<td class="col s8">Osciloscopio</td>
 									</tr>
 								</tbody>
 							</table>
