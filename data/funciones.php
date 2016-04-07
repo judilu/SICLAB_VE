@@ -43,16 +43,18 @@ function nomMat ($claves)
 function materias ($clave)
 {	
 	$maestro		= $clave;
-	$claveMaestro	= 920;
-	$periodo 		= '2161';
-	$num 			= 0;
+	$periodo 		= periodoActual();
+	$materias 		= array();
 	$conexion		= conectaBDSIE();
-	$consulta		= sprintf("select m.MATCVE, m.MATNCO from DMATER m inner join DGRUPO g on m.MATCVE = g.MATCVE where g.PERCVE =%d and g.PDOCVE =%s and g.GRUBAS = ' ' and g.INSNUM = 0",$claveMaestro,$periodo);
+	$consulta		= sprintf("select m.MATCVE, m.MATNCO from DMATER m inner join DGRUPO g on m.MATCVE = g.MATCVE where g.PERCVE =%d and g.PDOCVE =%s and g.GRUBAS = ' ' and g.INSNUM > 0",$maestro,$periodo);
 	$res 			= mysql_query($consulta);
-	if($row = mysql_fetch_array($res))
+	if($res)
 	{
-		return  $row;
-
+		while($row = mysql_fetch_array($res))
+		{
+			$materias[$row["MATCVE"]] =$row["MATNCO"];
+		}
+		return $materias;
 	}
 	else
 	{
@@ -84,11 +86,23 @@ function nomLab ($clave)
 		return  $row["nombreLaboratorio"];
 	}
 }
+function existeCal ($clave)
+{
+	$claveCal	= $clave;
+	$conexion 	= conectaBDSICLAB();
+	$consulta 	= sprintf("select claveCalendarizacion from lbcalendarizaciones where claveCalendarizacion =%d",$claveCal);
+	$res 		= mysql_query($consulta); 
+	if($row = mysql_fetch_array($res))
+	{
+		return true;
+	}
+	return false;
+}
 function existeSol ($clave)
 {
 	$claveSol	= $clave;
 	$conexion 	= conectaBDSICLAB();
-	$consulta 	= sprintf("select claveCalendarizacion from lbcalendarizaciones where claveCalendarizacion =%s",$claveSol);
+	$consulta 	= sprintf("select claveSolicitud from lbsolicitudlaboratorios where claveSolicitud =%d",$claveSol);
 	$res 		= mysql_query($consulta); 
 	if($row = mysql_fetch_array($res))
 	{
@@ -104,14 +118,14 @@ function claveMaestro($clave)
 	$res			= mysql_query($consulta);
 	if($row = mysql_fetch_array($res))
 	{
-		return $row["claveUsuario"];
+		return $row["PERCVE"];
 	}
 	else
 	{
-		return " ";
+		return 0;
 	}
-
 }
+//Menú principal
 $opc = $_POST["opc"];
 switch ($opc)
 {

@@ -4,7 +4,7 @@ require_once('../data/funciones.php');
 function usuario ()
 {
 	session_start();
-	$_SESSION['nombre'] = GetSQLValueString($_POST['clave1'],"text");
+	$_SESSION['nombre'] = GetSQLValueString($_POST['clave1'],"int");
 }
 function solicitudesAceptadas ()
 {
@@ -66,12 +66,12 @@ function solicitudesAceptadas ()
 }
 function liberarPractica ()
 {
-	$claveCal 		= GetSQLValueString($_POST["clave"],"text");
-	if(existeSol($claveCal))
+	$claveCal 		= GetSQLValueString($_POST["clave"],"int");
+	if(existeCal($claveCal))
 	{
 		$respuesta 		= false;
 		$conexion 		= conectaBDSICLAB();
-		$consulta  		= sprintf("update lbcalendarizaciones set estatus = 'R' where claveCalendarizacion =%s",$claveCal);
+		$consulta  		= sprintf("update lbcalendarizaciones set estatus = 'R' where claveCalendarizacion =%d",$claveCal);
 		$res 	 		=  mysql_query($consulta);
 		if($res)
 		{	
@@ -199,36 +199,63 @@ function solicitudesRealizadas ()
 		'renglones' => $renglones);
 	print json_encode($arrayJSON);
 }
-function editarSolicitud()
+function mostrarSolicitud($clave,$solicitud)
 {
-	$solId 		= GetSQLValueString($_POST['solId'],"int");
 	$periodo 	= periodoActual();
 	$respuesta 	= false;
 	$rows 		= array();
-	session_start();
-	if(!empty($_SESSION['nombre']))
-	{ 
-		$maestro	= $_SESSION['nombre'];
-		$conexion 	= conectaBDSICLAB();
-		$consulta	= sprintf("select s.claveSolicitud, s.MATCVE, s.GPOCVE, s.fechaSolicitud, p.tituloPractica, s.horaSolicitud, s.cantidadAlumnos, l.nombreLaboratorio from lbsolicitudlaboratorios s inner join lbpracticas p on s.clavePractica = p.clavePractica inner join lblaboratorios l on s.claveLaboratorio = l.claveLaboratorio left join lbcalendarizaciones c ON c.claveSolicitud = s.claveSolicitud where s.PDOCVE =%s and s.claveUsuario =%s and s.claveSolicitud =%d and c.claveSolicitud is NULL",$periodo,$maestro,$solId);
-		$res 		= mysql_query($consulta);
-		if($row = mysql_fetch_array($res))
-		{	
-			$respuesta 	= true;
-			$rows		= $row;
-		}
-		$arrayJSON = array('respuesta' => $respuesta,
-							'rows' => $rows);
-		print json_encode($arrayJSON);
+	$maestro	= $clave;
+	$solId      = $solicitud;
+	$conexion 	= conectaBDSICLAB();
+	$consulta	= sprintf("select s.claveSolicitud, s.MATCVE, s.GPOCVE, s.fechaSolicitud, p.tituloPractica, s.horaSolicitud, s.cantidadAlumnos, l.nombreLaboratorio from lbsolicitudlaboratorios s inner join lbpracticas p on s.clavePractica = p.clavePractica inner join lblaboratorios l on s.claveLaboratorio = l.claveLaboratorio left join lbcalendarizaciones c ON c.claveSolicitud = s.claveSolicitud where s.PDOCVE =%s and s.claveUsuario =%d and s.claveSolicitud =%d and c.claveSolicitud is NULL",$periodo,$maestro,$solId);
+	$res 		= mysql_query($consulta);
+	if($row = mysql_fetch_array($res))
+	{	
+		//$respuesta 	= true;
+		//$rows		= $row;
+		return $row;
 	}
 	else
 	{
-		salir();
+		return " ";
 	}
+	/*$arrayJSON = array('respuesta' => $respuesta,
+		'rows' => $rows);
+	print json_encode($arrayJSON);*/
+}
+function editarSolicitud ()
+{
+	session_start();
+	$clave  		= $_SESSION['nombre'];
+	$solId 			= GetSQLValueString($_POST['solId'],"int");
+	$solicitud  	= mostrarSolicitud($clave,$solId);
+	$materias 		= materias(claveMaestro($clave));
+	$respuesta 		= false;
+	if($solicitud!= " ")
+		$respuesta = true;
+	$arrayJSON = array('respuesta' => $respuesta,
+						'solicitud' => $solicitud,
+						'materias' => $materias);
+	print json_encode($arrayJSON);
+
 }
 function eliminarSolicitud ()
 {
-	
+	var_dump("ENTRO");
+	$claveSol 			= GetSQLValueString($_POST["solId"],"int");
+	if(existeSol($claveSol))
+	{
+		$respuesta 		= false;
+		$conexion 		= conectaBDSICLAB();
+		$consulta  		= sprintf("update lbsolicitudlaboratorios set estatus = 'B' where claveSolicitud =%d",$claveSol);
+		$res 	 		=  mysql_query($consulta);
+		if($res)
+		{	
+			$respuesta = true;
+		}
+		$arrayJSON = array('respuesta' => $respuesta);
+		print json_encode($arrayJSON);
+	}
 }
 //Menú principal
 $opc = $_POST["opc"];
