@@ -125,6 +125,28 @@ function claveMaestro($clave)
 		return 0;
 	}
 }
+function grupo($mat,$per,$pdo,$hor)
+{
+	$matcve  = $mat;
+	$clave   = $per;
+	$maestro = claveMaestro($clave);
+	$periodo = $pdo;
+	$n 	 	 = $hor;
+	$n2 	 = (string)($n+1);
+	$n 		 = (string)($n);
+	$hora 	 = $n."00".$n2."00";
+	$conexion 		= conectaBDSIE();
+	$consulta 		= sprintf("select GPOCVE from DGRUPO where MATCVE =%s AND PERCVE=%d AND PDOCVE =%s AND (LUNHRA =%s OR MARHRA =%s OR MIEHRA =%s OR JUEHRA =%s OR VIEHRA =%s)",$matcve,$maestro,$periodo,$hora,$hora,$hora,$hora,$hora);
+	$res			= mysql_query($consulta);
+	if($row = mysql_fetch_array($res))
+	{
+		return $row["GPOCVE"];
+	}
+	else
+	{
+		return "";
+	}
+}
 //Menú principal
 $opc = $_POST["opc"];
 switch ($opc)

@@ -27,7 +27,7 @@
 					<div class="input-field col s2">
 						<select id="cmbHoraMat">
 							<option value="" disabled selected>Seleccione la hora</option>
-							<option value="1">12:30</option>
+							<option value="1">10:00</option>
 							<option value="2">01:00</option>
 							<option value="3">15:00</option>
 						</select>
