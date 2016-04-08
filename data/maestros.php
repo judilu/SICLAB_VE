@@ -271,28 +271,41 @@ function agregarArt ()
 						'renglones' => $renglones);
 	print json_encode($arrayJSON);
 }
+function nuevaSol1(){
+	$respuesta	= false;
+	$conexion 	= conectaBDSICLAB();
+ 	$consulta = sprintf("select * from lbcalendarizaciones limit 1");
+	$res 	  = mysql_query($consulta);
+	if($row = mysql_fetch_array($res))
+	{	
+		$respuesta 	= true;
+	}
+	$arrayJSON = array('respuesta' => $respuesta);
+	print json_encode($arrayJSON);
+}
 function nuevaSol()
 {
 	//insertar en lbsolicitudes
 	session_start();
 	$respuesta	= false;
-	$conexion 	= conectaBDSICLAB();
-	$cveDep 	= "0000"; //preparado para cuando se
-	$periodo 	= periodoActual();
+	$cveDep 	= GetSQLValueString("0000","text"); //preparado para cuando se
+	$periodo 	= GetSQLValueString(periodoActual(),"text");
 	$fe 		= GetSQLValueString($_POST['fe'],"text");
 	$fs 		= GetSQLValueString($_POST['fs'],"text");
 	$hs 		= GetSQLValueString($_POST['hs'],"text");
 	$lab 		= GetSQLValueString($_POST['lab'],"text");
 	$uso 		= GetSQLValueString($_POST['uso'],"text");
 	$prac 		= GetSQLValueString($_POST['prac'],"int"); 		
-	$clave  	= (int)($_SESSION['nombre']);
-	$firma 		= "123456";
+	$clave  	= GetSQLValueString(($_SESSION['nombre']),"int");
+	$firma 		= GetSQLValueString("123456","text");
 	$mat 		= GetSQLValueString($_POST['mat'],"text");
 	$gpo 		= GetSQLValueString($_POST['gpo'],"int");
-	$gp 		= grupo($mat,$clave,$periodo,$gpo);//insertar
+	$gp 		= GetSQLValueString(grupo($mat,$clave,$periodo,$gpo),"text");//insertar
 	$cant 		= GetSQLValueString($_POST['cant'],"int");
-	$estatus  	= "V";
-	$consulta 	= sprintf("insert into lbsolicitudlaboratorios values(%s,'%s','',%s,%s,%s,%s,%s,%d,%d,'%s',%s,'%s',%s,'%s')",$cveDep,$periodo,$fe,$fs,$hs,$lab,$uso,$prac,$clave,$firma,$mat,$gp,$cant,$estatus);
+	$estatus  	= GetSQLValueString("V","text");
+	$b 			= GetSQLValueString(" ","text");
+	$conexion 	= conectaBDSICLAB();
+	$consulta 	= sprintf("insert into lbsolicitudlaboratorios values(%s,%s,%s,%s,%s,%s,%s,%s,%d,%d,%s,%s,%s,%s,%s)",$cveDep,$periodo,$b,$fe,$fs,$hs,$lab,$uso,$prac,$clave,$firma,$mat,$gp,$cant,$estatus);
 	$res 		= mysql_query($consulta);
 	if(mysql_affected_rows()>0)
 	{
