@@ -15,41 +15,41 @@ var inicio = function ()
 			confirmButtonText: "Si",   
 			cancelButtonText: "No",   
 			closeOnConfirm: false,   closeOnCancel: false 
-			}, 
-			function(isConfirm)
-			{   
-				if (isConfirm) 
-				{ 
-					var parametros = "opc=salir1"+
-					"&id="+Math.random();
-					$.ajax({
-						cache:false,
-						type: "POST",
-						dataType: "json",
-						url:"../data/funciones.php",
-						data: parametros,
-						success: function(response){
-							if(response.respuesta)
-							{
-								document.location.href= "acceso.php";
-							}
-							else
-							{
-								console.log(response.respuesta);
-							}
-						},
-						error: function(xhr, ajaxOptions,x)
+		}, 
+		function(isConfirm)
+		{   
+			if (isConfirm) 
+			{ 
+				var parametros = "opc=salir1"+
+				"&id="+Math.random();
+				$.ajax({
+					cache:false,
+					type: "POST",
+					dataType: "json",
+					url:"../data/funciones.php",
+					data: parametros,
+					success: function(response){
+						if(response.respuesta)
 						{
-							console.log("Error de conexión salir");
+							document.location.href= "acceso.php";
 						}
-					});
-				} 
-				else 
-				{
-					solAceptadas();
-					swal("OK..!","Aún sigues en el sistema", "error");
-				} 
-			}
+						else
+						{
+							console.log(response.respuesta);
+						}
+					},
+					error: function(xhr, ajaxOptions,x)
+					{
+						console.log("Error de conexión salir");
+					}
+				});
+			} 
+			else 
+			{
+				solAceptadas();
+				swal("OK..!","Aún sigues en el sistema", "error");
+			} 
+		}
 		);
 	}//Termina función salir del sistema
 	//Empieza función de solicitudes Aceptadas
@@ -191,57 +191,14 @@ var inicio = function ()
 		$("#eleccionMaterial").hide();
 		$("#sNuevaMaestro").show("slow");
 		$("#nuevaMaestro").show("slow");
-		//contenido Dinamico
-		if(($("#txtCodigoBarras").val())!=' ' && ($("#txtModeloArt").val())!= ' ')
-		{
-			//aqui empieza todo
-       		//var cveUsuario = usuarioNombre();
-       		var imagen		= $("#txtImagenAlta").val();
-       		var parametros 	= "opc=altaInventario1"+"&claveArticulo="+claveArticulo
-       		+"&imagen="+imagen
-       		+"&identificadorArticulo="+identificadorArticulo
-       		+"&modelo="+modelo
-       		+"&numeroSerie="+numeroSerie
-       		+"&marca="+marca
-       		+"&tipoContenedor="+tipoContenedor
-       		+"&descripcionArticulo="+descripcionArticulo
-       		+"&descripcionUso="+descripcionUso
-       		+"&unidadMedida="+unidadMedida
-       		+"&fechaCaducidad="+fechaCaducidad
-       		+"&claveKit="+claveKit
-       		+"&ubicacionAsignada="+ubicacionAsignada
-       		+"&estatus="+estatus
-       		+"&id="+Math.random();
-       		$.ajax({
-       			cache:false,
-       			type: "POST",
-       			dataType: "json",
-       			url:'../data/genericos.php',
-       			data: parametros,
-       			success: function(response){
-       				if(response.respuesta == true)
-       				{
-       					swal("El articulo fue dado de alta con éxito!", "Da clic en el botón OK!", "success");
-       				}
-       				else
-       				{
-       					sweetAlert("Error", "No se pudo insertar el articulo!", "error");
-       				}
-       			},
-       			error: function(xhr, ajaxOptions,x){
-       				console.log("Error de conexión articulo");
-       			}
-       		});
-       		console.log(parametros);
-       	}
     }//Termina función de crear nueva solicitud
     //Empieza función de elegir material
     var elegirMaterial = function()
     {
-       $("#nuevaMaestro").hide();
-       $("#eleccionMaterial").show("slow");
+    	$("#nuevaMaestro").hide();
+    	$("#eleccionMaterial").show("slow");
        //limpiar tabla de agregarMaterial
-       $("#bodyArt").html(" ");
+       $("#bodyArt").html(" "); 
     }//Termina función de elegir material
     //Empieza función agregar articulo
     var agregarArt = function()
@@ -251,20 +208,21 @@ var inicio = function ()
     	var artCve = $("#cmbMaterialCat" ).val();
     	var artNom = $("#cmbMaterialCat option:selected").text();
     	var parametros = "opc=agregarArt1"+
-    						"&artCve="+artCve+
-    						"&artNom="+artNom+
-							"&id="+Math.random();
-		$.ajax({
-			cache:false,
-			type: "POST",
-			dataType: "json",
-			url:"../data/maestros.php",
-			data: parametros,
-			success: function(response){
-				if(response.respuesta == true)
-				{
-					console.log(response.renglones);
-					$("#bodyArt").append(response.renglones);
+    	"&artCve="+artCve+
+    	"&artNom="+artNom+
+    	"&id="+Math.random();
+    	$.ajax({
+    		cache:false,
+    		type: "POST",
+    		dataType: "json",
+    		url:"../data/maestros.php",
+    		data: parametros,
+    		success: function(response){
+    			if(response.respuesta == true)
+    			{
+    				$("#bodyArt").append(response.renglones);
+					//colocar evento de eliminar$(".btnEliminarArt").on("click",eliminarArt);
+					$(".btnEliminarArt").on("click",eliminarArt);
 				}
 				else
 					console.log("no hizo nada");
@@ -274,6 +232,11 @@ var inicio = function ()
 			}
 		});
     }//Termina función agregar articulo
+    //Comienza función de eliminar Articulo
+    var eliminarArt = function()
+    {
+    	alert("hola");
+    }//Termina función de eliminar Articulo
     //Empieza función editar solicitud
     var editarSolicitudLab = function()
     {
@@ -283,19 +246,19 @@ var inicio = function ()
 	    $("#eleccionMaterialE").hide();
 	    //Contenido Dinamico
 	    $("#editarSolicitudLab").show("slow");
-	   	 var solId = parseInt($(this).attr("name"));
-	   	 var parametros = "opc=editarSolicitud1"+
-	   	 					"&solId="+solId+
-	   	 					"&id="+Math.random();
-	   	 $.ajax({
-	   	 	cache:false,
-	   	 	type: "POST",
-	   	 	dataType: "json",
-	   	 	url:'../data/maestros.php',
-	   	 	data: parametros,
-	   	 	success: function(response){
-	   	 		if(response.respuesta == true)
-	   	 		{
+	    var solId = parseInt($(this).attr("name"));
+	    var parametros = "opc=editarSolicitud1"+
+	    "&solId="+solId+
+	    "&id="+Math.random();
+	    $.ajax({
+	    	cache:false,
+	    	type: "POST",
+	    	dataType: "json",
+	    	url:'../data/maestros.php',
+	    	data: parametros,
+	    	success: function(response){
+	    		if(response.respuesta == true)
+	    		{
        				/*//llenado datos 
        				//$("#cmbMateriaE").text("hola");
        				$("#cmbHoraMatE").val("hola");
@@ -333,55 +296,107 @@ var inicio = function ()
     //empieza función de eliminar solicitud
     var eliminarSolicitud = function()
     {
-		var solId = parseInt($(this).attr("name"));
+    	var solId = parseInt($(this).attr("name"));
     	swal({   	
-			title: "¿Esta seguro que desea eliminar la solicitud?",   
-			text: "Una vez eliminada la solicitud, esta ya no existira..!",   
-			type: "error",   
-			showCancelButton: true,   
-			confirmButtonColor: "#DD6B55",   
-			confirmButtonText: "Si",   
-			cancelButtonText: "No",   
-			closeOnConfirm: false,   
-			closeOnCancel: false 
-		},  function(isConfirm)
-			{   
-				if (isConfirm) 
-				{ 
-					var parametros = "opc=eliminarSolicitud1"+
-										"&solId="+solId+
-										"&id="+Math.random();
-		$.ajax({
-				cache:false,
-				type: "POST",
-				dataType: "json",
-				url:"../data/maestros.php",
-				data: parametros,
-				success: function(response)
-				{
-					if(response.respuesta)
-					{
-						swal("La solicitud fue eliminada con éxito!", "Da click en el botón", "success");
-						solPendientes();
-					}
-					else
-					{
-						sweetAlert("La solicitud no fue eliminada", "", "error");
-					}
-				},
-				error: function(xhr, ajaxOptions,x)
-				{
-					console.log("Error de conexión eliminar s");
-				}
-		});
-				} 
-				else 
-				{
-					swal("OK..!",
-						"La solicitud no fue eliminada..!", "error");
-				} 
-			});
+    		title: "¿Esta seguro que desea eliminar la solicitud?",   
+    		text: "Una vez eliminada la solicitud, esta ya no existira..!",   
+    		type: "error",   
+    		showCancelButton: true,   
+    		confirmButtonColor: "#DD6B55",   
+    		confirmButtonText: "Si",   
+    		cancelButtonText: "No",   
+    		closeOnConfirm: false,   
+    		closeOnCancel: false 
+    	},  function(isConfirm)
+    	{   
+    		if (isConfirm) 
+    		{ 
+    			var parametros = "opc=eliminarSolicitud1"+
+    			"&solId="+solId+
+    			"&id="+Math.random();
+    			$.ajax({
+    				cache:false,
+    				type: "POST",
+    				dataType: "json",
+    				url:"../data/maestros.php",
+    				data: parametros,
+    				success: function(response)
+    				{
+    					if(response.respuesta)
+    					{
+    						swal("La solicitud fue eliminada con éxito!", "Da click en el botón", "success");
+    						solPendientes();
+    					}
+    					else
+    					{
+    						sweetAlert("La solicitud no fue eliminada", "", "error");
+    					}
+    				},
+    				error: function(xhr, ajaxOptions,x)
+    				{
+    					console.log("Error de conexión eliminar s");
+    				}
+    			});
+    		} 
+    		else 
+    		{
+    			swal("OK..!",
+    				"La solicitud no fue eliminada..!", "error");
+    		} 
+    	});
     }//fin función eliminar solicitud
+    var altaNuevaSol = function()
+    {
+    	//insertar una nueva solicitud
+    	// cadena.substring(índice donde inicia recordando que el primero es cero,indice - 1)
+    	var f  = new Date();
+    	var ff  = (f.getDate()+"/"+f.getMonth()+"/"+f.getFullYear());
+    	var fe  = $("#txtFechaS").val();
+    	var a  = fe.substring(0,4);
+    	var m  = fe.substring(5,7);
+    	var d  = fe.substring(8,10);
+    	var fs = d+"/"+m+"/"+a;
+    	var hs  = $("#cmbHoraPract option:selected").text();
+    	var lab = $("#cmbLaboratorio").val();
+    	var uso = $("#textarea1").val();
+    	var prac = $("#cmbPractica").val();
+    	var mat = $("#cmbMateria").val();
+        var gp  = $("#cmbHoraMat option:selected").text();//segun la hora se saca el grupo
+        var cant = $("#txtCantAlumnos").val();
+        var art  = "";
+        //var con  = ($("#tbMaterialSol tr").length);
+        var parametros = "opc=nuevaSol1"+
+                     		"&ff="+ff+
+                     		"&fs="+fs+
+                     		"&hs="+hs+
+                     		"&lab="+lab+
+                     		"&uso="+uso+
+                     		"&prac="+prac+
+                     		"&mat="+mat+
+                     		"&gp="+gp+
+                     		"&cant="+cant+
+                     		"&id="+Math.random();
+                     $.ajax({
+                     	cache:false,
+                     	type: "POST",
+                     	dataType: "json",
+                     	url:'../data/maestros.php',
+                     	data: parametros,
+                     	success: function(response){
+                     		if(response.respuesta == true)
+                     		{
+                     			swal("El articulo fue dado de alta con éxito!", "Da clic en el botón OK!", "success");
+                     		}
+                     		else
+                     		{
+                     			sweetAlert("Error", "No se pudo insertar el articulo!", "error");
+                     		}
+                     	},
+                     	error: function(xhr, ajaxOptions,x){
+                     		console.log("Error de conexión articulo");
+                     	}
+                     });
+    }
 	//eventos menu Reportes
 	var listaAsistencia = function()
 	{
@@ -408,6 +423,7 @@ var inicio = function ()
 	$("#btnSolicitudesRealizadas").on("click",solRealizadas);
 	$("#btnNuevaSolicitud").on("click",solNueva);
 	$("#btnElegirMaterial").on("click",elegirMaterial);
+	$("#btnFinalizarNS").on("click",altaNuevaSol);
 	$("#btnRegresar").on("click",solNueva);
 	$("#btnAgregarArt").on("click",agregarArt);
 	//Configuramos los eventos Menu Reportes

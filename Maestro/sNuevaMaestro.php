@@ -19,7 +19,6 @@
 							$res 			= mysql_query($consulta);
 							while($row = mysql_fetch_array($res))
 							{
-								var_dump($row);
 								echo '<option value="'.$row["MATCVE"].'">'.$row["MATNCO"].'</option>';
 							}?>
 						</select>
@@ -35,8 +34,8 @@
 						<label>Hora de la materia</label>
 					</div>
 					<div class="input-field col s2">
-						<input placeholder= " " type="date" class="datepicker">
-						<label class="active" for="txtFecha">Fecha práctica</label>
+						<input id= "txtFechaS" placeholder= " " type="date" class="datepicker">
+						<label class="active" for="txtFechaS">Fecha práctica</label>
 					</div>
 				</div>
 				<div class="row">
@@ -119,13 +118,15 @@
 								<thead>
 									<tr>
 										<th data-field="txtCantidad" class="col s2">Cantidad</th>
-										<th data-field="txtDescripcion" class="col s6">Descripción</th>
+										<th data-field="txtDescripcion" class="col s8">Descripción</th>
+										<th data-field="txtHora" class="col s2">Acción</th>
 									</tr>
 								</thead>
 								<tbody id="bodyArt">
 									<!-- <tr>
 										<td class="col s2"><input type="number" min="1" max="20" value="1"></td>
 										<td class="col s8">Osciloscopio</td>
+										<td class="col s2"><a name = 1 class="btnEliminarArt btn-floating btn-large waves-effect waves-light red darken-1"><i class="material-icons">delete</i></a></td>";
 									</tr> -->
 								</tbody>
 							</table>
@@ -133,7 +134,7 @@
 					</div>
 					<div class="row">
 						<div class="col s4 offset-s4">
-							<a class="waves-effect waves-light btn green darken-2 " id="btnFinalizar">Finalizar</a>
+							<a class="waves-effect waves-light btn green darken-2 " id="btnFinalizarNS">Finalizar</a>
 							<a class="waves-effect waves-light btn amber darken-2" id="btnRegresar">Regresar</a>
 						</div>
 					</div>

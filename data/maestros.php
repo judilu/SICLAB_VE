@@ -262,13 +262,18 @@ function agregarArt ()
 	$nomArt 	= $_POST['artNom'];
 	$respuesta	= true;
 	$renglones	= "";
-	$renglones .= "<tr>";
+	$renglones .= "<tr id=".$cveArt.">";
 	$renglones .= "<td class='col s2'><input type='number' min='1' max='20' value='1'></td>";
-	$renglones .= "<td class='col s8' id='".$cveArt."'>".$nomArt."</td>";
+	$renglones .= "<td class='col s8'>".$nomArt."</td>";
+	$renglones .= "<td class='col s2'><a name =".$cveArt."class='btnEliminarArt btn-floating btn-large waves-effect waves-light red darken-1'><i class='material-icons'>delete</i></a></td>";
 	$renglones .= "</tr>";
 	$arrayJSON = array('respuesta' => $respuesta,
 						'renglones' => $renglones);
 	print json_encode($arrayJSON);
+}
+function nuevaSol()
+{
+	//insertar en lbsolicitudes
 }
 //Menú principal
 $opc = $_POST["opc"];
@@ -296,6 +301,9 @@ switch ($opc){
 	break;
 	case 'agregarArt1':
 		agregarArt();
+		break;
+	case 'nuevaSol1':
+		nuevaSol();
 		break;
 } 
 ?>
