@@ -1,6 +1,5 @@
 <?php
 require_once('../data/conexion.php');
-//require_once('../data/funciones.php');
 function usuario ()
 {
 	session_start();
