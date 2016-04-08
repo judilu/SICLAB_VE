@@ -59,13 +59,13 @@
 					<div class="col s5" id="tecladoNumerico">
 						<div class="row filaNumeros">
 							<p>
-								<a class="waves-effect waves-light btn-large light-blue darken-1 col s2 offset-s1" id="btn1">7</a>
+								<a class="waves-effect waves-light btn-large light-blue darken-1 col s2 offset-s1" id="btn7">7</a>
 							</p>
 							<p>
-								<a class="waves-effect waves-light btn-large light-blue darken-1 col s2 offset-s2" id="btn2">8</a>
+								<a class="waves-effect waves-light btn-large light-blue darken-1 col s2 offset-s2" id="btn8">8</a>
 							</p>
 							<p>
-								<a class="waves-effect waves-light btn-large light-blue darken-1 col s2 offset-s2" id="btn3">9</a>
+								<a class="waves-effect waves-light btn-large light-blue darken-1 col s2 offset-s2" id="btn9">9</a>
 							</p>
 						</div>
 						<div class="row filaNumeros">
@@ -81,13 +81,13 @@
 						</div>
 						<div class="row filaNumeros">
 							<p>
-								<a class="waves-effect waves-light btn-large light-blue darken-1 col s2 offset-s1" id="btn7">1</a>
+								<a class="waves-effect waves-light btn-large light-blue darken-1 col s2 offset-s1" id="btn1">1</a>
 							</p>
 							<p>
-								<a class="waves-effect waves-light btn-large light-blue darken-1 col s2 offset-s2" id="btn8">2</a>
+								<a class="waves-effect waves-light btn-large light-blue darken-1 col s2 offset-s2" id="btn2">2</a>
 							</p>
 							<p>
-								<a class="waves-effect waves-light btn-large light-blue darken-1 col s2 offset-s2" id="btn9">3</a>
+								<a class="waves-effect waves-light btn-large light-blue darken-1 col s2 offset-s2" id="btn3">3</a>
 							</p>
 						</div>
 						<div class="row filaNumeros">
