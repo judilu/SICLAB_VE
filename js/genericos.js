@@ -8,50 +8,53 @@
   });
     //Salir del sistema
     var salir = function()
-    {
-    	swal({   	
-    		title: "¿Estas seguro que deseas salir?",   
-    		text: "",   
-    		type: "warning",   
-    		showCancelButton: true,   
-    		confirmButtonColor: "#DD6B55",   
-    		confirmButtonText: "Si",   
-    		cancelButtonText: "No",   
-    		closeOnConfirm: false,   closeOnCancel: false }, function(isConfirm)
-    		{   
-    			if (isConfirm) 
-    			{ 
-    				var parametros = "opc=salir1"+
-    				"&id="+Math.random();
-    				$.ajax({
-    					cache:false,
-    					type: "POST",
-    					dataType: "json",
-    					url:"../data/funciones.php",
-    					data: parametros,
-    					success: function(response){
-    						if(response.respuesta)
-    						{
-    							document.location.href= "acceso.php";
-    						}
-    						else
-    						{
-    							console.log(response.respuesta);
-    						}
-    					},
-    					error: function(xhr, ajaxOptions,x)
-    					{
-    						alert("Error de conexión salir");
-    					}
-    				});
-    			} 
-    			else 
-    			{
-    				swal("OK..!",
-    					"Aún sigues en el sistema", "error");
-    			} 
-    		});
-}
+	{
+		swal({   	
+			title: "¿Estas seguro que deseas salir?",   
+			text: "",   
+			type: "warning",   
+			showCancelButton: true,   
+			confirmButtonColor: "#DD6B55",   
+			confirmButtonText: "Si",   
+			cancelButtonText: "No",   
+			closeOnConfirm: false,   closeOnCancel: false 
+		}, 
+		function(isConfirm)
+		{   
+			if (isConfirm) 
+			{ 
+				var parametros = "opc=salir1"+
+				"&id="+Math.random();
+				$.ajax({
+					cache:false,
+					type: "POST",
+					dataType: "json",
+					url:"../data/genericos.php",
+					data: parametros,
+					success: function(response){
+						if(response.respuesta)
+						{
+							document.location.href= "acceso.php";
+						}
+						else
+						{
+							console.log(response.respuesta);
+						}
+					},
+					error: function(xhr, ajaxOptions,x)
+					{
+						console.log("Error de conexión salir");
+					}
+				});
+			} 
+			else 
+			{
+				solAceptadas();
+				swal("OK..!","Aún sigues en el sistema", "error");
+			} 
+		}
+		);
+	}
 	//Prestamos de matertial a alumnos y externos
 	var prestamosPendientes = function()
 	{
@@ -538,6 +541,8 @@
 		$("#menuMtto").hide("slow");
 		$("#peticionesPendientes").hide("slow");
 		$("#peticionesArticulos").hide("slow");
+		$("input").val("");
+		$("textarea").val("");
 		$("#altaArticulos").show("slow");
 	}
 	var altaInventario = function()
@@ -546,7 +551,7 @@
 		{
 			//aqui empieza todo
        		//var cveUsuario = usuarioNombre();
-       		var imagen						= $("#txtImagenAlta").val();
+       		var imagen						= " ";
        		var identificadorArticulo		= $("#txtCodigoBarrasAlta").val();
        		var modelo 						= $("#txtModeloArtAlta").val();
        		var numeroSerie 				= $("#txtNumSerieAlta").val();
@@ -608,17 +613,18 @@
 		$("#pantallaInventario").hide("slow");
 		$("#peticionesPendientes").hide("slow");
 		$("#peticionesArticulos").hide("slow");
+		$("input").val("");
+		$("textarea").val("");
 		$("#bajaArticulos").show("slow");
 	}
 	//da de baja un articulo al presionar el boton dar de baja
 	var bajaInventario = function()
 	{
-		if(($("#txtCodigoBarrasBaja").val())!=' ' && ($("#cmbTipoBaja").val())!=' ' 
-			&& ($("#txtMotivoBaja").val())!=' ')
+		if($("#cmbTipoBaja").val()!="" && $("#txtMotivoDeBaja").val()!="" && $("#txtModeloArtBaja").val()!="")
 		{
 			var identificadorArticulo	= $("#txtCodigoBarrasBaja").val();//obtener el articulo a dar de baja
 			var estatus 				= $("#cmbTipoBaja").val();
-			var observaciones 				= $("#txtMotivoBaja").val()
+			var observaciones 			= $("#txtMotivoDeBaja").val()
 			var parametros 	= "opc=bajaArticulos1"
 			+"&identificadorArticulo="+identificadorArticulo
 			+"&estatus="+estatus
@@ -646,6 +652,10 @@
 					sweetAlert("Error", "Error de conexión baja de artículos", "error");
 				}
 			});
+		}
+		else
+		{
+			sweetAlert("Error", "Por favor llena todos los campos!", "error");
 		}
 	}
 	//buscar el articulo a dar de baja y regresa todos sus datos y los muestra 
@@ -705,6 +715,8 @@
 	{
 		$("#listaArtMtto").hide("slow");
 		$("#listaMtto").hide("slow");
+		$("input").val("");
+		$("textarea").val("");
 		$("#menuMtto").show("slow");
 		$("#sEnvioMtto").show("slow");
 	}
@@ -722,11 +734,11 @@
 			success: function(response){
 				if(response.respuesta == true)
 				{
-					alert("muy bien :)");
+					$("#tbArticulosMtto").html(response.renglones);
 				}
 				else
 				{
-					sweetAlert("No hay prestamos pendientes!", " ", "error");
+					sweetAlert("No hay articulos en mantenimiento!", " ", "error");
 				}
 			},
 			error: function(xhr, ajaxOptions,x){
@@ -774,8 +786,8 @@
 	//Cambia el estatus del articulo a M que es mantenimiento
 	var guardaMtto = function()
 	{
-		if(($("#txtCodigoBarrasMtto").val())!=' ' && ($("#txtLugarReparacionMtto").val())!=' '
-			&& ($("#txtMotivoMtto").val())!=' ')
+		if(($("#txtCodigoBarrasMtto").val())!="" && ($("#txtLugarReparacionMtto").val())!=""
+			&& ($("#txtMotivoMtto").val())!="")
 		{
 			var horaActual 				= new Date();
 			var fechaActual				= new Date();
@@ -828,6 +840,10 @@
 				}
 			});
 		}
+		else
+		{
+			sweetAlert("Error", "Llene todos los campos", "error");
+		}
 	}
 	//Inventario
 	//Peticiones de articulos
@@ -848,11 +864,11 @@
 			success: function(response){
 				if(response.respuesta == true)
 				{
-					alert("muy bien :)");
+					$("#tbPeticionArticulos").html(response.renglones);
 				}
 			},
 			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión");
+				alert("Error de conexión peticiones pendientes");
 			}
 		});
 		$("#peticionesPendientes").show("slow");
@@ -907,8 +923,9 @@
 		$("#pedidoMaterial").show("slow");
 	}
 	//Salir
-	//$("#tabSalir").on("click",salir);
+	$("#tabSalir").on("click",salir);
 	//Prestamos
+	$("#tabPrestamos").on("click",prestamosPendientes);
 	$("#btnPendientes").on("click",prestamosPendientes);
 	$("#btnEnProceso").on("click",prestamosProceso);
 	$("#btnCancelarDevolucion").on("click",prestamosProceso);
@@ -918,6 +935,7 @@
 	$("#btnRegresarSancion").on("click",devolucionMaterial);
 	$("#btnDevolucion").on("click",devolucionMaterial);
 	//Laboratorios
+	$("#tabLabs").on("click",sLaboratorioPendientes);
 	$("#btnPendientesLab").on("click",sLaboratorioPendientes);
 	$("#btnAceptadasLab").on("click",sLaboratorioAceptadas);
 	$("#btnRegresarVerMas").on("click",sLaboratorioPendientes);
@@ -927,6 +945,7 @@
 	$("#btnAceptaSolLab").on("click",sGuardaCanderalizada);
 	$("#btnCancelarSolLab").on("click",sLaboratorioPendientes);
 	//Inventario **solo faltan las peticiones
+	$("#tabInventario").on("click",listaArticulos);
 	$("#btnArticulos").on("click",listaArticulos);
 	$("#btnAlta").on("click",altaArticulos);
 	$("#btnAltaArt").on("click",altaInventario);
@@ -945,6 +964,7 @@
 	//$("#btnRegresarEditarArt").on("click",listaArticulos);
 	
 	//Reportes
+	$("#tabReportesGenericos").on("click",resumenReportes);
 	$("#btnResumenReportes").on("click",resumenReportes);
 	$("#btnExistenciaInventario").on("click",existenciaInventario);
 	$("#btnBajoInventario").on("click",bajoInventario);
