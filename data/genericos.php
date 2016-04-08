@@ -389,8 +389,7 @@ function listaArticulos()
 		$rows		= array();
 		$renglones	= "";
 		$conexion 	= conectaBDSICLAB();
-		$consulta	= sprintf("select A.claveArticulo,B.nombreArticulo, C.cantidad from lbarticulos as A inner join lbarticuloscat as B ON A.claveArticulo=B.claveArticulo
-			inner join lbinventarios as C ON B.claveArticulo=C.claveArticulo where A.estatus='V'",$responsable);
+		$consulta	= sprintf("select A.claveArticulo,B.nombreArticulo, C.cantidad from lbarticulos as A inner join lbarticuloscat as B ON A.claveArticulo=B.claveArticulo inner join lbinventarios as C ON B.claveArticulo=C.claveArticulo where A.estatus='V' GROUP BY C.claveArticulo",$responsable);
 		$res 		= mysql_query($consulta);
 		$renglones	.= "<thead>";
 		$renglones	.= "<tr>";
@@ -716,7 +715,7 @@ function prestamosPendientes()
 		$rows		= array();
 		$renglones	= "";
 		$conexion 	= conectaBDSICLAB();
-		$consulta	= sprintf("select ea.ALUCTR,ea.fechaEntrada,ea.horaEntrada, p.clavePrestamo from lbentradasalumnos ea inner join lbprestamos p ON ea.ALUCTR = p.ALUCTR");
+		$consulta	= sprintf("select ea.ALUCTR,ea.horaEntrada,ea.fechaEntrada,p.clavePrestamo from lbentradasalumnos ea INNER JOIN lbprestamos p on ea.ALUCTR=p.ALUCTR");
 		$res 		= mysql_query($consulta);
 
 		$renglones	.= "<thead>";
@@ -756,7 +755,7 @@ function prestamosPendientes()
 }
 function atenderPrestamo()
 {
-	/*$respuesta 	= false;
+	$respuesta 	= false;
 	session_start();
 	if(!empty($_SESSION['nombre']))
 	{ 
@@ -766,17 +765,15 @@ function atenderPrestamo()
 		$con 		= 0;
 		$rows		= array();
 		$renglones	= "";
+		$nombre		= "";
 		$conexion 	= conectaBDSICLAB();
-		$consulta	= sprintf("");
+		$consulta	= sprintf("select p.aluctr,p.clavePrestamo,ac.claveArticulo,ac.nombreArticulo,sa.cantidad from lbarticuloscat ac INNER JOIN lbsolicitudarticulos sa on sa.claveArticulo=ac.claveArticulo INNER JOIN lbprestamos p on p.clavePrestamo=sa.clavePrestamo");
 		$res 		= mysql_query($consulta);
 
 		$renglones	.= "<thead>";
 		$renglones	.= "<tr>";
-		$renglones	.= "<th data-field='numeroControl'>No. de control</th>";
-		$renglones	.= "<th data-field='nombre'>Nombre</th>";
-		$renglones	.= "<th data-field='fecha'>Fecha</th>";
-		$renglones	.= "<th data-field='hora'>Hora</th>";
-		$renglones	.= "<th data-field='accion'>Acción</th>";
+		$renglones	.= "<th data-field='cantidad'>Cantidad</th>";
+		$renglones	.= "<th data-field='descripcion'>Descripcion</th>";
 		$renglones	.= "</tr>";
 		$renglones	.= "</thead>";
 		while($row = mysql_fetch_array($res))
@@ -791,19 +788,15 @@ function atenderPrestamo()
 		{
 			$renglones .= "<tbody>";
 			$renglones .= "<tr>";
-			$renglones .= "<td>".$rows[$c]["ALUCTR"]."</td>";
-			$renglones .= "<td>".$rows[$c]["ALUCTR"]."</td>";
-			$renglones .= "<td>".$rows[$c]["fechaEntrada"]."</td>";
-			$renglones .= "<td>".$rows[$c]["horaEntrada"]."</td>";
-			$renglones .= "<td><a name = '".$rows[$c]["clavePrestamo"]."' class='btn waves-effect waves-light  green darken-2' id='btnAtenderPrestamo'>Atender</a></td>";
-			$renglones .= "<td><a name = '".$rows[$c]["clavePrestamo"]."' class='btn waves-effect waves-light red darken-1' id='btnEliminarprestamo' type='submit'>Eliminar</a></td>";
+			$renglones .= "<td>".$rows[$c]["cantidad"]."</td>";
+			$renglones .= "<td>".$rows[$c]["nombreArticulo"]."</td>";
 			$renglones .= "</tr>";
 			$renglones .= "</tbody>";
 			$respuesta = true;
 		}
 	}
 	$salidaJSON = array('respuesta' => $respuesta, 'renglones' => $renglones);
-	print json_encode($salidaJSON);*/
+	print json_encode($salidaJSON);
 }
 function prestamosProceso()
 {

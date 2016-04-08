@@ -3,8 +3,8 @@
 		<div class="col s12">
 			<div class="row">
 				<div class="input-field col s4">
-					<input id="txtnombrePrestamo" type="text" class="validate">
-					<label for="txtnombrePrestamo">Nombre</label>
+					<input id="txtnombreAlumnoPrestamo" type="text" class="validate">
+					<label for="txtnombreAlumnoPrestamo">Nombre</label>
 				</div>
 			</div>
 			<div class="row">
@@ -26,18 +26,6 @@
 	<div class="row">
 		<div class="col s5">
 			<table class="bordered highlight responsive-table" id="tbListaMaterialPrestamo">
-				<!--<thead>
-					<tr>
-						<th data-field="cantidad">Cantidad</th>
-						<th data-field="descripcion">Descripcion</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>1</td>
-						<td>Osiloscopio</td>
-					</tr>
-				</tbody>-->
 			</table>
 		</div>
 		<div class="col s6 offset-s1">
@@ -50,8 +38,7 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>1</td>
-						<td>Pasta para soldar</td>
+						
 					</tr>
 				</tbody>
 			</table>

@@ -17,21 +17,21 @@
 		<div class="col s12">
 			<div class="row">
 				<div class="input-field col s4">
-					<input placeholder=" " id="txtNombreArtMtto" type="text" class="validate">
+					<input placeholder=" " id="txtNombreArtMtto" type="text" class="validate" disabled>
 					<label class="active" for="txtNombreArtMtto">Nombre del artículo</label>
 				</div>
 				<div class="input-field col s4 offset-s1">
-					<input placeholder=" " id="txtModeloArtMtto" type="text" class="validate">
+					<input placeholder=" " id="txtModeloArtMtto" type="text" class="validate" disabled>
 					<label class="active" for="txtModeloArtMtto">Modelo</label>
 				</div>
 				<div class="input-field col s2 offset-s1">
-					<input placeholder=" " id="txtNumSerieMtto" type="text" class="validate">
+					<input placeholder=" " id="txtNumSerieMtto" type="text" class="validate" disabled>
 					<label class="active" for="txtNumSerieMtto">Número de serie</label>
 				</div>
 			</div>
 			<div class="row">
 				<div class="input-field col s4">
-					<input placeholder=" " id="txtMarcaArtMtto" type="text" class="validate">
+					<input placeholder=" " id="txtMarcaArtMtto" type="text" class="validate" disabled>
 					<label class="active" for="txtMarcaArtMtto">Marca</label>
 				</div>
 				<div class="input-field col s4 offset-s1">
@@ -39,7 +39,7 @@
 					<label class="active" for="txtLugarReparacionMtto">Lugar de reparación</label>
 				</div>
 				<div class="input-field col s2 offset-s1">
-					<input placeholder=" " id="txtFechaCaducidadMtto" type="text" class="validate">
+					<input placeholder=" " id="txtFechaCaducidadMtto" type="text" class="validate" disabled>
 					<label class="active" for="txtFechaCaducidadMtto">Fecha de caducidad</label>
 				</div>
 			</div>

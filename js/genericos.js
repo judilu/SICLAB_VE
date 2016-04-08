@@ -49,7 +49,6 @@
 			} 
 			else 
 			{
-				solAceptadas();
 				swal("OK..!","Aún sigues en el sistema", "error");
 			} 
 		}
@@ -71,6 +70,7 @@
 			success: function(response){
 				if(response.respuesta == true)
 				{
+					$("#tabSolPendientesAlumnos").html("");
 					$("#tabSolPendientesAlumnos").html(response.renglones);
 					$("#tabSolPendientesAlumnos #btnAtenderPrestamo").on("click",atenderPrestamoMaterial);
 					//$("#tabSolPendientesAlumnos #btnEliminarprestamo").on("click",verMas);
@@ -90,7 +90,7 @@
 	var atenderPrestamoMaterial = function()
 	{
 		$("#solicitudesPendientes2").hide("slow");
-		/*var clavePrestamo= $(this).attr('name');
+		var clavePrestamo= $(this).attr('name');
 		var parametros 	= "opc=atenderPrestamo1"+"&clavePrestamo="+clavePrestamo+"&id="+Math.random();
 		$.ajax({
 			cache:false,
@@ -101,7 +101,10 @@
 			success: function(response){
 				if(response.respuesta == true)
 				{
-					alert("muy bien :)");
+
+					$("#tbListaMaterialPrestamo").html("");
+					$("#tbListaMaterialPrestamo").html(response.renglones);
+					$("#txtnombreAlumnoPrestamo").val(response.nombre);
 				}
 				else
 				{
@@ -111,7 +114,7 @@
 			error: function(xhr, ajaxOptions,x){
 				alert("Error de conexión atender prestamo material");
 			}
-		});*/
+		});
 		$("#atenderSolicitud").show("slow");
 		$("#atenderSolicitud2").show("slow");
 
@@ -389,6 +392,7 @@
 			success: function(response){
 				if(response.respuesta == true)
 				{
+					$("#tbPendientesLab").html("");
 					$("#tbPendientesLab").html(response.renglones);
 					$("#tbPendientesLab #btnCalendarizado").on("click",aceptarSolicitudLab);
 					$("#tbPendientesLab #btnVerMas").on("click",verMas);
@@ -419,6 +423,7 @@
 			success: function(response){
 				if(response.respuesta == true)
 				{
+					$("#tbAceptadasLab").html("");
 					$("#tbAceptadasLab").html(response.renglones);
 					$("#tbAceptadasLab a").on("click",verMas2);
 				}
@@ -521,6 +526,7 @@
 			success: function(response){
 				if(response.respuesta == true)
 				{
+					$("#tbInventario").html("");
 					$("#tbInventario").html(response.renglones);
 				}
 				else
@@ -734,6 +740,7 @@
 			success: function(response){
 				if(response.respuesta == true)
 				{
+					$("#tbArticulosMtto").html("");
 					$("#tbArticulosMtto").html(response.renglones);
 				}
 				else
@@ -864,6 +871,7 @@
 			success: function(response){
 				if(response.respuesta == true)
 				{
+					$("#tbPeticionArticulos").html("");
 					$("#tbPeticionArticulos").html(response.renglones);
 				}
 			},
