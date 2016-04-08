@@ -274,6 +274,32 @@ function agregarArt ()
 function nuevaSol()
 {
 	//insertar en lbsolicitudes
+	session_start();
+	$respuesta	= false;
+	$conexion 	= conectaBDSICLAB();
+	$cveDep 	= "0000"; //preparado para cuando se
+	$periodo 	= periodoActual();
+	$fe 		= GetSQLValueString($_POST['fe'],"text");
+	$fs 		= GetSQLValueString($_POST['fs'],"text");
+	$hs 		= GetSQLValueString($_POST['hs'],"text");
+	$lab 		= GetSQLValueString($_POST['lab'],"text");
+	$uso 		= GetSQLValueString($_POST['uso'],"text");
+	$prac 		= GetSQLValueString($_POST['prac'],"int"); 		
+	$clave  	= (int)($_SESSION['nombre']);
+	$firma 		= "123456";
+	$mat 		= GetSQLValueString($_POST['mat'],"text");
+	$gpo 		= GetSQLValueString($_POST['gpo'],"int");
+	$gp 		= grupo($mat,$clave,$periodo,$gpo);//insertar
+	$cant 		= GetSQLValueString($_POST['cant'],"int");
+	$estatus  	= "V";
+	$consulta 	= sprintf("insert into lbsolicitudlaboratorios values(%s,'%s','',%s,%s,%s,%s,%s,%d,%d,'%s',%s,'%s',%s,'%s')",$cveDep,$periodo,$fe,$fs,$hs,$lab,$uso,$prac,$clave,$firma,$mat,$gp,$cant,$estatus);
+	$res 		= mysql_query($consulta);
+	if(mysql_affected_rows()>0)
+	{
+		$respuesta = true; 
+	}
+	$arrayJSON = array('respuesta' => $respuesta);
+	print json_encode($arrayJSON);
 }
 //Menú principal
 $opc = $_POST["opc"];

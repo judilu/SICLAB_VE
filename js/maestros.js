@@ -350,30 +350,35 @@ var inicio = function ()
     	//insertar una nueva solicitud
     	// cadena.substring(índice donde inicia recordando que el primero es cero,indice - 1)
     	var f  = new Date();
-    	var ff  = (f.getDate()+"/"+f.getMonth()+"/"+f.getFullYear());
-    	var fe  = $("#txtFechaS").val();
-    	var a  = fe.substring(0,4);
-    	var m  = fe.substring(5,7);
-    	var d  = fe.substring(8,10);
+    	var dd = f.getDate();
+    	var mm = (f.getMonth())+1;
+    	(dd<10) ? (dd="0"+dd) : dd;
+    	(mm<10) ? (mm="0"+mm) : mm;
+    	var fe  = (dd+"/"+mm+"/"+f.getFullYear());
+    	var ff  = $("#txtFechaS").val();
+    	var a  = ff.substring(0,4);
+    	var m  = ff.substring(5,7);
+    	var d  = ff.substring(8,10);
     	var fs = d+"/"+m+"/"+a;
     	var hs  = $("#cmbHoraPract option:selected").text();
     	var lab = $("#cmbLaboratorio").val();
     	var uso = $("#textarea1").val();
     	var prac = $("#cmbPractica").val();
     	var mat = $("#cmbMateria").val();
-        var gp  = $("#cmbHoraMat option:selected").text();//segun la hora se saca el grupo
+        var gp  = $("#cmbHoraMat option:selected").text();
+        var gpo = parseInt(gp.substring(0,2))//segun la hora se saca el grupo
         var cant = $("#txtCantAlumnos").val();
         var art  = "";
         //var con  = ($("#tbMaterialSol tr").length);
         var parametros = "opc=nuevaSol1"+
-                     		"&ff="+ff+
+                     		"&fe="+fe+
                      		"&fs="+fs+
                      		"&hs="+hs+
                      		"&lab="+lab+
                      		"&uso="+uso+
                      		"&prac="+prac+
                      		"&mat="+mat+
-                     		"&gp="+gp+
+                     		"&gpo="+gpo+
                      		"&cant="+cant+
                      		"&id="+Math.random();
                      $.ajax({
@@ -385,11 +390,11 @@ var inicio = function ()
                      	success: function(response){
                      		if(response.respuesta == true)
                      		{
-                     			swal("El articulo fue dado de alta con éxito!", "Da clic en el botón OK!", "success");
+                     			swal("La solicitud fue creada con éxito!", "Da clic en el botón OK!", "success");
                      		}
                      		else
                      		{
-                     			sweetAlert("Error", "No se pudo insertar el articulo!", "error");
+                     			sweetAlert("Error", "No se pudo crear la solicitud!", "error");
                      		}
                      	},
                      	error: function(xhr, ajaxOptions,x){
