@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col s6">
 				<form action="#">
-					<div class="file-field input-field">
+					<!--<div class="file-field input-field">
 						<div class="btn">
 							<span>File</span>
 							<input type="file">
@@ -11,7 +11,7 @@
 						<div class="file-path-wrapper">
 							<input class="file-path validate" type="text" id="txtImagenAlta">
 						</div>
-					</div>
+					</div>-->
 				</form>
 			</div>	
 		</div>

@@ -1,10 +1,17 @@
 <?php
 require_once('../data/conexion.php');
-//require_once('../data/funciones.php');
 function usuario ()
 {
 	session_start();
 	$_SESSION['nombre'] = GetSQLValueString($_POST['clave1'],"text");
+}
+function salir()
+{
+	session_start();
+	session_destroy();
+	$respuesta = true;
+	$arrayJSON = array('respuesta' => $respuesta);
+	print json_encode($arrayJSON);
 }
 function existeSol ($clave)
 {
@@ -532,7 +539,54 @@ function bajaArticulos()
 }
 function listaMantenimiento()
 {
-
+	$respuesta 	= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{ 
+		$responsable= $_SESSION['nombre'];
+		$art 		= "";
+		$articulos 	= "";
+		$con 		= 0;
+		$rows		= array();
+		$renglones	= "";
+		$conexion 	= conectaBDSICLAB();
+		$consulta	= sprintf("select ma.claveMovimiento,B.nombreArticulo, C.identificadorArticulo from lbarticuloscat B
+			inner join lbarticulos as C ON B.claveArticulo=C.claveArticulo inner join lbmovimientosarticulos ma
+			ON ma.identificadorArticulo=C.identificadorArticulo where ma.estatus='M'",$responsable);
+		$res 		= mysql_query($consulta);
+		$renglones	.= "<thead>";
+		$renglones	.= "<tr>";
+		$renglones	.= "<th data-field='codigoBarras'>Código de barras</th>";
+		$renglones	.= "<th data-field='nombreArticulo'>Nombre del artículo</th>";
+		$renglones	.= "<th data-field='accion'>Acción</th>";
+		$renglones	.= "</tr>";
+		$renglones	.= "</thead>";
+		while($row = mysql_fetch_array($res))
+		{
+			$art 	.= "'".($row["identificadorArticulo"])."',";
+			$rows[]=$row;
+			$respuesta = true;
+			$con++;
+		}
+		$art = (rtrim($art,","));
+		for($c= 0; $c< $con; $c++)
+		{
+			$renglones .= "<tbody>";
+			$renglones .= "<tr>";
+			$renglones .= "<td>".$rows[$c]["identificadorArticulo"]."</td>";
+			$renglones .= "<td>".$rows[$c]["nombreArticulo"]."</td>";
+			$renglones .= "<td><a name = '".$rows[$c]["claveMovimiento"]."' class='btn-floating btn-large waves-effect  green darken-2' id='btnRegresaDelMtto'><i class='material-icons'>done</i></a></td>";
+			$renglones .= "</tbody>";
+			$respuesta = true;
+		}
+	}
+	else
+	{
+		//salir();
+	}
+	$arrayJSON = array('respuesta' => $respuesta,
+		'renglones' => $renglones);
+	print json_encode($arrayJSON);
 }
 function mantenimientoArticulos()
 {
@@ -599,7 +653,56 @@ function buscaArticuloMtto()
 }
 function peticionesPendientesArt()
 {
-
+	$respuesta 	= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{ 
+		$responsable= $_SESSION['nombre'];
+		$art 		= "";
+		$articulos 	= "";
+		$con 		= 0;
+		$rows		= array();
+		$renglones	= "";
+		$conexion 	= conectaBDSICLAB();
+		$consulta	= sprintf("select p.clavePedido,p.DEPCVE,ac.claveArticulo,pa.cantidad,ac.nombreArticulo
+			from lbpedidos p inner join lbpedidosarticulos pa ON p.clavePedido=pa.clavePedido
+			inner join lbarticuloscat ac ON pa.claveArticulo=ac.claveArticulo",$responsable);
+		$res 		= mysql_query($consulta);
+		$renglones	.= "<thead>";
+		$renglones	.= "<tr>";
+		$renglones	.= "<th data-field='laboratorio'>Laboratorio</th>";
+		$renglones	.= "<th data-field='nombre'>Nombre del artículo</th>";
+		$renglones	.= "<th data-field='cantidad'>Cantidad</th>";
+		$renglones	.= "<th data-field='accion'>Acción</th>";
+		$renglones	.= "</tr>";
+		$renglones	.= "</thead>";
+		while($row = mysql_fetch_array($res))
+		{
+			$art 	.= "'".($row["clavePedido"])."',";
+			$rows[]=$row;
+			$respuesta = true;
+			$con++;
+		}
+		$art = (rtrim($art,","));
+		for($c= 0; $c< $con; $c++)
+		{
+			$renglones .= "<tbody>";
+			$renglones .= "<tr>";
+			$renglones .= "<td>".$rows[$c]["DEPCVE"]."</td>";
+			$renglones .= "<td>".$rows[$c]["nombreArticulo"]."</td>";
+			$renglones .= "<td>".$rows[$c]["cantidad"]."</td>";
+			$renglones .= "<td><a name = '".$rows[$c]["clavePedido"]."' class='btn-floating btn-large waves-effect  green darken-2' id='btnAceptaPeticion'><i class='material-icons'>done</i></a></td>";
+			$renglones .= "</tbody>";
+			$respuesta = true;
+		}
+	}
+	else
+	{
+		//salir();
+	}
+	$arrayJSON = array('respuesta' => $respuesta,
+		'renglones' => $renglones);
+	print json_encode($arrayJSON);
 }
 function prestamosPendientes()
 {
@@ -914,6 +1017,9 @@ switch ($opc){
 	break;
 	case 'devolucionMaterial1':
 	devolucionMaterial();
+	break;
+	case 'salir1':
+	salir();
 	break;
 } 
 ?>
