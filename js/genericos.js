@@ -102,6 +102,8 @@
 				if(response.respuesta == true)
 				{
 
+					$("#tbArticulosSolicitados").html("");
+					$("#txtcodigoBarrasPrestamo").val("");
 					$("#tbListaMaterialPrestamo").html("");
 					$("#tbListaMaterialPrestamo").html(response.renglones);
 					$("#txtnombreAlumnoPrestamo").val(response.nombre);
@@ -117,6 +119,40 @@
 		});
 		$("#atenderSolicitud").show("slow");
 		$("#atenderSolicitud2").show("slow");
+
+	}
+	var agregarArticuloPrestamo = function()
+	{
+		if(($("#txtcodigoBarrasPrestamo").val())!=' ')
+		{
+			var identificadorArticulo= $("#txtcodigoBarrasPrestamo").val();
+			var parametros= "opc=agregaArticulos1"+"&identificadorArticulo="+identificadorArticulo
+			+"&id="+Math.random();
+			$.ajax({
+				cache:false,
+				type: "POST",
+				dataType: "json",
+				url:'../data/genericos.php',
+				data: parametros,
+				success: function(response){
+					if(response.respuesta == true)
+					{
+						$("#txtcodigoBarrasPrestamo").val("");
+						$("#tbArticulosSolicitados").append(response.renglones);
+					}
+					else
+					{
+						sweetAlert("Error", "El artículo no existe", "error");
+					}
+				},
+				error: function(xhr, ajaxOptions,x){
+					sweetAlert("Error", "Error de conexión al buscar el articulo para agregarlo", "error");
+				}
+			});
+		}
+	}
+	var guardarSolicitudPendiente = function()
+	{
 
 	}
 	var prestamosProceso = function()
@@ -940,8 +976,11 @@
 	$("#btnListaSanciones").on("click",listaSanciones);
 	$("#btnCancelarSolPendiente").on("click",prestamosPendientes);
 	$("#btnAplicaSancion").on("click",aplicaSancion);
+	$("#btnAgregarArtPrestamo").on("click",agregarArticuloPrestamo);
 	$("#btnRegresarSancion").on("click",devolucionMaterial);
 	$("#btnDevolucion").on("click",devolucionMaterial);
+	$("#btnFinalizarAtenderSol").on("click",guardarSolicitudPendiente);
+	$("#btnCancelarAtenderSol").on("click",prestamosPendientes);
 	//Laboratorios
 	$("#tabLabs").on("click",sLaboratorioPendientes);
 	$("#btnPendientesLab").on("click",sLaboratorioPendientes);

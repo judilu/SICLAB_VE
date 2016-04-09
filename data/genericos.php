@@ -798,6 +798,47 @@ function atenderPrestamo()
 	$salidaJSON = array('respuesta' => $respuesta, 'renglones' => $renglones);
 	print json_encode($salidaJSON);
 }
+function agregaArticulos()
+{
+	$respuesta 	= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{ 
+		$responsable			= $_SESSION['nombre'];
+		$identificadorArticulo	= GetSQLValueString($_POST["identificadorArticulo"],"text");
+		$rows					= array();
+		$con 					= "";
+		$articulo 				= "";
+		$renglones				= "";
+		$conexion 				= conectaBDSICLAB();
+		$consulta				= sprintf("select A.identificadorArticulo,B.nombreArticulo,B.claveArticulo
+											from lbarticulos as A inner join lbarticuloscat as B on A.claveArticulo=B.claveArticulo
+											where A.estatus='V' and A.identificadorArticulo=%s",$identificadorArticulo,$responsable);
+		$res 					= mysql_query($consulta);
+		
+		while($row = mysql_fetch_array($res))
+		{
+			$articulo 	.= "'".($row["identificadorArticulo"])."',";
+			$rows[]=$row;
+			$respuesta = true;
+			$con++;
+		}
+		$articulo = (rtrim($articulo,","));
+		for($c= 0; $c< $con; $c++)
+		{
+			$renglones .= "<tbody>";
+			$renglones .= "<tr>";
+			$renglones .= "<td id='".$rows[$c]["identificadorArticulo"]."'>".$rows[$c]["identificadorArticulo"]."</td>";
+			$renglones .= "<td nombreArt='".$rows[$c]["nombreArticulo"]."'>".$rows[$c]["nombreArticulo"]."</td>";
+			$renglones .= "</tr>";
+			$renglones .= "</tbody>";
+			$respuesta = true;
+		}
+	}
+	$salidaJSON = array('respuesta' => $respuesta,
+						 'renglones' => $renglones);
+	print json_encode($salidaJSON);
+}
 function prestamosProceso()
 {
 	$respuesta 	= false;
@@ -992,6 +1033,9 @@ switch ($opc){
 	break;
 	case 'atenderPrestamo1':
 	atenderPrestamo();
+	break;
+	case 'agregaArticulos1':
+	agregaArticulos();
 	break;
 	case 'prestamosProceso1':
 	prestamosProceso();

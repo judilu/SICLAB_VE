@@ -29,7 +29,7 @@
 			</table>
 		</div>
 		<div class="col s6 offset-s1">
-			<table class="bordered highlight responsive-table">
+			<table class="bordered highlight responsive-table" id="tbArticulosSolicitados">
 				<thead>
 					<tr>
 						<th data-field="cantidad">Cantidad</th>
@@ -47,9 +47,8 @@
 	<div class="row">
 		<div class="col s8 offset-s4">
 			<input type="hidden" id="txtClavePrestamo">
-			<a class="btn waves-effect waves-light green darken-2 " type="submit" name="action" id="btnFinalizar">Finalizar</a>
-			<a class="btn waves-effect waves-light red darken-1" type="submit" name="action" id="btnCancelarSolPendiente">Cancelar</a>
-			<a class="btn waves-effect waves-light amber" type="submit" name="action">Eliminar</a>
+			<a class="btn waves-effect waves-light green darken-2 " type="submit" name="action" id="btnFinalizarAtenderSol">Finalizar</a>
+			<a class="btn waves-effect waves-light red darken-1" type="submit" name="action" id="btnCancelarAtenderSol">Cancelar</a>
 		</div>
 	</div>
 </section>
