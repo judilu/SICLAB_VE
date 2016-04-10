@@ -827,6 +827,32 @@ function agregaArticulos()
 						 'nomArt' 	=> $nomArt);
 	print json_encode($salidaJSON);
 }
+ function guardaPrestamoPendiente()
+ {
+ 	$respuesta 	= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{
+		$responsable	= $_SESSION['nombre'];
+		$clavePrestamo	= GetSQLValueString($_POST["clavePrestamo"],"text");
+		$listaArt		= $_POST['listaArt'];
+		$arratArt 		= explode(',',$listaArt); 
+		$cantidad 		= count($arratArt);
+		for ($i=0; $i < $cantidad ; $i++) { 
+			$conexion 	= conectaBDSICLAB();
+			$consulta	= sprintf(" insert into lbprestamosarticulos values(%s,%s,%s,%s)",'""',$arratArt[$i],$clavePrestamo,'"P"');
+			$res 		= mysql_query($consulta);
+			if(mysql_affected_rows()>0)
+				$respuesta = true;
+		}
+	}
+	else
+	{
+		//salir();
+	}
+	$arrayJSON = array('respuesta' => $respuesta);
+		print json_encode($arrayJSON);
+ }
 function prestamosProceso()
 {
 	$respuesta 	= false;
@@ -890,7 +916,18 @@ function aplicaSancion()
 }
 function guardaSancion()
 {
+	$respuesta 	= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{
 
+	}
+	else
+	{
+		//salir();
+	}
+	$arrayJSON = array('respuesta' => $respuesta);
+		print json_encode($arrayJSON);
 }
 function listaAlumnosSancionados()
 {
@@ -940,6 +977,10 @@ function listaAlumnosSancionados()
 			$respuesta = true;
 		}
 	}
+	else
+	{
+		//salir();
+	}
 	$salidaJSON = array('respuesta' => $respuesta, 'renglones' => $renglones);
 	print json_encode($salidaJSON);
 }
@@ -951,8 +992,12 @@ function quitaSanciones()
 	{ 
 		$respuesta = true;
 	}
-	$salidaJSON = array('respuesta' => $respuesta);
-	print json_encode($salidaJSON);
+	else
+	{
+		//salir();
+	}
+	$arrayJSON = array('respuesta' => $respuesta);
+		print json_encode($arrayJSON);
 }
 function devolucionMaterial()
 {
@@ -962,8 +1007,12 @@ function devolucionMaterial()
 	{ 
 		$respuesta = true;
 	}
-	$salidaJSON = array('respuesta' => $respuesta);
-	print json_encode($salidaJSON);
+	else
+	{
+		//salir();
+	}
+	$arrayJSON = array('respuesta' => $respuesta);
+		print json_encode($arrayJSON);
 }
 function guardaPeticionArticulos()
 {
@@ -1053,6 +1102,9 @@ switch ($opc){
 	break;
 	case 'agregaArticulos1':
 	agregaArticulos();
+	break;
+	case 'guardaPrestamoPendiente1':
+	guardaPrestamoPendiente();
 	break;
 	case 'prestamosProceso1':
 	prestamosProceso();

@@ -153,9 +153,35 @@
 			});
 		}
 	}
-	var guardarSolicitudPendiente = function()
+	var guardarPrestamoPendiente = function()
 	{
-		console.log(articulosPrestados);
+		var listaArt 		= articulosPrestados;
+		var clavePrestamo 	= $("#btnAtenderPrestamo").attr('name');
+		var parametros 		= "opc=guardaPrestamoPendiente1"
+							+"&listaArt="+listaArt
+							+"&clavePrestamo="+clavePrestamo
+							+"&id="+Math.random();
+		$.ajax({
+				cache:false,
+				type: "POST",
+				dataType: "json",
+				url:'../data/genericos.php',
+				data: parametros,
+				success: function(response){
+					if(response.respuesta == true)
+					{
+						swal("Prestamo finalizado con éxito!", "Da clic en el botón OK!", "success");
+						prestamosPendientes();
+					}
+					else
+					{
+						sweetAlert("Error", "No se pudo finalizar el prestamo!", "error");
+					}
+				},
+				error: function(xhr, ajaxOptions,x){
+					sweetAlert("Error", "Error de conexión guarda prestamo pendiente", "error");
+				}
+			});
 	}
 	var prestamosProceso = function()
 	{
@@ -653,7 +679,6 @@
 					sweetAlert("Error", "Error de conexión alta inventario", "error");
 				}
 			});
-			console.log(parametros);
 		}
 	}
 	//muestra la pantalla de baja articulos
@@ -1059,7 +1084,7 @@
 	$("#btnAgregarArtPrestamo").on("click",agregarArticuloPrestamo);
 	$("#btnRegresarSancion").on("click",devolucionMaterial);
 	$("#btnDevolucion").on("click",devolucionMaterial);
-	$("#btnFinalizarAtenderSol").on("click",guardarSolicitudPendiente);
+	$("#btnFinalizarAtenderSol").on("click",guardarPrestamoPendiente);
 	$("#btnCancelarAtenderSol").on("click",prestamosPendientes);
 	//Laboratorios
 	$("#tabLabs").on("click",sLaboratorioPendientes);
