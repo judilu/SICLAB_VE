@@ -4,8 +4,9 @@
  	$('ul.tabs').tabs();
 	$('select').material_select(); //agregado
 	$('.collapsible').collapsible({
-      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-  });
+      accordion : false}); // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+
+	var articulosPrestados = new Array();
     //Salir del sistema
     var salir = function()
 	{
@@ -89,6 +90,7 @@
 	}
 	var atenderPrestamoMaterial = function()
 	{
+		articulosPrestados = Array();
 		$("#solicitudesPendientes2").hide("slow");
 		var clavePrestamo= $(this).attr('name');
 		var parametros 	= "opc=atenderPrestamo1"+"&clavePrestamo="+clavePrestamo+"&id="+Math.random();
@@ -101,8 +103,6 @@
 			success: function(response){
 				if(response.respuesta == true)
 				{
-
-					$("#tbArticulosSolicitados").html("");
 					$("#txtcodigoBarrasPrestamo").val("");
 					$("#tbListaMaterialPrestamo").html("");
 					$("#tbListaMaterialPrestamo").html(response.renglones);
@@ -123,11 +123,12 @@
 	}
 	var agregarArticuloPrestamo = function()
 	{
-		if(($("#txtcodigoBarrasPrestamo").val())!=' ')
+		if(($("#txtcodigoBarrasPrestamo").val())!="")
 		{
 			var identificadorArticulo= $("#txtcodigoBarrasPrestamo").val();
-			var parametros= "opc=agregaArticulos1"+"&identificadorArticulo="+identificadorArticulo
-			+"&id="+Math.random();
+			var parametros= "opc=agregaArticulos1"
+							+"&identificadorArticulo="+identificadorArticulo
+							+"&id="+Math.random();
 			$.ajax({
 				cache:false,
 				type: "POST",
@@ -138,7 +139,8 @@
 					if(response.respuesta == true)
 					{
 						$("#txtcodigoBarrasPrestamo").val("");
-						$("#tbArticulosSolicitados").append(response.renglones);
+						$("#tbArticulosSolicitados > tbody").append("<tr><td>"+response.idu+"</td><td>"+response.nomArt+"</td></tr>");
+						articulosPrestados.push(response.idu);
 					}
 					else
 					{
@@ -153,7 +155,7 @@
 	}
 	var guardarSolicitudPendiente = function()
 	{
-
+		console.log(articulosPrestados);
 	}
 	var prestamosProceso = function()
 	{
@@ -363,12 +365,17 @@
 		var comentarios  = $("#txtComentariosSol").val();
 		var estatus= "NR";
 		var claveCal= "";
-		if (($("#txtFirmaJefe").val())!=' ' && ($("#txtClaveSol").val())!=' ' && ($("#txtComentariosSol").val())!=' ') 
+		if (($("#txtFirmaJefe").val())!="" && ($("#txtClaveSol").val())!="" && ($("#txtComentariosSol").val())!="") 
 		{
-			var parametros 	= "opc=guardaSolicitudLab1"+"&clave="+claveSol
-			+"&estatus="+estatus+"&claveCal="+claveCal
-			+"&fecha="+fechaAsignada+"&hora="+horaAsignada+"&firmaJefe="+firmaJefe
-			+"&comentarios="+comentarios+"&id="+Math.random();
+			var parametros 	= "opc=guardaSolicitudLab1"
+								+"&clave="+claveSol
+								+"&estatus="+estatus
+								+"&claveCal="+claveCal
+								+"&fecha="+fechaAsignada
+								+"&hora="+horaAsignada
+								+"&firmaJefe="+firmaJefe
+								+"&comentarios="+comentarios
+								+"&id="+Math.random();
 			$.ajax({
 				cache:false,
 				type: "POST",
@@ -392,7 +399,9 @@
 	//funcion para eliminar una solicitud de laboratorio
 	var eliminarSolLab = function(){
 		var claveSol= $(this).attr('name');
-		var parametros 	= "opc=eliminaSolicitudLab1"+"&clave="+claveSol+"&id="+Math.random();
+		var parametros 	= "opc=eliminaSolicitudLab1"
+						+"&clave="+claveSol
+						+"&id="+Math.random();
 		$.ajax({
 			cache:false,
 			type: "POST",
@@ -478,9 +487,9 @@
 		$("#solicitudesPendientesLab2").hide("slow");
 		//contenido dinamico
 		var realid = $(this).attr("name");
-		var parametros = "opc=verMasLab1"+
-		"&clave="+realid+
-		"&id="+Math.random();
+		var parametros = "opc=verMasLab1"
+						+"&clave="+realid
+						+"&id="+Math.random();
 		$.ajax({
 			cache:false,
 			type: "POST",
@@ -513,9 +522,9 @@
 		$("#solicitudesAceptadasLab2").hide("slow");
 		//contenido dinamico
 		var claveCal = $(this).attr("name");
-		var parametros = "opc=verMasLab2"+
-		"&clave="+claveCal+
-		"&id="+Math.random();
+		var parametros = "opc=verMasLab2"
+						+"&clave="+claveCal
+						+"&id="+Math.random();
 		$.ajax({
 			cache:false,
 			type: "POST",
@@ -589,7 +598,7 @@
 	}
 	var altaInventario = function()
 	{
-		if(($("#txtCodigoBarras").val())!=' ' && ($("#txtModeloArt").val())!= ' ')
+		if(($("#txtCodigoBarrasAlta").val())!="" && ($("#txtModeloArtAlta").val())!="")
 		{
 			//aqui empieza todo
        		//var cveUsuario = usuarioNombre();
@@ -608,20 +617,20 @@
 			var ubicacionAsignada			= $("#txtUbicacionAlta").val();
 			var estatus						= "V";
 			var parametros 	= "opc=altaInventario1"+"&claveArticulo="+claveArticulo
-			+"&imagen="+imagen
-			+"&identificadorArticulo="+identificadorArticulo
-			+"&modelo="+modelo
-			+"&numeroSerie="+numeroSerie
-			+"&marca="+marca
-			+"&tipoContenedor="+tipoContenedor
-			+"&descripcionArticulo="+descripcionArticulo
-			+"&descripcionUso="+descripcionUso
-			+"&unidadMedida="+unidadMedida
-			+"&fechaCaducidad="+fechaCaducidad
-			+"&claveKit="+claveKit
-			+"&ubicacionAsignada="+ubicacionAsignada
-			+"&estatus="+estatus
-			+"&id="+Math.random();
+								+"&imagen="+imagen
+								+"&identificadorArticulo="+identificadorArticulo
+								+"&modelo="+modelo
+								+"&numeroSerie="+numeroSerie
+								+"&marca="+marca
+								+"&tipoContenedor="+tipoContenedor
+								+"&descripcionArticulo="+descripcionArticulo
+								+"&descripcionUso="+descripcionUso
+								+"&unidadMedida="+unidadMedida
+								+"&fechaCaducidad="+fechaCaducidad
+								+"&claveKit="+claveKit
+								+"&ubicacionAsignada="+ubicacionAsignada
+								+"&estatus="+estatus
+								+"&id="+Math.random();
 			$.ajax({
 				cache:false,
 				type: "POST",
@@ -668,10 +677,10 @@
 			var estatus 				= $("#cmbTipoBaja").val();
 			var observaciones 			= $("#txtMotivoDeBaja").val()
 			var parametros 	= "opc=bajaArticulos1"
-			+"&identificadorArticulo="+identificadorArticulo
-			+"&estatus="+estatus
-			+"&observaciones="+observaciones
-			+"&id="+Math.random();
+							+"&identificadorArticulo="+identificadorArticulo
+							+"&estatus="+estatus
+							+"&observaciones="+observaciones
+							+"&id="+Math.random();
 			$.ajax({
 				cache:false,
 				type: "POST",
@@ -704,11 +713,12 @@
 	//en la pantalla de dar de baja, rellenando los campos
 	var buscarArticulo = function() 
 	{
-		if(($("#txtCodigoBarrasBaja").val())!=' ')
+		if(($("#txtCodigoBarrasBaja").val())!="")
 		{
 			var identificadorArticulo= $("#txtCodigoBarrasBaja").val();
-			var parametros= "opc=buscaArticulos1"+"&identificadorArticulo="+identificadorArticulo
-			+"&id="+Math.random();
+			var parametros= "opc=buscaArticulos1"
+							+"&identificadorArticulo="+identificadorArticulo
+							+"&id="+Math.random();
 			$.ajax({
 				cache:false,
 				type: "POST",
@@ -795,11 +805,12 @@
 	//Busca el articulo que queremos enviar a mantenimiento
 	var buscarArticuloMtto = function() 
 	{
-		if(($("#txtCodigoBarrasMtto").val())!=' ')
+		if(($("#txtCodigoBarrasMtto").val())!="")
 		{
 			var identificadorArticulo= $("#txtCodigoBarrasMtto").val();
-			var parametros= "opc=buscaArticulos2"+"&identificadorArticulo="+identificadorArticulo
-			+"&id="+Math.random();
+			var parametros= "opc=buscaArticulos2"
+							+"&identificadorArticulo="+identificadorArticulo
+							+"&id="+Math.random();
 			$.ajax({
 				cache:false,
 				type: "POST",
@@ -850,16 +861,16 @@
 			var fechaMovimiento 		= dia + "/" + mes + "/" + anno;
 			var respons 				= "1"
 			var parametros 	= "opc=mantenimientoArticulos1"
-			+"&identificadorArticulo="+identificadorArticulo
-			+"&observaciones="+observaciones
-			+"&horaMovimiento="+horaMovimiento
-			+"&fechaMovimiento="+fechaMovimiento
-			+"&periodo="+periodo
-			+"&estatus="+estatus
-			+"&claveMovimiento="+claveMovimiento
-			+"&claveLab="+claveLab
-			+"&respons="+respons
-			+"&id="+Math.random();
+							+"&identificadorArticulo="+identificadorArticulo
+							+"&observaciones="+observaciones
+							+"&horaMovimiento="+horaMovimiento
+							+"&fechaMovimiento="+fechaMovimiento
+							+"&periodo="+periodo
+							+"&estatus="+estatus
+							+"&claveMovimiento="+claveMovimiento
+							+"&claveLab="+claveLab
+							+"&respons="+respons
+							+"&id="+Math.random();
 			$.ajax({
 				cache:false,
 				type: "POST",
@@ -897,7 +908,8 @@
 		$("#menuMtto").hide("slow");
 		$("#pantallaInventario").hide("slow");
 		$("#peticionesArticulos").hide("slow");
-		var parametros 	= "opc=peticionesPendientesArt1"+"&id="+Math.random();
+		var parametros 	= "opc=peticionesPendientesArt1"
+						+"&id="+Math.random();
 		$.ajax({
 			cache:false,
 			type: "POST",
@@ -925,6 +937,74 @@
 		$("#pantallaInventario").hide("slow");
 		$("#peticionesPendientes").hide("slow");
 		$("#peticionesArticulos").show("slow");
+		$("input").val("");
+		$("textarea").val("");
+	}
+	var checkOtroArticulo = function()
+	{
+		if ($("#chbOtroArticulo").is(':checked'))
+		{
+			$("#txtNombreArticuloPeticion").removeAttr("disabled");
+			$(".select-dropdown").attr("disabled","disabled");
+		}
+		else
+		{
+			$("#txtNombreArticuloPeticion").attr("disabled","disabled");
+			$(".select-dropdown").removeAttr("disabled");
+		}
+	}
+	var guardaPeticionArticulo = function()
+	{
+		var nombreArticulo;
+		if ($("#chbOtroArticulo").is(':checked'))
+		{
+			nombreArticulo = $("#txtNombreArticuloPeticion").val();
+		}
+		else
+		{
+			nombreArticulo = $("#cmbNombreArtPeticiones").val();
+		}
+			var fechaActual				= new Date();
+			var dia 					=fechaActual.getDate();
+			var mes 					=fechaActual.getMonth()+1;
+			var anno 					=fechaActual.getFullYear();
+
+			var cantidad 	= $("#txtCantidadPeticionArt").val();
+			var marca 		= $("#txtMarcaPeticionArt").val();
+			var modelo 		= $("#txtModeloPeticionArt").val();
+			var motivo 		= $("#txtMotivoPedidoArt").val();
+			var fecha 		= dia + "/" + mes + "/" + anno;
+
+			var parametros= "opc=guardaPeticionArticulos1"
+							+"&nombreArticulo="+nombreArticulo
+							+"&cantidad="+cantidad
+							+"&marca="+marca
+							+"&modelo="+modelo
+							+"&motivo="+motivo
+							+"&fecha="+fecha
+							+"&id="+Math.random();
+			$.ajax({
+				cache:false,
+				type: "POST",
+				dataType: "json",
+				url:'../data/genericos.php',
+				data: parametros,
+				success: function(response){
+					if(response.respuesta == true)
+					{
+						swal("La solicitud fue enviada con éxito!", "Da clic en el botón OK!", "success");
+						$("input").val("");
+						$("textarea").val("");
+					}
+					else
+					{
+						sweetAlert("Error", "No se pudo enviar la solicitud!", "error");
+					}
+				},
+				error: function(xhr, ajaxOptions,x){
+					sweetAlert("Error", "Error de conexión enviar petición artículo", "error");
+				}
+			});
 	}
 	var atenderSolicitud = function()
 	{		
@@ -1006,9 +1086,9 @@
 	$("#btnGuardaMantenimiento").on("click",guardaMtto);
 	$("#btnPeticionesPendientes").on("click",peticionesPendientesArt);
 	$("#btnPeticionArticulo").on("click",peticionesArticulos);
-	//$("#btnAtender").on("click",atenderSolicitud);	
-	//$("#btnEditarArt").on("click",editarArticulo);
-	//$("#btnRegresarEditarArt").on("click",listaArticulos);
+	$("#btnCancelarPeticionArt").on("click",peticionesArticulos);
+	$("#chbOtroArticulo").on("change",checkOtroArticulo);
+	$("#btnEnviarPeticionArticulo").on("click",guardaPeticionArticulo);	
 	
 	//Reportes
 	$("#tabReportesGenericos").on("click",resumenReportes);

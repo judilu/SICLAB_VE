@@ -663,9 +663,9 @@ function peticionesPendientesArt()
 		$rows		= array();
 		$renglones	= "";
 		$conexion 	= conectaBDSICLAB();
-		$consulta	= sprintf("select p.clavePedido,p.DEPCVE,ac.claveArticulo,pa.cantidad,ac.nombreArticulo
-			from lbpedidos p inner join lbpedidosarticulos pa ON p.clavePedido=pa.clavePedido
-			inner join lbarticuloscat ac ON pa.claveArticulo=ac.claveArticulo",$responsable);
+		$consulta	= sprintf("select p.clavePedido,p.DEPCVE,p.nombreArticulo,p.cantidad 
+								from lbpedidos p 
+								where estatus='P'",$responsable);
 		$res 		= mysql_query($consulta);
 		$renglones	.= "<thead>";
 		$renglones	.= "<tr>";
@@ -806,9 +806,8 @@ function agregaArticulos()
 	{ 
 		$responsable			= $_SESSION['nombre'];
 		$identificadorArticulo	= GetSQLValueString($_POST["identificadorArticulo"],"text");
-		$rows					= array();
-		$con 					= "";
-		$articulo 				= "";
+		$idu 					= "";
+		$nomArt 				= "";
 		$renglones				= "";
 		$conexion 				= conectaBDSICLAB();
 		$consulta				= sprintf("select A.identificadorArticulo,B.nombreArticulo,B.claveArticulo
@@ -816,27 +815,16 @@ function agregaArticulos()
 											where A.estatus='V' and A.identificadorArticulo=%s",$identificadorArticulo,$responsable);
 		$res 					= mysql_query($consulta);
 		
-		while($row = mysql_fetch_array($res))
+		if($row = mysql_fetch_array($res))
 		{
-			$articulo 	.= "'".($row["identificadorArticulo"])."',";
-			$rows[]=$row;
-			$respuesta = true;
-			$con++;
-		}
-		$articulo = (rtrim($articulo,","));
-		for($c= 0; $c< $con; $c++)
-		{
-			$renglones .= "<tbody>";
-			$renglones .= "<tr>";
-			$renglones .= "<td id='".$rows[$c]["identificadorArticulo"]."'>".$rows[$c]["identificadorArticulo"]."</td>";
-			$renglones .= "<td nombreArt='".$rows[$c]["nombreArticulo"]."'>".$rows[$c]["nombreArticulo"]."</td>";
-			$renglones .= "</tr>";
-			$renglones .= "</tbody>";
-			$respuesta = true;
+			$idu  		=$row["identificadorArticulo"];
+			$nomArt 	=$row["nombreArticulo"];
+			$respuesta 	= true;
 		}
 	}
 	$salidaJSON = array('respuesta' => $respuesta,
-						 'renglones' => $renglones);
+						 'idu' 		=> $idu,
+						 'nomArt' 	=> $nomArt);
 	print json_encode($salidaJSON);
 }
 function prestamosProceso()
@@ -977,6 +965,35 @@ function devolucionMaterial()
 	$salidaJSON = array('respuesta' => $respuesta);
 	print json_encode($salidaJSON);
 }
+function guardaPeticionArticulos()
+{
+	$respuesta 		= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{
+		$responsable	= $_SESSION['nombre'];
+		$nombreArticulo = GetSQLValueString($_POST["nombreArticulo"],"text");
+		$cantidad		= GetSQLValueString($_POST["cantidad"],"text");
+		$marca 			= GetSQLValueString($_POST["marca"],"text");
+		$modelo 		= GetSQLValueString($_POST["modelo"],"text");
+		$motivo 		= GetSQLValueString($_POST["motivo"],"text");
+		$fecha 			= GetSQLValueString($_POST["fecha"],"text");
+		$depto 			= "1234";
+		$firma 			= "0000";
+		$periodo 		= "9898";
+		$conexion 		= conectaBDSICLAB();
+		$consulta  		= sprintf("insert into lbpedidos values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",$periodo,'""',$fecha,$depto,$firma,$responsable,$nombreArticulo,$cantidad,$motivo,$marca,$modelo,'"P"');
+		$res 	 		=  mysql_query($consulta);
+			if(mysql_affected_rows()>0)
+				$respuesta = true; 
+	}
+	else
+	{
+		//salir();
+	}
+	$arrayJSON = array('respuesta' => $respuesta);
+		print json_encode($arrayJSON);
+}
 //Menú principal
 $opc = $_POST["opc"];
 switch ($opc){
@@ -1057,6 +1074,9 @@ switch ($opc){
 	break;
 	case 'salir1':
 	salir();
+	break;
+	case 'guardaPeticionArticulos1':
+	guardaPeticionArticulos();
 	break;
 } 
 ?>

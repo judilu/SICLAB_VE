@@ -2,46 +2,53 @@
 	<div class="col s12">	
 		<div class="row">
 			<div class="input-field col s4">
-				<input id="txtArticulo" type="text" class="validate">
-				<label class= "active" for="txtArticulo">Artículo</label>
+				<select id="cmbNombreArtPeticiones">
+					<option value="" disabled selected>Seleccione</option>
+					<?php						
+					require_once('../data/conexion.php');
+
+					$conexion		= conectaBDSICLAB();
+					$consulta 		= sprintf("select * from lbarticuloscat");
+					$res 			= mysql_query($consulta);
+					while($row = mysql_fetch_array($res))
+					{
+						echo '<option value="'.$row["claveArticulo"].'">'.$row["nombreArticulo"].'</option>';
+					}?>
+				</select>
+				<label>Nombre del artículo</label>
+			</div>
+			<div class="input-field col s2">
+				<input type="checkbox" id="chbOtroArticulo">
+				<label for="chbOtroArticulo">Otro articulo</label>
 			</div>
 			<div class="input-field col s4 offset-s1">
-				<input id="txtCodigoBarras" type="text" class="validate">
-				<label for="txtCodigoBarras">Codigo de barras</label>
-			</div>
-			<div class="col s3">
-				<a class="waves-effect waves-light btn blue darken-1" id="btnBuscar"><i class="material-icons left">search</i>Buscar</a>
+				<input id="txtNombreArticuloPeticion" type="text" class="validate" disabled="true">
+				<label for="txtNombreArticuloPeticion">Nombre</label>
 			</div>
 		</div>
 		<div class="row">
-			<div class="input-field col s4">
-				<input id="txtNombreArticulo" type="text" class="validate">
-				<label for="txtNombreArticulo">Nombre del artículo</label>
+			<div class="input-field col s4 offset">
+				<input id="txtMarcaPeticionArt" type="text" class="validate">
+				<label for="txtMarcaPeticionArt">Marca</label>
 			</div>
 			<div class="input-field col s4 offset-s1">
-				<input id="txtCantidad" type="number" class="validate">
-				<label for="txtCantidad">Cantidad</label>
+				<input id="txtModeloPeticionArt" type="text" class="validate">
+				<label for="txtModeloPeticionArt">Modelo</label>
+			</div>
+			<div class="input-field col s2 offset-s1">
+				<input id="txtCantidadPeticionArt" type="number" class="validate" min="1">
+				<label for="txtCantidadPeticionArt">Cantidad</label>
 			</div>
 		</div>
 		<div class="row">
-			<div class="input-field col s4">
-				<input id="txtMarca" type="text" class="validate">
-				<label for="txtMarca">Marca</label>
-			</div>
-			<div class="input-field col s4 offset-s1">
-				<input id="txtModelo" type="text" class="validate">
-				<label for="txtModelo">Modelo</label>
-			</div>
-		</div>
-		<div class="row">
-			<div class="input-field col s12">
-				<input id="txtDescripcionArt" type="text" class="validate">
-				<label for="txtDescripcionArt">Descripción del artículo</label>
+			<div class="input-field col s6">
+				<textarea id="txtMotivoPedidoArt" type="text" class="materialize-textarea"></textarea>
+				<label class="active" for="txtMotivoPedidoArt">Motivo de pedido del artículo</label>
 			</div>
 		</div>
 	</div>
-	<div class="col s3 offset-s5">
-		<a class="waves-effect waves-light btn green darken-2 " id="btnEnviarSolicitud">Enviar</a>
-		<a id="btnCancelarPeticion" class="waves-effect red darken-1 btn"><i class="material-icons left">clear</i>Cancelar</a>
+	<div class="col s5 offset-s7">
+		<a class="waves-effect waves-light btn green darken-2 " id="btnEnviarPeticionArticulo">Enviar</a>
+		<a id="btnCancelarPeticionArt" class="waves-effect red darken-1 btn"><i class="material-icons left">clear</i>Cancelar</a>
 	</div>
 </div>
