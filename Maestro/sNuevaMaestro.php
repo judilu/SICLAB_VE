@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-	<link rel="stylesheet" href="../css/maestro.css">
-</head>
-<body>
-	<div id="solNuevaMaestro">
+<div id="solNuevaMaestro">
 		<?php require_once('../data/conexion.php');?>
 		<div class="row" id="nuevaMaestro">
 			<h5>Nueva solicitud</h5>
@@ -143,5 +137,3 @@
 		</div>
 		<!-- Termina elección material -->
 	</div>
-</body>
-</html>

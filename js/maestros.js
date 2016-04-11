@@ -1,8 +1,8 @@
-var inicio = function ()
+var inicioMaestro = function ()
 {
-	var t = "";
 	$('ul.tabs').tabs();
 	$('select').material_select(); //agregado
+	var articulosAgregados = new Array();
 	//eventos menu Solicitudes
 	//Empieza función salir del sistema
 	var salir = function()
@@ -72,9 +72,10 @@ var inicio = function ()
 			success: function(response){
 				if(response.respuesta == true)
 				{
+					console.log(response.renglones);
 					$("#tbSolAceptadas").html(" ");
 					$("#tbSolAceptadas").append(response.renglones);
-					$("#tbSolAceptadas a").on("click",practicaRealizada);
+					//$("#tbSolAceptadas a").on("click",practicaRealizada);
 				}
 				else
 					sweetAlert("No hay solicitudes..!", "Debe crear una solicitud antes", "error");
@@ -84,7 +85,8 @@ var inicio = function ()
 				console.log(xhr);	
 			}
 		});
-		$("#sAceptadasMaestro").show("slow");	
+		$("#sAceptadasMaestro").show("slow");
+		$("#tbSolAceptadas a").on("click",practicaRealizada);	
 	}//Termina función de solicitudes Aceptadas
 	//Empieza función para liberar una solicitud realizada a aceptadas
 	var practicaRealizada = function(evt)
@@ -104,7 +106,6 @@ var inicio = function ()
 				if(response.respuesta == true)
 				{
 					swal("Practica realizada..!", "Buen trabajo..!", "success");
-					solAceptadas();
 				}
 				else
 				{
@@ -136,10 +137,10 @@ var inicio = function ()
 			success: function(response){
 				if(response.respuesta == true)
 				{
-					$("#tabSolPendientes").html(" ");
+					$("#tabSolPendientes").html("");
 					$("#tabSolPendientes").append(response.renglones);
-					$("#tabSolPendientes").on("click", ".btnEditarSolicitudLab" , editarSolicitudLab);
-					$("#tabSolPendientes").on("click", ".btnEliminarSolicitudLab" , eliminarSolicitud);
+					/*$("#tabSolPendientes").on("click", ".btnEditarSolicitudLab" , editarSolicitudLab);
+					$("#tabSolPendientes").on("click", ".btnEliminarSolicitudLab" , eliminarSolicitud);*/
 				}
 				else
 					sweetAlert("No hay solicitudes pendientes", "Han aceptado todas tus solicitudes o no ha enviado ninguna solicitud", "error");
@@ -149,7 +150,10 @@ var inicio = function ()
 			}
 		});
 		$("#sPendientesMaestro").show("slow");
-		$("#solicitudesPendientesLab").show("slow");	
+		$("#solicitudesPendientesLab").show("slow");
+		//modifique
+		$("#tabSolPendientes").on("click", ".btnEditarSolicitudLab" , editarSolicitudLab);
+		$("#tabSolPendientes").on("click", ".btnEliminarSolicitudLab" , eliminarSolicitud);	
 	}//Termina función de solicitudes pendientes
 	//Empieza función de solicitudes realizadas
 	var solRealizadas = function()
@@ -196,6 +200,7 @@ var inicio = function ()
     //Empieza función de elegir material
     var elegirMaterial = function()
     {
+    	articulosAgregados = Array();
     	$("#nuevaMaestro").hide();
     	$("#eleccionMaterial").show("slow");
        //limpiar tabla de agregarMaterial
@@ -208,6 +213,7 @@ var inicio = function ()
     	//event.preventDefault();
     	var artCve = $("#cmbMaterialCat" ).val();
     	var artNom = $("#cmbMaterialCat option:selected").text();
+    	articulosAgregados.push(artCve);
     	var parametros = "opc=agregarArt1"+
     						"&artCve="+artCve+
     						"&artNom="+artNom+
@@ -223,7 +229,7 @@ var inicio = function ()
     			if(response.respuesta == true)
     			{
     				$("#bodyArt").append(response.renglones);
-					$(".btnEliminarArt").on("click",eliminarArt);
+					//$(".btnEliminarArt").on("click",eliminarArt);
 				}
 				else
 					console.log("no hizo nada");
@@ -232,6 +238,8 @@ var inicio = function ()
 				console.log("Error de conexión articuloAgregado");	
 			}
 		});
+		//modifique
+		$(".btnEliminarArt").on("click",eliminarArt);
     }//Termina función agregar articulo
     //Comienza función de eliminar Articulo
     var eliminarArt = function()
@@ -298,6 +306,7 @@ var inicio = function ()
     //empieza función de eliminar solicitud
     var eliminarSolicitud = function()
     {
+    	$(this).closest("tr").remove();
     	var solId = parseInt($(this).attr("name"));
     	swal({   	
     		title: "¿Esta seguro que desea eliminar la solicitud?",   
@@ -342,15 +351,14 @@ var inicio = function ()
     		} 
     		else 
     		{
-    			swal("OK..!",
-    				"La solicitud no fue eliminada..!", "error");
+    			swal("OK..!","La solicitud no fue eliminada..!", "error");
     		} 
     	});
     }//fin función eliminar solicitud
     var altaNuevaSol = function()
     {
     	//carrito
-    	console.log(t);
+    	console.log(articulosAgregados);
     	//fin carrito
     	//insertar una nueva solicitud
     	// cadena.substring(índice donde inicia recordando que el primero es cero,indice - 1)
@@ -440,4 +448,4 @@ var inicio = function ()
 	$("#btnListaAsistencia").on("click",listaAsistencia);
 	$("#btnRegresarla").on("click",regresar);
 }
-$(document).on("ready",inicio);
+$(document).on("ready",inicioMaestro);
