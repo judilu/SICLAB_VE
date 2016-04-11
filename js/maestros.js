@@ -72,7 +72,6 @@ var inicioMaestro = function ()
 			success: function(response){
 				if(response.respuesta == true)
 				{
-					console.log(response.renglones);
 					$("#tbSolAceptadas").html(" ");
 					$("#tbSolAceptadas").append(response.renglones);
 					//$("#tbSolAceptadas a").on("click",practicaRealizada);
@@ -210,15 +209,14 @@ var inicioMaestro = function ()
     var agregarArt = function()
     {
     	//aquiEmpieza todo
-    	//event.preventDefault();
     	var artCve = $("#cmbMaterialCat" ).val();
     	var artNom = $("#cmbMaterialCat option:selected").text();
     	articulosAgregados.push(artCve);
+    	console.log(articulosAgregados);
     	var parametros = "opc=agregarArt1"+
     						"&artCve="+artCve+
     						"&artNom="+artNom+
     						"&id="+Math.random();
-    	t = (t+","+artCve);
     	$.ajax({
     		cache:false,
     		type: "POST",
@@ -362,58 +360,68 @@ var inicioMaestro = function ()
     	//fin carrito
     	//insertar una nueva solicitud
     	// cadena.substring(índice donde inicia recordando que el primero es cero,indice - 1)
-	    	var f  = new Date();
-	    	var dd = f.getDate();
-	    	var mm = (f.getMonth())+1;
-	    	(dd<10) ? (dd="0"+dd) : dd;
-	    	(mm<10) ? (mm="0"+mm) : mm;
-	    	var fe  = (dd+"/"+mm+"/"+f.getFullYear());
-	    	var ff  = $("#txtFechaS").val();
-	    	var a  = ff.substring(0,4);
-	    	var m  = ff.substring(5,7);
-	    	var d  = ff.substring(8,10);
-	    	var fs = d+"/"+m+"/"+a;
-	    	var hs  = $("#cmbHoraPract option:selected").text();
-	    	var lab = $("#cmbLaboratorio").val();
-	    	var uso = $("#textarea1").val();
-	    	var prac = $("#cmbPractica").val();
-	    	var mat = $("#cmbMateria").val();
-	        var gp  = $("#cmbHoraMat option:selected").text();
-	        var gpo = parseInt(gp.substring(0,2))//segun la hora se saca el grupo
-	        var cant = $("#txtCantAlumnos").val();
-	        var art  = "";
-	        //var con  = ($("#tbMaterialSol tr").length);
-	        var parametros = "opc=nuevaSol1"+
-	                     		"&fe="+fe+
-	                     		"&fs="+fs+
-	                     		"&hs="+hs+
-	                     		"&lab="+lab+
-	                     		"&uso="+uso+
-	                     		"&prac="+prac+
-	                     		"&mat="+mat+
-	                     		"&gpo="+gpo+
-	                     		"&cant="+cant+
-	                     		"&id="+Math.random();
-	                     $.ajax({
-	                     	cache:false,
-	                     	type: "POST",
-	                     	dataType: "json",
-	                     	url:'../data/maestros.php',
-	                     	data: parametros,
-	                     	success: function(response){
-	                     		if(response.respuesta == true)
-	                     		{
-	                     			swal("La solicitud fue creada con éxito!", "Da clic en el botón OK!", "success");
-	                     		}
-	                     		else
-	                     		{
-	                     			sweetAlert("Error", "No se pudo crear la solicitud!", "error");
-	                     		}
-	                     	},
-	                     	error: function(xhr, ajaxOptions,x){
-	                     		console.log("Error de conexión articulo");
-	                     	}
-	                     });
+	    	if(($("#cmbMateria").val())!= null && ($("#cmbHoraMat").val())!= null && ($("#txtFechaS").val())!= "" && ($("#cmbPractica").val())!= null && ($("#cmbHoraPract").val())!= null && ($("#txtCantAlumnos").val())!= "" && ($("#textarea1").val())!= "" && articulosAgregados != "" )
+	    	{
+		    	var f  = new Date();
+		    	var dd = f.getDate();
+		    	var mm = (f.getMonth())+1;
+		    	(dd<10) ? (dd="0"+dd) : dd;
+		    	(mm<10) ? (mm="0"+mm) : mm;
+		    	var fe  = (dd+"/"+mm+"/"+f.getFullYear());
+		    	var ff  = $("#txtFechaS").val();
+		    	var a  = ff.substring(0,4);
+		    	var m  = ff.substring(5,7);
+		    	var d  = ff.substring(8,10);
+		    	var fs = d+"/"+m+"/"+a;
+		    	var hs  = $("#cmbHoraPract option:selected").text();
+		    	var lab = $("#cmbLaboratorio").val();
+		    	var uso = $("#textarea1").val();
+		    	var prac = $("#cmbPractica").val();
+		    	var mat = $("#cmbMateria").val();
+		        var gp  = $("#cmbHoraMat option:selected").text();
+		        var gpo = parseInt(gp.substring(0,2))//segun la hora se saca el grupo
+		        var cant = $("#txtCantAlumnos").val();
+		        var art  = "";
+		        //var con  = ($("#tbMaterialSol tr").length);
+		        var parametros = "opc=nuevaSol1"+
+		                     		"&fe="+fe+
+		                     		"&fs="+fs+
+		                     		"&hs="+hs+
+		                     		"&lab="+lab+
+		                     		"&uso="+uso+
+		                     		"&prac="+prac+
+		                     		"&mat="+mat+
+		                     		"&gpo="+gpo+
+		                     		"&cant="+cant+
+		                     		"&id="+Math.random();
+		                     $.ajax({
+		                     	cache:false,
+		                     	type: "POST",
+		                     	dataType: "json",
+		                     	url:'../data/maestros.php',
+		                     	data: parametros,
+		                     	success: function(response){
+		                     		if(response.respuesta == true)
+		                     		{
+		                     			swal("La solicitud fue creada con éxito!", "Da clic en el botón OK!", "success");
+		                     			//Limpiar campos
+		                     			
+		                     		}
+		                     		else
+		                     		{
+		                     			sweetAlert("Error", "No se pudo crear la solicitud!", "error");
+		                     		}
+		                     	},
+		                     	error: function(xhr, ajaxOptions,x){
+		                     		console.log("Error de conexión articulo");
+		                     	}
+		                     });
+
+	    	}
+	    	else
+	    	{
+	    		sweetAlert("Error", "Debe llenar todos los campos!", "error");
+	    	}
     }
 	//eventos menu Reportes
 	var listaAsistencia = function()
