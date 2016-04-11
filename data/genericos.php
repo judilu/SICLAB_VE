@@ -774,7 +774,8 @@ function atenderPrestamo()
 		$consulta	= sprintf("select p.aluctr,p.clavePrestamo,ac.claveArticulo,ac.nombreArticulo,sa.cantidad 
 								from lbarticuloscat ac 
 								INNER JOIN lbsolicitudarticulos sa on sa.claveArticulo=ac.claveArticulo 
-								INNER JOIN lbprestamos p on p.clavePrestamo=sa.clavePrestamo");
+								INNER JOIN lbprestamos p on p.clavePrestamo=sa.clavePrestamo
+								where sa.estatus='S'");
 		$res 		= mysql_query($consulta);
 
 		$renglones	.= "<thead>";
@@ -843,11 +844,11 @@ function agregaArticulos()
 		$responsable	= $_SESSION['nombre'];
 		$clavePrestamo	= GetSQLValueString($_POST["clavePrestamo"],"text");
 		$listaArt		= $_POST['listaArt'];
-		$arratArt 		= explode(',',$listaArt); 
-		$cantidad 		= count($arratArt);
+		$arrayArt 		= explode(',',$listaArt); 
+		$cantidad 		= count($arrayArt);
 		for ($i=0; $i < $cantidad ; $i++) { 
 			$conexion 	= conectaBDSICLAB();
-			$consulta	= sprintf(" insert into lbprestamosarticulos values(%s,%s,%s,%s)",'""',$arratArt[$i],$clavePrestamo,'"P"');
+			$consulta	= sprintf(" insert into lbprestamosarticulos values(%s,%s,%s,%s)",'""',$arrayArt[$i],$clavePrestamo,'"P"');
 			$res 		= mysql_query($consulta);
 			if(mysql_affected_rows()>0)
 				$respuesta = true;
@@ -974,7 +975,7 @@ function devolucionPrestamo()
 			$renglones .= "<td>".$rows[$c]["identificadorArticulo"]."</td>";
 			$renglones .= "<td>".$rows[$c]["nombreArticulo"]."</td>";
 			$renglones .= "<td><a name = '".$rows[$c]["identificadorArticulo"]."' class='btn waves-effect waves-light green darken-2 devolucionArt' id='btnDevolverArt'>Devolver</a></td>";
-			$renglones .= "<td><a name = '".$rows[$c]["identificadorArticulo"]."' class='btn waves-effect waves-light green darken-2' id='btnAplicaSancion'>Sancionar</a></td>";
+			$renglones .= "<td><a name = '".$rows[$c]["identificadorArticulo"]."' class='waves-effect waves-light btn amber darken-2' id='btnAplicaSancion'>Sancionar</a></td>";
 			$renglones .= "</tr>";
 			$renglones .= "</tbody>";
 			$respuesta = true;
@@ -1129,7 +1130,7 @@ function guardaPeticionArticulos()
 		$firma 			= "0000";
 		$periodo 		= "9898";
 		$conexion 		= conectaBDSICLAB();
-		$consulta  		= sprintf("insert into lbpedidos values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",$periodo,'""',$fecha,$depto,$firma,$responsable,$nombreArticulo,$cantidad,$motivo,$marca,$modelo,'"P"');
+		$consulta  		= sprintf("insert into lbpedidos values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",$periodo,'""',$fecha,$depto,$firma,$responsable,$nombreArticulo,$cantidad,$motivo,$marca,$modelo,'"P"');
 		$res 	 		=  mysql_query($consulta);
 			if(mysql_affected_rows()>0)
 				$respuesta = true; 

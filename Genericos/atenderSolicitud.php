@@ -36,7 +36,7 @@
 						<th data-field="descripcion">Nombre del artículo</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="bodyArtSolicitados">
 					
 				</tbody>
 			</table>

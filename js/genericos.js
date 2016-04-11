@@ -93,6 +93,7 @@
 		articulosPrestados = Array();
 		$("#solicitudesPendientes2").hide("slow");
 		var clavePrestamo= $(this).attr('name');
+		$(this).closest("tr").remove()
 		var parametros 	= "opc=atenderPrestamo1"+"&clavePrestamo="+clavePrestamo+"&id="+Math.random();
 		$.ajax({
 			cache:false,
@@ -105,6 +106,7 @@
 				{
 					$("#txtcodigoBarrasPrestamo").val("");
 					$("#tbListaMaterialPrestamo").html("");
+					$("#bodyArtSolicitados").html("");
 					$("#tbListaMaterialPrestamo").html(response.renglones);
 					$("#txtnombreAlumnoPrestamo").val(response.nombre);
 				}
@@ -226,6 +228,7 @@
 			success: function(response){
 				if(response.respuesta == true)
 				{
+					$("#tabSolProcesoAlumnos").html("");
 					$("#tabSolProcesoAlumnos").html(response.renglones);
 					$("#tabSolProcesoAlumnos #btnDevolucionMaterial").on("click",devolucionPrestamo);
 					//$("#tabSolPendientesAlumnos #btnEliminarprestamo").on("click",verMas);
@@ -700,7 +703,8 @@
 	}
 	var altaInventario = function()
 	{
-		if(($("#txtCodigoBarrasAlta").val())!="" && ($("#txtModeloArtAlta").val())!="")
+		if(($("#txtCodigoBarrasAlta").val())!="" && 
+			($("#txtModeloArtAlta").val())!="")
 		{
 			//aqui empieza todo
        		//var cveUsuario = usuarioNombre();
@@ -1155,7 +1159,6 @@
 	$("#btnEnProceso").on("click",prestamosProceso);
 	$("#btnCancelarDevolucion").on("click",prestamosProceso);
 	$("#btnListaSanciones").on("click",listaSanciones);
-	$("#btnCancelarSolPendiente").on("click",prestamosPendientes);
 	$("#btnAplicaSancion").on("click",aplicaSancion);
 	$("#btnAgregarArtPrestamo").on("click",agregarArticuloPrestamo);
 	$("#btnRegresarSancion").on("click",devolucionPrestamo);
@@ -1165,6 +1168,7 @@
 	$("#tabSolPendientesAlumnos").on("click",".eliminarPrestamo",eliminaPrestamoPendiente);
 	$("#tbListaArticulosDevolucion").on("click",".devolucionArt",guardarDevolucionPrestamo);
 	$("#btnDevolucionMaterial").on("click",devolucionPrestamo);
+	$("#btnFinalizarDevolucion").on("click",prestamosPendientes);
 	//Laboratorios
 	$("#tabLabs").on("click",sLaboratorioPendientes);
 	$("#btnPendientesLab").on("click",sLaboratorioPendientes);
