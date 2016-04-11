@@ -32,8 +32,8 @@
 			<table class="bordered highlight responsive-table" id="tbArticulosSolicitados">
 				<thead>
 					<tr>
-						<th data-field="cantidad">Cantidad</th>
-						<th data-field="descripcion">Descripcion</th>
+						<th data-field="cantidad">Código</th>
+						<th data-field="descripcion">Nombre del artículo</th>
 					</tr>
 				</thead>
 				<tbody>
