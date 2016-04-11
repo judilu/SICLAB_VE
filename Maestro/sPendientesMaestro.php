@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-	<link rel="stylesheet" href="../css/maestro.css">
-</head>
-<body>
-	<div class="solPendientesMaestro">
-		<div class="row" id="solicitudesPendientesLab">
+<div class="solPendientesMaestro">
+	<div class="row" id="solicitudesPendientesLab">
 		<h5>Solicitudes pendientes</h5>
-			<div class="col s10 offset-s1">
-				<table id="tabSolPendientes">
+		<div class="col s10 offset-s1">
+			<table id="tabSolPendientes">
 					<!--<thead>
 						<tr>
 							<th data-field="materia">Materia</th>
@@ -30,12 +24,10 @@
 							</td>
 						</tr>
 					</tbody>-->
-				</table>
-			</div>
-		</div>
-		<div id="editarSolicitudLab">
-			<?php include 'editarSolicitudLab.php';?>
+			</table>
 		</div>
 	</div>
-</body>
-</html>
+	<div id="editarSolicitudLab">
+			<?php include 'editarSolicitudLab.php';?>
+	</div>
+</div>

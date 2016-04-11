@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-	<script src="..\js\maestros.js"></script>
-</head>
-<body>
-	<div id = "editarSolLab">
+<div id = "editarSolLab">
 		<?php require_once('../data/conexion.php');?>
 		<div class="row" id="editarSol">
 			<h5>Editar Solicitud</h5>
@@ -119,6 +113,3 @@
 		</div>
 		<!-- Termina elección material -->
 	</div>
-
-</body>
-</html>

@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-	<script src="..\js\maestros.js"></script>
-</head>
-<body>
-	<div class="solRealizadasMaestro">
+<div class="solRealizadasMaestro">
 	<h5>Prácticas Realizadas</h5>
 		<div class="row">
 			<div class="col s8 offset-s2">
@@ -32,6 +26,4 @@
 				</table>
 			</div>
 		</div>
-	</div>
-</body>
-</html>
+</div>
