@@ -937,14 +937,14 @@ function devolucionPrestamo()
 	session_start();
 	if(!empty($_SESSION['nombre']))
 	{ 
-		$responsable= $_SESSION['nombre'];
-		$prestamo	= "";
-		$clavePrestamo = GetSQLValueString($_POST["clavePrestamo"],"text");
-		$con 		= 0;
-		$rows		= array();
-		$renglones	= "";
-		$conexion 	= conectaBDSICLAB();
-		$consulta	= sprintf("select p.clavePrestamo,ac.nombreArticulo,a.identificadorArticulo 
+		$responsable 	= $_SESSION['nombre'];
+		$prestamo		= "";
+		$clavePrestamo 	= GetSQLValueString($_POST["clavePrestamo"],"text");
+		$con 			= 0;
+		$rows			= array();
+		$renglones		= "";
+		$conexion 		= conectaBDSICLAB();
+		$consulta		= sprintf("select p.clavePrestamo,ac.nombreArticulo,a.identificadorArticulo 
 								from lbarticuloscat ac 
 								INNER JOIN lbarticulos a ON ac.claveArticulo=a.claveArticulo
 								INNER JOIN lbprestamosarticulos pa on a.identificadorArticulo=pa.identificadorArticulo
@@ -973,15 +973,44 @@ function devolucionPrestamo()
 			$renglones .= "<tr>";
 			$renglones .= "<td>".$rows[$c]["identificadorArticulo"]."</td>";
 			$renglones .= "<td>".$rows[$c]["nombreArticulo"]."</td>";
-			$renglones .= "<td><a name = '".$rows[$c]["identificadorArticulo"]."' class='btn waves-effect waves-light green darken-2' id='btnDevolverArt'>Devolver</a></td>";
-			$renglones .= "<td><a name = '".$rows[$c]["identificadorArticulo"]."' class='btn waves-effect waves-light green darken-2 devolucionArt' id='btnAplicaSancion'>Sancionar</a></td>";
+			$renglones .= "<td><a name = '".$rows[$c]["identificadorArticulo"]."' class='btn waves-effect waves-light green darken-2 devolucionArt' id='btnDevolverArt'>Devolver</a></td>";
+			$renglones .= "<td><a name = '".$rows[$c]["identificadorArticulo"]."' class='btn waves-effect waves-light green darken-2' id='btnAplicaSancion'>Sancionar</a></td>";
 			$renglones .= "</tr>";
 			$renglones .= "</tbody>";
 			$respuesta = true;
 		}
 	}
-	$salidaJSON = array('respuesta' => $respuesta, 'renglones' => $renglones);
+	$salidaJSON = array('respuesta' => $respuesta, 
+						'renglones' => $renglones, 
+						'clavePrestamo' => $clavePrestamo);
 	print json_encode($salidaJSON);
+}
+function guardaDevolucion()
+{
+	$respuesta 	= false;
+	session_start();
+	if(!empty($_SESSION['nombre']))
+	{
+		$responsable			= $_SESSION['nombre'];
+		$clavePrestamo 			= GetSQLValueString($_POST["clavePrestamo"],"text");
+		$identificadorArticulo 	= GetSQLValueString($_POST["identificadorArticulo"],"text");
+		$fecha 					= GetSQLValueString($_POST["fechaDevolucion"],"text");
+		$hora 					= GetSQLValueString($_POST["horaDevolucion"],"text");
+		$depto 					= "1234";
+		$periodo 				= "9898";
+		$conexion 				= conectaBDSICLAB();
+		$consulta  				= sprintf("insert into lbdevoluciones values(%s,%s,%s,%s,%s,%s)",
+									$periodo,$clavePrestamo,$identificadorArticulo,$responsable,$fecha,$hora);
+		$res 	 				=  mysql_query($consulta);
+			if(mysql_affected_rows()>0)
+				$respuesta = true; 
+	}
+	else
+	{
+		//salir();
+	}
+	$arrayJSON = array('respuesta' => $respuesta);
+		print json_encode($arrayJSON);
 }
 function aplicaSancion()
 {
@@ -1184,6 +1213,9 @@ switch ($opc){
 	case 'devolucionPrestamo1':
 	devolucionPrestamo();
 	break;
+	case 'guardaDevolucion1':
+	guardaDevolucion();
+	break;
 	case 'aplicaSancion1':
 	aplicaSancion();
 	break;
@@ -1195,8 +1227,6 @@ switch ($opc){
 	break;
 	case 'quitaSanciones1':
 	quitaSanciones();
-	break;
-
 	break;
 	case 'salir1':
 	salir();

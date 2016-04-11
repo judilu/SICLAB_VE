@@ -364,6 +364,7 @@
 				if(response.respuesta == true)
 				{
 					$("#tbListaArticulosDevolucion").html(response.renglones);
+					$("#txtClavePrestamoDevolucion").val(response.clavePrestamo);
 					//$("#tbListaArticulosDevolucion #btnDevolverArt").on("click",aceptarSolicitudLab);
 					//$("#tbListaArticulosDevolucion #btnAplicaSancion").on("click",aceptarSolicitudLab);
 				}
@@ -378,6 +379,48 @@
 		});
 		$("#devolucionMaterial").show("slow");
 		$("#devolucionMaterial2").show("slow");
+	}
+	var guardarDevolucionPrestamo = function()
+	{
+		var horaActual 				= new Date();
+		var fechaActual				= new Date();
+		var hora 					=horaActual.getHours();
+		var minutos 				=horaActual.getMinutes();
+		var dia 					=fechaActual.getDate();
+		var mes 					=fechaActual.getMonth()+1;
+		var anno 					=fechaActual.getFullYear();
+		var horaDevolucion			= hora + ":" + minutos;
+		var fechaDevolucion 		= dia + "/" + mes + "/" + anno;
+
+		var identificadorArticulo 	= $(this).attr('name');
+		var clavePrestamo 			= $("#txtClavePrestamoDevolucion").val();
+		$(this).closest("tr").remove();
+		var parametros 		= "opc=guardaDevolucion1"
+							+"&clavePrestamo="+clavePrestamo
+							+"&identificadorArticulo="+identificadorArticulo
+							+"&horaDevolucion="+horaDevolucion
+							+"&fechaDevolucion="+fechaDevolucion
+							+"&id="+Math.random();
+		$.ajax({
+				cache:false,
+				type: "POST",
+				dataType: "json",
+				url:'../data/genericos.php',
+				data: parametros,
+				success: function(response){
+					if(response.respuesta)
+					{
+						swal("Devolución guardada con éxito!", "Da clic en el botón OK!", "success");
+					}
+					else
+					{
+						sweetAlert("Error", "No se pudo guardar la devolución!", "error");
+					}
+				},
+				error: function(xhr, ajaxOptions,x){
+					sweetAlert("Error", "Error de conexión guarda prestamo devolución", "error");
+				}
+			});
 	}
 	//Laboratorios
 	//solicitudes pendientes de laboratorio...
@@ -1120,7 +1163,7 @@
 	$("#btnFinalizarAtenderSol").on("click",guardarPrestamoPendiente);
 	$("#btnCancelarAtenderSol").on("click",prestamosPendientes);
 	$("#tabSolPendientesAlumnos").on("click",".eliminarPrestamo",eliminaPrestamoPendiente);
-	$("#tbListaArticulosDevolucion").on("click",".devolucionArt",devolucionPrestamo);
+	$("#tbListaArticulosDevolucion").on("click",".devolucionArt",guardarDevolucionPrestamo);
 	$("#btnDevolucionMaterial").on("click",devolucionPrestamo);
 	//Laboratorios
 	$("#tabLabs").on("click",sLaboratorioPendientes);
