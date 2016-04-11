@@ -183,6 +183,34 @@
 				}
 			});
 	}
+	var eliminaPrestamoPendiente = function()
+	{
+		var clavePrestamo 	= $("#btnEliminarPrestamo").attr('name');
+		$(this).closest("tr").remove();
+		var parametros 		= "opc=eliminaPrestamoPendiente1"
+							+"&clavePrestamo="+clavePrestamo
+							+"&id="+Math.random();
+		$.ajax({
+				cache:false,
+				type: "POST",
+				dataType: "json",
+				url:'../data/genericos.php',
+				data: parametros,
+				success: function(response){
+					if(response.respuesta)
+					{
+						swal("Prestamo eliminado con éxito!", "Da clic en el botón OK!", "success");
+					}
+					else
+					{
+						sweetAlert("Error", "No se pudo eliminar el prestamo!", "error");
+					}
+				},
+				error: function(xhr, ajaxOptions,x){
+					sweetAlert("Error", "Error de conexión elimina prestamo pendiente", "error");
+				}
+			});
+	}
 	var prestamosProceso = function()
 	{
 		$("#solicitudesPendientes").hide("slow");
@@ -199,7 +227,7 @@
 				if(response.respuesta == true)
 				{
 					$("#tabSolProcesoAlumnos").html(response.renglones);
-					$("#tabSolProcesoAlumnos #btnDevolucionMaterial").on("click",devolucionMaterial);
+					$("#tabSolProcesoAlumnos #btnDevolucionMaterial").on("click",devolucionPrestamo);
 					//$("#tabSolPendientesAlumnos #btnEliminarprestamo").on("click",verMas);
 				}
 				else
@@ -318,11 +346,14 @@
 			}
 		});
 	}
-	var devolucionMaterial = function()
-	{		
+	var devolucionPrestamo = function()
+	{
 		$("#solicitudesEnProceso2").hide("slow");
 		$("#aplicaSanciones").hide("slow");
-		var parametros 	= "opc=devolucionMaterial1"+"&id="+Math.random();
+		var clavePrestamo 	= $(this).attr('name');
+		var parametros 	= "opc=devolucionPrestamo1"
+						+"&clavePrestamo="+clavePrestamo
+						+"&id="+Math.random();
 		$.ajax({
 			cache:false,
 			type: "POST",
@@ -332,7 +363,9 @@
 			success: function(response){
 				if(response.respuesta == true)
 				{
-					alert("muy bien :)");
+					$("#tbListaArticulosDevolucion").html(response.renglones);
+					//$("#tbListaArticulosDevolucion #btnDevolverArt").on("click",aceptarSolicitudLab);
+					//$("#tbListaArticulosDevolucion #btnAplicaSancion").on("click",aceptarSolicitudLab);
 				}
 				else
 				{
@@ -340,7 +373,7 @@
 				}
 			},
 			error: function(xhr, ajaxOptions,x){
-				alert("Error de conexión devolución de material");
+				alert("Error de conexión devolución prestamo");
 			}
 		});
 		$("#devolucionMaterial").show("slow");
@@ -1082,10 +1115,13 @@
 	$("#btnCancelarSolPendiente").on("click",prestamosPendientes);
 	$("#btnAplicaSancion").on("click",aplicaSancion);
 	$("#btnAgregarArtPrestamo").on("click",agregarArticuloPrestamo);
-	$("#btnRegresarSancion").on("click",devolucionMaterial);
-	$("#btnDevolucion").on("click",devolucionMaterial);
+	$("#btnRegresarSancion").on("click",devolucionPrestamo);
+	$("#btnDevolucion").on("click",devolucionPrestamo);
 	$("#btnFinalizarAtenderSol").on("click",guardarPrestamoPendiente);
 	$("#btnCancelarAtenderSol").on("click",prestamosPendientes);
+	$("#tabSolPendientesAlumnos").on("click",".eliminarPrestamo",eliminaPrestamoPendiente);
+	$("#tbListaArticulosDevolucion").on("click",".devolucionArt",devolucionPrestamo);
+	$("#btnDevolucionMaterial").on("click",devolucionPrestamo);
 	//Laboratorios
 	$("#tabLabs").on("click",sLaboratorioPendientes);
 	$("#btnPendientesLab").on("click",sLaboratorioPendientes);
