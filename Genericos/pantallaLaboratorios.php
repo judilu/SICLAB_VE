@@ -2,6 +2,8 @@
 <html lang="es">
 <head>
 	<link rel="stylesheet" href="../css/genericos.css">
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script src="../js/usuarios.js"></script>
 	<script src="../js/genericos.js"></script>
 </head>

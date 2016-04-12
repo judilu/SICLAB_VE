@@ -38,23 +38,40 @@
 	            </div>
 	          </div>
 	        </div>
+	        <script type="text/javascript">
+    	var datos = $.ajax({
+    		url:'../data/datosgrafica.php',
+    		type:'post',
+    		dataType:'json',
+    		async:false    		
+    	}).responseText;
+    	
+    	datos = JSON.parse(datos);
+    	google.load("visualization", "1", {packages:["corechart"]});
+      	google.setOnLoadCallback(dibujarGrafico);
+      
+      	function dibujarGrafico() {
+        	var data = google.visualization.arrayToDataTable(datos);
+
+        	var options = {
+          	title: 'GRAFICA USO MENSUAL',
+          	hAxis: {title: 'MESES', titleTextStyle: {color: 'green'}},
+          	vAxis: {title: 'VISITAS', titleTextStyle: {color: '#FF0000'}},
+          	backgroundColor:'grey ligthten-3',
+          	legend:{position: 'bottom', textStyle: {color: 'blue', fontSize: 12}},
+          	width:630,
+            height:370
+        	};
+
+        	var grafico = new google.visualization.LineChart(document.getElementById('grafica'));
+        	grafico.draw(data, options);
+      	}
+      	</script>
 	        <div class="col s8 m8">
 	          <div class="card grey lighten-3">
-	            <div class="card-content black-text">
+	            <div class="card-content black-text" id="grafica">
 	              <span class="card-title">Grafica Uso Por Mes</span>
-	              <p><br></p>
-	              <p><br></p>
-	              <p><br></p>
-	              <p><br></p>
-	              <p><br></p>
-	              <p><br></p>
-	              <p><br></p>
-	              <p><br></p>
-	              <p><br></p>
-	              <p><br></p>
-	              <p><br></p>
-	              <p><br></p>
-	              <p><br></p>
+	              
 	            </div>
 	          </div>
 	        </div>
