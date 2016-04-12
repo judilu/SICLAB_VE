@@ -187,7 +187,39 @@ var inicio = function()
     				}
     			});
 	}
+	var limpiaCampos = function()
+	{
+		$("input").val("");
 
+	}
+	var buscaMaestro = function()
+    {
+	    var solId = parseInt($(this).attr("name")); //variables para sacar maestros de la bd
+	    var parametros = "opc=buscaMaestro"+
+	    "&solId="+solId+
+	    "&id="+Math.random();
+	    $.ajax({
+	    	cache:false,
+	    	type: "POST",
+	    	dataType: "json",
+	    	url:'../data/alumnos.php',
+	    	data: parametros,
+	    	success: function(response){
+	    		if(response.respuesta == true)
+	    		{
+       				$("#cmbSeleccionaMaestro").html(" ");
+       				$("#cmbSeleccionaMaestro").append(response.combo);
+       			}
+       			else
+       			{
+       				sweetAlert("Error", "No existen maestros", "error");
+       			}
+       		},
+       		error: function(xhr, ajaxOptions,x){
+       			console.log("Error de conexion");
+       		}
+       	});
+    }//Termina función seleccionaMaestro
 	$("#btnPractica").on("click",practicaAlumnos);
 	$("#btnMaterialAlumno").on("click",materialPractica);
 
@@ -204,6 +236,10 @@ var inicio = function()
 	$("#btn0").on("click",cero);
 	$("#btnMA").on("click",ma);
 	$("#btnDel").on("click",del);
+	$("#btnCancelarEntrada").on("click",limpiaCampos);
+
+	//comboBox datosPractica
+	$("#cmbSeleccionaMaestro").on("click",buscaMaestro);
 	
 }
 $(document).on("ready",inicio);

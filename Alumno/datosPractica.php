@@ -4,7 +4,7 @@
 		<div class="col s12">
 			<div class="row">
 				<div class="input-field col s5">
-					<select>
+					<select id="cmbSeleccionaMaestro">
 						<option value="" disabled selected>Selecciona el maestro</option>
 						<option value="1">Option 1</option>
 						<option value="2">Option 2</option>
@@ -14,10 +14,18 @@
 				</div>
 				<div class="input-field col s5 offset-s1">
 					<select>
+						<!--ALGO FALLA POR AQUI SEGUN YO ASI ES -->
 						<option value="" disabled selected>Selecciona la materia</option>
-						<option value="1">Option 1</option>
-						<option value="2">Option 2</option>
-						<option value="3">Option 3</option>
+						<?php						
+						require_once('../data/conexion.php');
+
+						$conexion		= conectaBDSIE();
+						$consulta 		= sprintf("SELECT DMATER.MATNOM FROM DLISTA INNER JOIN DMATER ON DLISTA.MATCVE=DMATER.MATCVE WHERE ALUCTR='11170876' AND PDOCVE='2161';");
+						$res 			= mysql_query($consulta);
+						while($row = mysql_fetch_array($res))
+						{
+							echo '<option value="'.$row["DMATER.MATNOM"].'">'.$row["DMATER.MATNOM"].'</option>';
+						}?>
 					</select>
 					<label>Nombre de la materia</label>
 				</div>
