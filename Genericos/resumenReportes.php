@@ -25,7 +25,15 @@
 	            <div class="card-content white-text">
 	              <span class="card-title">Uso actual</span>
 	              <p><br></p>
-	              <p>30 Alumnos</p>
+	              <?php						
+						require_once('../data/conexion.php');
+
+						$conexion		= conectaBDSICLAB();
+						$consulta 		= sprintf("SELECT count(*) as Contador FROM lbentradasalumnos where cast(fechaEntrada as date) = cast(curdate() as date)");
+						$res 			= mysql_query($consulta);
+						if($row = mysql_fetch_array($res))
+							echo '<p value="'.$row["Contador"].'">'.$row["Contador"].' Alumnos</p>';
+						?>
 	              <p><br></p>
 	            </div>
 	          </div>
