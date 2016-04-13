@@ -23,23 +23,29 @@
 	        <div class="col s4 m4">
 	          <div class="card orange lighten-1">
 	            <div class="card-content white-text">
-	              <span class="card-title">Uso actual</span>
+	              <span class="card-title">Uso del día</span>
 	              <p><br></p>
 	              <?php						
 						require_once('../data/conexion.php');
-
 						$conexion		= conectaBDSICLAB();
 						$consulta 		= sprintf("SELECT count(*) as Contador FROM lbentradasalumnos where cast(fechaEntrada as date) = cast(curdate() as date)");
 						$res 			= mysql_query($consulta);
 						if($row = mysql_fetch_array($res))
-							echo '<p value="'.$row["Contador"].'">'.$row["Contador"].' Alumnos</p>';
+							echo '<p value="'.$row["Contador"].'">'.$row["Contador"].' Usuarios internos</p>';
 						?>
-	              <p><br></p>
+	              <?php						
+						require_once('../data/conexion.php');
+						$conexion		= conectaBDSICLAB();
+						$consulta 		= sprintf("SELECT count(*) as Contador FROM lbentradasexternos where cast(fechaEntrada as date) = cast(curdate() as date)");
+						$res 			= mysql_query($consulta);
+						if($row = mysql_fetch_array($res))
+							echo '<p value="'.$row["Contador"].'">'.$row["Contador"].' Usuarios externos</p>';
+						?>
 	            </div>
 	          </div>
 	        </div>
 	        <script type="text/javascript">
-    	var datos = $.ajax({
+    		var datos = $.ajax({
     		url:'../data/datosgrafica.php',
     		type:'post',
     		dataType:'json',
